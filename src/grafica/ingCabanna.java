@@ -113,7 +113,7 @@ public class ingCabanna extends javax.swing.JPanel {
         fieldCntBannos = new javax.swing.JTextField();
         fieldCntCamas = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(178, 34, 34));
+        setBackground(new java.awt.Color(43, 131, 194));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Cabaña", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
         lblCntCamas.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -140,12 +140,12 @@ public class ingCabanna extends javax.swing.JPanel {
         txtDescripcion.setRows(5);
         scrollDescripcion.setViewportView(txtDescripcion);
 
-        checkAireAcondicionado.setBackground(new java.awt.Color(178, 34, 34));
+        checkAireAcondicionado.setBackground(new java.awt.Color(43, 131, 194));
         checkAireAcondicionado.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkAireAcondicionado.setForeground(new java.awt.Color(255, 255, 255));
         checkAireAcondicionado.setText("Aire Acondicionado");
 
-        checkParrillero.setBackground(new java.awt.Color(178, 34, 34));
+        checkParrillero.setBackground(new java.awt.Color(43, 131, 194));
         checkParrillero.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkParrillero.setForeground(new java.awt.Color(255, 255, 255));
         checkParrillero.setText("Parrillero");

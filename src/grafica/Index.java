@@ -35,7 +35,7 @@ public class Index extends javax.swing.JFrame {
         setName("frame"); // NOI18N
         setResizable(false);
 
-        sideBar.setBackground(new java.awt.Color(178, 34, 34));
+        sideBar.setBackground(new java.awt.Color(3, 91, 153));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
 
         name.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -48,10 +48,10 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        sideReservas.setBackground(new java.awt.Color(142, 27, 27));
+        sideReservas.setBackground(new java.awt.Color(43, 131, 194));
         sideReservas.setPreferredSize(new java.awt.Dimension(300, 50));
 
-        lblReservas.setBackground(new java.awt.Color(142, 27, 27));
+        lblReservas.setBackground(new java.awt.Color(43, 131, 194));
         lblReservas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblReservas.setForeground(new java.awt.Color(255, 255, 255));
         lblReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -78,10 +78,10 @@ public class Index extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
         );
 
-        sideClear.setBackground(new java.awt.Color(142, 27, 27));
+        sideClear.setBackground(new java.awt.Color(43, 131, 194));
         sideClear.setPreferredSize(new java.awt.Dimension(300, 50));
 
-        lblClear.setBackground(new java.awt.Color(142, 27, 27));
+        lblClear.setBackground(new java.awt.Color(43, 131, 194));
         lblClear.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblClear.setForeground(new java.awt.Color(255, 255, 255));
         lblClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,10 +108,10 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        sideCabannas.setBackground(new java.awt.Color(142, 27, 27));
+        sideCabannas.setBackground(new java.awt.Color(43, 131, 194));
         sideCabannas.setPreferredSize(new java.awt.Dimension(300, 50));
 
-        lblCabannas.setBackground(new java.awt.Color(142, 27, 27));
+        lblCabannas.setBackground(new java.awt.Color(43, 131, 194));
         lblCabannas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblCabannas.setForeground(new java.awt.Color(255, 255, 255));
         lblCabannas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -183,8 +183,8 @@ public class Index extends javax.swing.JFrame {
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 300, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -59,7 +59,7 @@ public class Reservar extends javax.swing.JPanel {
         btnReservar = new javax.swing.JButton();
         lblFormatoFecha = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(178, 34, 34));
+        setBackground(new java.awt.Color(43, 131, 194));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reservar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
