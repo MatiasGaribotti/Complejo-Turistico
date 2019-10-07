@@ -1,12 +1,10 @@
 package grafica;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import logica.Cabanna;
-import logica.SQL.SQLCabanna;
-import logica.SQL.SQLReserva;
-import logica.SQL.SQLTurista;
 import logica.Reserva;
+import logica.SQL.SQLQueries;
 import logica.Turista;
 
 public class Reservar extends javax.swing.JPanel {
@@ -288,15 +286,20 @@ public class Reservar extends javax.swing.JPanel {
 
         Turista turista = new Turista(ci, nombre, apellido, fechaNac, telefono, calle, numero, localidad); //Se crea el turista
 
-        SQLTurista test = new SQLTurista();
-        test.insertar(turista);
+        SQLQueries test = new SQLQueries();
+        boolean consultaTur=test.insertar(turista);
 
         int codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
         Reserva reserva = new Reserva(codigoReserva, fechaInicio, fechaFin, false, false, ci, idCabanna);
-
-        SQLReserva testR = new SQLReserva();
-        testR.insertar(reserva);
-
+        boolean consultaRes=test.insertar(reserva);
+        if(consultaTur&&consultaRes)
+            JOptionPane.showConfirmDialog(null, "Consulta realizada");
+        else if(!consultaRes)
+            JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para la reserva");
+        else if(!consultaTur)
+            JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para el turista");
+        else
+            JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private int ci;

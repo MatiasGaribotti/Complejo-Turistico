@@ -1,11 +1,11 @@
 package grafica;
 
+import javax.swing.JOptionPane;
 import logica.Cabanna;
-import logica.SQL.SQLCabanna;
+import logica.SQL.SQLQueries;
 
 public class ingCabanna extends javax.swing.JPanel {
 
-    
     private byte cntHabitaciones;
     private byte cntCamas;
     private byte cntBannos;
@@ -69,10 +69,7 @@ public class ingCabanna extends javax.swing.JPanel {
     public void setCostoHour(short costoHour) {
         this.costoHour = costoHour;
     }
-         
-    
-    
-    
+
     public ingCabanna() {
         initComponents();
     }
@@ -223,21 +220,24 @@ public class ingCabanna extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         getInput();
-        Cabanna nuevoRegistro=new Cabanna(cntHabitaciones, cntCamas, cntBannos, (byte)0, descripcion, aireAcondicionado, parrillero, costoHour);
-        SQLCabanna test=new SQLCabanna();
-        test.insertar(nuevoRegistro);
-        
+        Cabanna cabanna = new Cabanna(cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
+        SQLQueries test = new SQLQueries();
+        boolean complete=test.insertar(cabanna);
+        if(complete)
+            JOptionPane.showConfirmDialog(null, "Consulta realizada");
+        else
+            JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    public void getInput(){
+    public void getInput() {
         this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());
-        this.cntCamas= Byte.parseByte(fieldCntCamas.getText());
+        this.cntCamas = Byte.parseByte(fieldCntCamas.getText());
         this.cntBannos = Byte.parseByte(fieldCntBannos.getText());
         this.descripcion = txtDescripcion.getText();
         this.aireAcondicionado = checkAireAcondicionado.isSelected();
         this.parrillero = checkParrillero.isSelected();
         this.costoHour = Short.parseShort(fieldCostoHour.getText());
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
