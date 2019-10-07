@@ -27,6 +27,8 @@ public class Index extends javax.swing.JFrame {
         lblClear = new javax.swing.JLabel();
         sideCabannas = new javax.swing.JPanel();
         lblCabannas = new javax.swing.JLabel();
+        sideCalendario = new javax.swing.JPanel();
+        lblCalendario = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         lyrPaneTop = new javax.swing.JLayeredPane();
 
@@ -96,16 +98,11 @@ public class Index extends javax.swing.JFrame {
         sideClear.setLayout(sideClearLayout);
         sideClearLayout.setHorizontalGroup(
             sideClearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideClearLayout.createSequentialGroup()
-                .addComponent(lblClear, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(lblClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
         );
         sideClearLayout.setVerticalGroup(
             sideClearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideClearLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblClear, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
         );
 
         sideCabannas.setBackground(new java.awt.Color(43, 131, 194));
@@ -138,18 +135,48 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        sideCalendario.setBackground(new java.awt.Color(43, 131, 194));
+        sideCalendario.setPreferredSize(new java.awt.Dimension(300, 50));
+
+        lblCalendario.setBackground(new java.awt.Color(43, 131, 194));
+        lblCalendario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        lblCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCalendario.setText("Calendario");
+        lblCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblCalendarioMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sideCalendarioLayout = new javax.swing.GroupLayout(sideCalendario);
+        sideCalendario.setLayout(sideCalendarioLayout);
+        sideCalendarioLayout.setHorizontalGroup(
+            sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 301, Short.MAX_VALUE)
+            .addGroup(sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+        );
+        sideCalendarioLayout.setVerticalGroup(
+            sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 54, Short.MAX_VALUE)
+            .addGroup(sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblCalendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout sideBarLayout = new javax.swing.GroupLayout(sideBar);
         sideBar.setLayout(sideBarLayout);
         sideBarLayout.setHorizontalGroup(
             sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sideCabannas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(sideBarLayout.createSequentialGroup()
                 .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(sideReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(sideClear, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1))
+                    .addComponent(sideClear, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sideCabannas, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sideCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
         sideBarLayout.setVerticalGroup(
             sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,8 +188,10 @@ public class Index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sideCabannas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sideCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
                 .addComponent(sideClear, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         name.getAccessibleContext().setAccessibleName("name");
@@ -230,6 +259,10 @@ public class Index extends javax.swing.JFrame {
         // Ya vas a ver...
     }//GEN-LAST:event_nameMouseClicked
 
+    private void lblCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCalendarioMousePressed
+        
+    }//GEN-LAST:event_lblCalendarioMousePressed
+
     public Color bgSidebar = new Color(94, 99, 184);
     public Color bgSidebar2 = new Color(19, 21, 128);
     public Color textHint = new Color(212, 212, 212);
@@ -265,12 +298,14 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private javax.swing.JLabel lblCabannas;
+    private javax.swing.JLabel lblCalendario;
     private javax.swing.JLabel lblClear;
     private javax.swing.JLabel lblReservas;
     private javax.swing.JLayeredPane lyrPaneTop;
     private javax.swing.JLabel name;
     private javax.swing.JPanel sideBar;
     private javax.swing.JPanel sideCabannas;
+    private javax.swing.JPanel sideCalendario;
     private javax.swing.JPanel sideClear;
     private javax.swing.JPanel sideReservas;
     // End of variables declaration//GEN-END:variables
