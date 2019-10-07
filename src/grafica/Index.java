@@ -1,6 +1,7 @@
 package grafica;
 
 import java.awt.Color;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -10,8 +11,8 @@ public class Index extends javax.swing.JFrame {
         initComponents();
         this.setSize(900, 600);
         this.setLocationRelativeTo(null);
-        //this.setResizable(true);
-        paintPanel(new Reservar());
+        paintPanel(new Reservar(), lyrPaneTop);
+        
     }
 
     
@@ -31,6 +32,7 @@ public class Index extends javax.swing.JFrame {
         lblCalendario = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         lyrPaneTop = new javax.swing.JLayeredPane();
+        lyrPaneTable = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("3 Weeks");
@@ -203,17 +205,23 @@ public class Index extends javax.swing.JFrame {
         lyrPaneTop.setPreferredSize(new java.awt.Dimension(550, 300));
         lyrPaneTop.setLayout(new java.awt.CardLayout());
 
+        lyrPaneTable.setBackground(new java.awt.Color(255, 255, 255));
+        lyrPaneTable.setPreferredSize(new java.awt.Dimension(550, 290));
+        lyrPaneTable.setLayout(new java.awt.CardLayout());
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lyrPaneTop, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(lyrPaneTop, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(lyrPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 300, Short.MAX_VALUE))
+                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lyrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,12 +255,13 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_lblClearMousePressed
 
     private void lblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReservasMousePressed
-        paintPanel(new Reservar());
+        paintPanel(new Reservar(), lyrPaneTop);
 
     }//GEN-LAST:event_lblReservasMousePressed
 
     private void lblCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCabannasMousePressed
-        paintPanel(new ingCabanna());
+        paintPanel(new ingCabanna(), lyrPaneTop);
+        paintPanel(new Tabla(), lyrPaneTable);
     }//GEN-LAST:event_lblCabannasMousePressed
 
     private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
@@ -277,11 +286,11 @@ public class Index extends javax.swing.JFrame {
         }
     }
 
-    public void paintPanel(JPanel panel) { //Coloca un el panel deseado en el JLayeredPane
-        lyrPaneTop.removeAll();
-        lyrPaneTop.add(panel);
-        lyrPaneTop.repaint();
-        lyrPaneTop.revalidate();
+    public void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
+        lyrPane.removeAll();
+        lyrPane.add(panel);
+        lyrPane.repaint();
+        lyrPane.revalidate();
     }
 
     /**
@@ -301,6 +310,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel lblCalendario;
     private javax.swing.JLabel lblClear;
     private javax.swing.JLabel lblReservas;
+    private javax.swing.JLayeredPane lyrPaneTable;
     private javax.swing.JLayeredPane lyrPaneTop;
     private javax.swing.JLabel name;
     private javax.swing.JPanel sideBar;

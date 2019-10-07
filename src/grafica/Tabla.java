@@ -6,10 +6,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class Tabla extends javax.swing.JPanel {
 
+    SQLQueries sql = new SQLQueries();
+    DefaultTableModel modelo = new DefaultTableModel();
+    
     public Tabla() {
         initComponents();
         this.setSize(900, 600);
-        
+        modelo = sql.seleccionarCabannas();
+        table.setModel(modelo);
     }
     
     public void tableFormat(DefaultTableModel modelo){
