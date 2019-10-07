@@ -335,7 +335,7 @@ public class Reservar extends javax.swing.JPanel {
         int month = reservar.getMonth(field.getText());
         int year = reservar.getYear(field.getText());
 
-        Date result = new Date(year - 1900, month, day);
+        Date result = new Date(year - 1900, month-1, day);
         return result;
     }
 
