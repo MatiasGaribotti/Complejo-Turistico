@@ -18,12 +18,14 @@ public class SQLQueries extends ConexionDB {
     public short NR; //Number of Records
 
     public DefaultTableModel seleccionar(String patron, String atributo) { //Esta función retornará una tabla filtrada por el patrón de búsqueda
+        
         String[] Cabeceras = {"ID", "NºHabitaciones", "NºCamas", "NºBaños", "Aire Acondicionado", "Parrillero", "Costo por hora"}; //Es el array de las cabeceras de la tabla
         String[] Registro = new String[8]; //Es el array que almacenará todo un registro de una consulta 
         NR = 0; //Lo inicializo en cero para luego, en caso de que la búsqueda no haya arrojado resultado y otras cosas, evaluarlo
         DefaultTableModel modelo = new DefaultTableModel(null, Cabeceras); //Se hace la instancia del modelo en tabla y se inicializa con las cabeceras, el primer parámetro tengo que investigarlo
         Connection con = conectar();
         sSQL = "SELECT * FROM Cabannas WHERE " + atributo + " LIKE '%" + patron + "%' ORDER BY id";
+        
         /*La instrucción seleccionará TODO registro de la relación Cabannas 
         donde el atributo pasado por parámetro es igual al patron pasado por parámetro, y estarán los registros ordenados por el atributo id*/
 

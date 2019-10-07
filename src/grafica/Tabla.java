@@ -1,5 +1,6 @@
 package grafica;
 
+import logica.SQL.SQLQueries;
 import javax.swing.table.DefaultTableModel;
 
 
