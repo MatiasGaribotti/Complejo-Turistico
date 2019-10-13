@@ -20,7 +20,7 @@ public class Tabla extends javax.swing.JPanel {
     public Tabla(String tipoTabla) {
 
         initComponents();
-        this.setSize(900, 600);
+        this.setSize(936, 286);
         this.tipoTabla = tipoTabla;
         selectModel();
         table.setModel(modelo);
@@ -101,6 +101,7 @@ public class Tabla extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
         table.setAutoCreateRowSorter(true);
+        table.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.lightGray));
         table.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

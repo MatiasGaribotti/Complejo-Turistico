@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 import logica.Cabanna;
 import logica.SQL.SQLQueries;
 
-public class ingCabanna extends javax.swing.JPanel {
+public class CabannaPanel extends javax.swing.JPanel {
 
     private byte cntHabitaciones;
     private byte cntCamas;
@@ -70,7 +70,7 @@ public class ingCabanna extends javax.swing.JPanel {
         this.costoHour = costoHour;
     }
 
-    public ingCabanna() {
+    public CabannaPanel() {
         initComponents();
     }
 
@@ -87,78 +87,84 @@ public class ingCabanna extends javax.swing.JPanel {
         checkAireAcondicionado = new javax.swing.JCheckBox();
         checkParrillero = new javax.swing.JCheckBox();
         lblCosto = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
         fieldCostoHour = new javax.swing.JTextField();
         fieldCntHabitaciones = new javax.swing.JTextField();
         fieldCntBannos = new javax.swing.JTextField();
         fieldCntCamas = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(43, 131, 194));
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Cabaña", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        setBackground(new java.awt.Color(236, 235, 255));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Cabaña", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(43, 41, 41))); // NOI18N
+        setPreferredSize(new java.awt.Dimension(483, 402));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCntCamas.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblCntCamas.setForeground(new java.awt.Color(255, 255, 255));
-        lblCntCamas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCntCamas.setText("Cantidad de Camas");
-        add(lblCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 176, 20));
+        lblCntCamas.setForeground(new java.awt.Color(43, 41, 41));
+        lblCntCamas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCntCamas.setText("Camas");
+        add(lblCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 50, 20));
 
         lblCntHabitaciones.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblCntHabitaciones.setForeground(new java.awt.Color(255, 255, 255));
-        lblCntHabitaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCntHabitaciones.setText("Cantidad de Habitaciones");
-        add(lblCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
+        lblCntHabitaciones.setForeground(new java.awt.Color(43, 41, 41));
+        lblCntHabitaciones.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCntHabitaciones.setText("Habitaciones");
+        add(lblCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 20));
 
         lblCntBannos.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblCntBannos.setForeground(new java.awt.Color(255, 255, 255));
-        lblCntBannos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCntBannos.setForeground(new java.awt.Color(43, 41, 41));
+        lblCntBannos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCntBannos.setText("Cantidad de Baños");
-        add(lblCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 176, 20));
+        add(lblCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, 20));
 
         lblDescripcion.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblDescripcion.setForeground(new java.awt.Color(255, 255, 255));
-        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDescripcion.setForeground(new java.awt.Color(43, 41, 41));
+        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDescripcion.setText("Descripción");
-        add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 90, 20));
+        add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 90, 20));
+
+        scrollDescripcion.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         txtDescripcion.setColumns(20);
+        txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
+        txtDescripcion.setWrapStyleWord(true);
         scrollDescripcion.setViewportView(txtDescripcion);
 
-        add(scrollDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 90));
+        add(scrollDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 280, 60));
 
-        checkAireAcondicionado.setBackground(new java.awt.Color(43, 131, 194));
+        checkAireAcondicionado.setBackground(new java.awt.Color(236, 235, 255));
         checkAireAcondicionado.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        checkAireAcondicionado.setForeground(new java.awt.Color(255, 255, 255));
+        checkAireAcondicionado.setForeground(new java.awt.Color(43, 41, 41));
         checkAireAcondicionado.setText("Aire Acondicionado");
-        add(checkAireAcondicionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        add(checkAireAcondicionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        checkParrillero.setBackground(new java.awt.Color(43, 131, 194));
+        checkParrillero.setBackground(new java.awt.Color(236, 235, 255));
         checkParrillero.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        checkParrillero.setForeground(new java.awt.Color(255, 255, 255));
+        checkParrillero.setForeground(new java.awt.Color(43, 41, 41));
         checkParrillero.setText("Parrillero");
-        add(checkParrillero, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 117, -1));
+        add(checkParrillero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 117, -1));
 
         lblCosto.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblCosto.setForeground(new java.awt.Color(255, 255, 255));
-        lblCosto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCosto.setForeground(new java.awt.Color(43, 41, 41));
+        lblCosto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCosto.setText("Costo por hora");
-        add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 176, 20));
+        add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 20));
+        add(fieldCostoHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 88, 20));
+        add(fieldCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 88, 20));
+        add(fieldCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 88, 20));
+        add(fieldCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 88, 20));
 
-        btnGuardar.setText("Ingresar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnIngresar.png"))); // NOI18N
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseClicked(evt);
             }
         });
-        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 89, 31));
-        add(fieldCostoHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 88, 20));
-        add(fieldCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 88, 20));
-        add(fieldCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 88, 20));
-        add(fieldCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 88, 20));
+        add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         getInput();
         Cabanna cabanna = new Cabanna(cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
         SQLQueries test = new SQLQueries();
@@ -167,7 +173,7 @@ public class ingCabanna extends javax.swing.JPanel {
             JOptionPane.showConfirmDialog(null, "Consulta realizada");
         else
             JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnIngresarMouseClicked
 
     public void getInput() {
         this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());
@@ -181,7 +187,7 @@ public class ingCabanna extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnGuardar;
+    private javax.swing.JLabel btnIngresar;
     public javax.swing.JCheckBox checkAireAcondicionado;
     public javax.swing.JCheckBox checkParrillero;
     private javax.swing.JTextField fieldCntBannos;
