@@ -192,7 +192,7 @@ public class Index extends javax.swing.JFrame {
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         paintPanel(new ingCabanna(), lyrPaneTop);
-        paintPanel(new Tabla(), lyrPaneTable);
+        paintPanel(new Tabla("CABANNAS"), lyrPaneTable);
     }//GEN-LAST:event_btnCabannasMousePressed
 
     private void ui_DisposeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_DisposeMousePressed

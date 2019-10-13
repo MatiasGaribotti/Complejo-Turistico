@@ -1,30 +1,96 @@
 package grafica;
 
+import javax.swing.JOptionPane;
 import logica.SQL.SQLQueries;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.JTableHeader;
+import utilidades.ManageHeaderTable;
 
 public class Tabla extends javax.swing.JPanel {
 
+    //Variable que define qué tipo de tabla va a ser
+    private String tipoTabla;
+
     SQLQueries sql = new SQLQueries();
     DefaultTableModel modelo = new DefaultTableModel();
-    
+
     public Tabla() {
+    }
+
+    public Tabla(String tipoTabla) {
+
         initComponents();
         this.setSize(900, 600);
-        modelo = sql.seleccionarCabannas(7, "id,cantHabitaciones,cantCamas,CantBannos,aireAcondicionado,parrillero,costHour");
+        this.tipoTabla = tipoTabla;
+        selectModel();
         table.setModel(modelo);
-        
-        
-        
-//        for (int i=1; i < table.getColumnCount(); i++){
-//            table.getColumnModel().getColumn(i).setMaxWidth(90);
-//        }
-        table.getColumnModel().getColumn(0).setMaxWidth(35);
-        table.setValueAt(new Integer(23), 1, 0);
+        styleTable("CABANNAS");
     }
-    
-    
+
+    public void selectModel() {
+        /*
+        * En base a el tipo de tabla
+        * se obtienen ciertos datos u otros.
+        * En este caso la consulta es para obtener
+        * todos los datos de la tabla que corresponda
+         */
+        switch (tipoTabla) {
+            case "CABANNAS":
+                String[] atributos = {"id", "cantHabitaciones", "cantCamas", "cantBannos", "aireAcondicionado", "parrillero", "costHour"};
+                String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "aireAcondicionad", "Parrillero", "Costo Hora"};
+                modelo = sql.customSelectQuery(atributos, "cabannas", headers);
+                break;
+
+            case "RESERVAS":
+
+                break;
+
+            case "TURISTAS":
+
+                break;
+
+            case "HISTORICO":
+
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Consulta no realizada");
+
+        }
+
+    }
+
+    public void styleTable(String tipoTabla) {
+
+        //Header Personalizado default para todas las tablas
+        JTableHeader jtableHeader = table.getTableHeader();
+        jtableHeader.setDefaultRenderer(new ManageHeaderTable());
+        table.setTableHeader(jtableHeader);
+        table.getColumnModel().getColumn(0).setMaxWidth(35);
+
+        switch (tipoTabla) {
+            case "CABANNAS":
+
+                break;
+
+            case "RESERVAS":
+
+                break;
+
+            case "TURISTAS":
+
+                break;
+
+            case "HISTORICO":
+
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Estilos no aplicados");
+
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,11 +124,9 @@ public class Tabla extends javax.swing.JPanel {
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         table.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         table.setFillsViewportHeight(true);
-        table.setGridColor(new java.awt.Color(102, 102, 255));
+        table.setGridColor(new java.awt.Color(0, 0, 0));
         table.setRowHeight(20);
         table.setRowMargin(2);
-        table.setShowHorizontalLines(false);
-        table.setShowVerticalLines(false);
         jScrollPane1.setViewportView(table);
         table.setSize(600,300);
 
