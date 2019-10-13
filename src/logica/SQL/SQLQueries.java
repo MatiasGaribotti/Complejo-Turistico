@@ -17,18 +17,83 @@ public class SQLQueries extends ConexionDB {
     String sSQL;
     public short NR; //Number of Records
 
-    public DefaultTableModel seleccionarCabannas(String patron, String atributo) { //Esta función retornará una tabla filtrada por el patrón de búsqueda
-        
+    /*
+    * Esta función ejecutará una consulta de selección personalizada a la base de datos
+    * 
+    * @param atributos = atributos a seleccionar(IMPORTANTE: RESPETAR NOMBRES DE LA BD).
+    * @param dbTable = relación de donde seleccionar los datos.
+    * @param headers = Cabeceras de las columnas.
+     */
+    public DefaultTableModel customSelectQuery(String[] atributos, String dbTable, String[] headers) {
+
+        sSQL = "SELECT ";
+        String[] Registro = new String[atributos.length];
+        NR = 0;
+
+        //Creo el modelo sin datos y le paso las cabeceras.
+        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+
+        Connection con = conectar();
+
+        for (int i = 0; i < atributos.length; i++) {
+            sSQL = sSQL.concat(atributos[i]);
+            if (!(i == (atributos.length - 1))) {
+                sSQL = sSQL.concat(",");
+            } else 
+                sSQL = sSQL.concat(" ");          
+        }
+
+        /*
+        * Completo la consulta.
+        * La tabla resultado va a estar ordenada por el
+        * campo/atributo 0.
+         */
+        sSQL = sSQL.concat("FROM " + dbTable + " ORDER BY " + atributos[0]);
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conección.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                for (int i = 0; i < Registro.length; i++) {
+
+                    /*
+                    * Asigno a cada posición del registro los datos que le corresponden.
+                     */
+                    Registro[i] = rs.getString(atributos[i]);
+                    NR++;
+                }
+
+                //Agrego los datos obtenidos al modelo
+                modelo.addRow(Registro);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+
+        return modelo;
+
+    }
+
+    public DefaultTableModel selectCabanna(String patron, String atributo) { //Esta función retornará una tabla filtrada por el patrón de búsqueda
+
         String[] Cabeceras = {"ID", "NºHabitaciones", "NºCamas", "NºBaños", "Aire Acondicionado", "Parrillero", "Costo por hora"}; //Es el array de las cabeceras de la tabla
         String[] Registro = new String[8]; //Es el array que almacenará todo un registro de una consulta 
-        NR = 0; //Lo inicializo en cero para luego, en caso de que la búsqueda no haya arrojado resultado y otras cosas, evaluarlo
+        NR = 0;
         DefaultTableModel modelo = new DefaultTableModel(null, Cabeceras); //Se hace la instancia del modelo en tabla y se inicializa con las cabeceras, el primer parámetro tengo que investigarlo
         Connection con = conectar();
         sSQL = "SELECT * FROM Cabannas WHERE " + atributo + " LIKE '%" + patron + "%' ORDER BY id";
-        
+
         /*La instrucción seleccionará TODO registro de la relación Cabannas 
         donde el atributo pasado por parámetro es igual al patron pasado por parámetro, y estarán los registros ordenados por el atributo id*/
-
         try {
             Statement st = con.createStatement();//Se inctancia una Instrucción y es asignada con la creación de una Declaración del objecto Connection ya creado
             ResultSet rs = st.executeQuery(sSQL); //Se ejecuta la consulta con la instrucción anteriormente declarada
@@ -56,19 +121,18 @@ public class SQLQueries extends ConexionDB {
         }
         return modelo;
     }
-    
+
     public DefaultTableModel seleccionarCabannas() { //Esta función retornará una tabla con todos los datos de
-        
+
         String[] Cabeceras = {"ID", "Habitaciones", "Camas", "Baños", "Aire Acondicionado", "Parrillero", "Costo hr"}; //Es el array de las cabeceras de la tabla
         String[] Registro = new String[8]; //Es el array que almacenará todo un registro de una consulta 
         NR = 0; //Lo inicializo en cero para luego, en caso de que la búsqueda no haya arrojado resultado y otras cosas, evaluarlo
         DefaultTableModel modelo = new DefaultTableModel(null, Cabeceras); //Se hace la instancia del modelo en tabla y se inicializa con las cabeceras, el primer parámetro tengo que investigarlo
         Connection con = conectar();
         sSQL = "SELECT * FROM Cabannas ORDER BY id";
-        
+
         /*La instrucción seleccionará TODO registro de la relación Cabannas 
         donde el atributo pasado por parámetro es igual al patron pasado por parámetro, y estarán los registros ordenados por el atributo id*/
-
         try {
             Statement st = con.createStatement();//Se inctancia una Instrucción y es asignada con la creación de una Declaración del objecto Connection ya creado
             ResultSet rs = st.executeQuery(sSQL); //Se ejecuta la consulta con la instrucción anteriormente declarada
@@ -96,19 +160,18 @@ public class SQLQueries extends ConexionDB {
         }
         return modelo;
     }
-    
-    public DefaultTableModel seleccionarCabannas(int cantidadAtributos,String atributos) { //Esta función retornará una tabla con todos los datos de
-        
+
+    public DefaultTableModel seleccionarCabannas(int cantidadAtributos, String atributos) { //Esta función retornará una tabla con todos los datos de
+
         String[] Cabeceras = {"ID", "Habitaciones", "Camas", "Baños", "Aire Acondicionado", "Parrillero", "Costo Hora"}; //Es el array de las cabeceras de la tabla
         String[] Registro = new String[cantidadAtributos]; //Es el array que almacenará todo un registro de una consulta 
         NR = 0; //Lo inicializo en cero para luego, en caso de que la búsqueda no haya arrojado resultado y otras cosas, evaluarlo
         DefaultTableModel modelo = new DefaultTableModel(null, Cabeceras); //Se hace la instancia del modelo en tabla y se inicializa con las cabeceras, el primer parámetro tengo que investigarlo
         Connection con = conectar();
         sSQL = "SELECT " + atributos + " FROM Cabannas ORDER BY id";
-        
+
         /*La instrucción seleccionará TODO registro de la relación Cabannas 
         donde el atributo pasado por parámetro es igual al patron pasado por parámetro, y estarán los registros ordenados por el atributo id*/
-
         try {
             Statement st = con.createStatement();//Se inctancia una Instrucción y es asignada con la creación de una Declaración del objecto Connection ya creado
             ResultSet rs = st.executeQuery(sSQL); //Se ejecuta la consulta con la instrucción anteriormente declarada
