@@ -11,6 +11,7 @@ public class Reservar extends javax.swing.JPanel {
 
     public Reservar() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -47,20 +48,20 @@ public class Reservar extends javax.swing.JPanel {
         lblCI.setForeground(new java.awt.Color(255, 255, 255));
         lblCI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCI.setText("Cédula de Identidad*:");
-        add(lblCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 29, -1, 23));
+        add(lblCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 23));
 
         try {
             fieldCI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        add(fieldCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 33, 112, -1));
+        add(fieldCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 112, -1));
 
         lblNombre.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombre.setText("Nombre*");
-        add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 59, 140, 23));
+        add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 20));
 
         fieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         fieldNombre.setPreferredSize(new java.awt.Dimension(60, 25));
@@ -69,13 +70,13 @@ public class Reservar extends javax.swing.JPanel {
                 fieldNombreActionPerformed(evt);
             }
         });
-        add(fieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 57, -1, -1));
+        add(fieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 110, 20));
 
         lblApellido.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblApellido.setForeground(new java.awt.Color(255, 255, 255));
         lblApellido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblApellido.setText("Apellido*");
-        add(lblApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 88, 140, 23));
+        add(lblApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 20));
 
         fieldApellido.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         fieldApellido.setPreferredSize(new java.awt.Dimension(60, 25));
@@ -84,13 +85,13 @@ public class Reservar extends javax.swing.JPanel {
                 fieldApellidoActionPerformed(evt);
             }
         });
-        add(fieldApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 90, -1, -1));
+        add(fieldApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 110, 20));
 
         lblFechaNac.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblFechaNac.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaNac.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaNac.setText("Fecha de Nacimiento*");
-        add(lblFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 116, -1, 23));
+        add(lblFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, 20));
 
         try {
             fieldFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -103,26 +104,26 @@ public class Reservar extends javax.swing.JPanel {
                 fieldFechaNacActionPerformed(evt);
             }
         });
-        add(fieldFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 120, 69, -1));
+        add(fieldFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 69, 20));
 
         lblTel.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblTel.setForeground(new java.awt.Color(255, 255, 255));
         lblTel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTel.setText("Teléfono*");
-        add(lblTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 146, 140, 23));
+        add(lblTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 150, 23));
 
         try {
             fieldTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        add(fieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 150, 156, -1));
+        add(fieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 156, -1));
 
         lblDireccion.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblDireccion.setForeground(new java.awt.Color(255, 255, 255));
         lblDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDireccion.setText("Dirección*");
-        add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 176, 144, 23));
+        add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 150, 23));
 
         fieldCalle.setForeground(new java.awt.Color(173, 173, 173));
         fieldCalle.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -142,7 +143,7 @@ public class Reservar extends javax.swing.JPanel {
                 fieldCalleActionPerformed(evt);
             }
         });
-        add(fieldCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 178, 94, 24));
+        add(fieldCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 94, 20));
 
         fieldNumero.setForeground(new java.awt.Color(173, 173, 173));
         fieldNumero.setText("Numero");
@@ -154,7 +155,7 @@ public class Reservar extends javax.swing.JPanel {
                 fieldNumeroFocusLost(evt);
             }
         });
-        add(fieldNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 177, 69, 26));
+        add(fieldNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 69, -1));
 
         fieldLocalidad.setForeground(new java.awt.Color(173, 173, 173));
         fieldLocalidad.setText("Localidad");
@@ -166,22 +167,22 @@ public class Reservar extends javax.swing.JPanel {
                 fieldLocalidadFocusLost(evt);
             }
         });
-        add(fieldLocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 177, 94, 27));
+        add(fieldLocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
 
         lblCabanna.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCabanna.setForeground(new java.awt.Color(255, 255, 255));
         lblCabanna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCabanna.setText("ID Cabaña*");
-        add(lblCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 210, 144, 23));
+        add(lblCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 144, 23));
 
         fieldCabanna.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#####"))));
-        add(fieldCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 214, 94, -1));
+        add(fieldCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 70, -1));
 
         lblFechaInicio.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblFechaInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaInicio.setText("Fecha de Inicio*");
-        add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 240, 144, 23));
+        add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, 23));
 
         try {
             fieldFechaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -194,13 +195,13 @@ public class Reservar extends javax.swing.JPanel {
                 fieldFechaInicioActionPerformed(evt);
             }
         });
-        add(fieldFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 244, 69, -1));
+        add(fieldFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 69, -1));
 
         lblFechaFin.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblFechaFin.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaFin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaFin.setText("Fecha Finalización*");
-        add(lblFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 270, 144, 23));
+        add(lblFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 144, 23));
 
         try {
             fieldFechaFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -213,7 +214,7 @@ public class Reservar extends javax.swing.JPanel {
                 fieldFechaFinActionPerformed(evt);
             }
         });
-        add(fieldFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 274, 69, -1));
+        add(fieldFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 69, -1));
 
         btnReservar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnReservar.setText("Reservar");
@@ -222,7 +223,7 @@ public class Reservar extends javax.swing.JPanel {
                 btnReservarActionPerformed(evt);
             }
         });
-        add(btnReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 271, -1, -1));
+        add(btnReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void fieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNombreActionPerformed

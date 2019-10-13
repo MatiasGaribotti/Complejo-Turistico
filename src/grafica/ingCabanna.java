@@ -95,45 +95,55 @@ public class ingCabanna extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(43, 131, 194));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva Cabaña", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCntCamas.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCntCamas.setForeground(new java.awt.Color(255, 255, 255));
         lblCntCamas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCntCamas.setText("Cantidad de Camas");
+        add(lblCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 176, 20));
 
         lblCntHabitaciones.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCntHabitaciones.setForeground(new java.awt.Color(255, 255, 255));
         lblCntHabitaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCntHabitaciones.setText("Cantidad de Habitaciones");
+        add(lblCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
 
         lblCntBannos.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCntBannos.setForeground(new java.awt.Color(255, 255, 255));
         lblCntBannos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCntBannos.setText("Cantidad de Baños");
+        add(lblCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 176, 20));
 
         lblDescripcion.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDescripcion.setText("Descripción");
+        add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 90, 20));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         scrollDescripcion.setViewportView(txtDescripcion);
 
+        add(scrollDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 90));
+
         checkAireAcondicionado.setBackground(new java.awt.Color(43, 131, 194));
         checkAireAcondicionado.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkAireAcondicionado.setForeground(new java.awt.Color(255, 255, 255));
         checkAireAcondicionado.setText("Aire Acondicionado");
+        add(checkAireAcondicionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         checkParrillero.setBackground(new java.awt.Color(43, 131, 194));
         checkParrillero.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkParrillero.setForeground(new java.awt.Color(255, 255, 255));
         checkParrillero.setText("Parrillero");
+        add(checkParrillero, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 117, -1));
 
         lblCosto.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCosto.setForeground(new java.awt.Color(255, 255, 255));
         lblCosto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCosto.setText("Costo por hora");
+        add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 176, 20));
 
         btnGuardar.setText("Ingresar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,81 +151,11 @@ public class ingCabanna extends javax.swing.JPanel {
                 btnGuardarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblCntCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fieldCntCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCntHabitaciones)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkAireAcondicionado)
-                            .addComponent(checkParrillero, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(scrollDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblCntBannos, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(fieldCostoHour, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fieldCntHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fieldCntBannos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCntHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldCntHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCntCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldCntCamas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkAireAcondicionado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkParrillero)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(54, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCntBannos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldCntBannos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldCostoHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 89, 31));
+        add(fieldCostoHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 88, 20));
+        add(fieldCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 88, 20));
+        add(fieldCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 88, 20));
+        add(fieldCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 88, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

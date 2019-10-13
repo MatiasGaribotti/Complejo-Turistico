@@ -1,9 +1,11 @@
 package grafica;
 
 import java.awt.Color;
+import java.awt.Frame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import logica.Cabanna;
 
 public class Index extends javax.swing.JFrame {
 
@@ -21,184 +23,100 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         sideBar = new javax.swing.JPanel();
-        name = new javax.swing.JLabel();
-        sideReservas = new javax.swing.JPanel();
-        lblReservas = new javax.swing.JLabel();
-        sideClear = new javax.swing.JPanel();
-        lblClear = new javax.swing.JLabel();
-        sideCabannas = new javax.swing.JPanel();
-        lblCabannas = new javax.swing.JLabel();
-        sideCalendario = new javax.swing.JPanel();
-        lblCalendario = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        iconReserva = new javax.swing.JLabel();
+        iconCabanna = new javax.swing.JLabel();
+        inconCalendario = new javax.swing.JLabel();
+        btnReservas = new javax.swing.JLabel();
+        ui_btnReservas = new javax.swing.JLabel();
+        btnCabannas = new javax.swing.JLabel();
+        ui_btnCabannas = new javax.swing.JLabel();
+        btnCalendario = new javax.swing.JLabel();
+        ui_btnCalendario = new javax.swing.JLabel();
+        UI_sideBar = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         lyrPaneTop = new javax.swing.JLayeredPane();
         lyrPaneTable = new javax.swing.JLayeredPane();
+        topBar = new javax.swing.JPanel();
+        ui_Dispose = new javax.swing.JLabel();
+        ui_Exit = new javax.swing.JLabel();
+        ui_topBar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("3 Weeks");
         setName("frame"); // NOI18N
+        setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        sideBar.setBackground(new java.awt.Color(3, 91, 153));
+        sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
+        sideBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        name.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        name.setForeground(new java.awt.Color(255, 255, 255));
-        name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        name.setText("3 Weeks");
-        name.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nameMouseClicked(evt);
-            }
-        });
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("3 Weeks");
+        sideBar.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 150, 40));
 
-        sideReservas.setBackground(new java.awt.Color(43, 131, 194));
-        sideReservas.setPreferredSize(new java.awt.Dimension(300, 50));
+        iconReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/reserva.png"))); // NOI18N
+        sideBar.add(iconReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 40, 40));
 
-        lblReservas.setBackground(new java.awt.Color(43, 131, 194));
-        lblReservas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblReservas.setForeground(new java.awt.Color(255, 255, 255));
-        lblReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReservas.setText("Reservas");
-        lblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconCabanna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconCabanna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/cabanna.png"))); // NOI18N
+        sideBar.add(iconCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 40, 40));
+
+        inconCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        inconCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/calendario.png"))); // NOI18N
+        sideBar.add(inconCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 40, 40));
+
+        btnReservas.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
+        btnReservas.setForeground(new java.awt.Color(255, 255, 255));
+        btnReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnReservas.setText("Reservas");
+        btnReservas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblReservasMousePressed(evt);
+                btnReservasMousePressed(evt);
             }
         });
+        sideBar.add(btnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 150, 40));
 
-        javax.swing.GroupLayout sideReservasLayout = new javax.swing.GroupLayout(sideReservas);
-        sideReservas.setLayout(sideReservasLayout);
-        sideReservasLayout.setHorizontalGroup(
-            sideReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideReservasLayout.createSequentialGroup()
-                .addComponent(lblReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        sideReservasLayout.setVerticalGroup(
-            sideReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideReservasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33))
-        );
+        ui_btnReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 150, -1));
 
-        sideClear.setBackground(new java.awt.Color(43, 131, 194));
-        sideClear.setPreferredSize(new java.awt.Dimension(300, 50));
-
-        lblClear.setBackground(new java.awt.Color(43, 131, 194));
-        lblClear.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblClear.setForeground(new java.awt.Color(255, 255, 255));
-        lblClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClear.setText("Limpiar");
-        lblClear.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCabannas.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
+        btnCabannas.setForeground(new java.awt.Color(255, 255, 255));
+        btnCabannas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCabannas.setText("Cabañas");
+        btnCabannas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblClearMousePressed(evt);
+                btnCabannasMousePressed(evt);
             }
         });
+        sideBar.add(btnCabannas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 150, 40));
 
-        javax.swing.GroupLayout sideClearLayout = new javax.swing.GroupLayout(sideClear);
-        sideClear.setLayout(sideClearLayout);
-        sideClearLayout.setHorizontalGroup(
-            sideClearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-        );
-        sideClearLayout.setVerticalGroup(
-            sideClearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblClear, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-        );
+        ui_btnCabannas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnCabannas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 150, -1));
 
-        sideCabannas.setBackground(new java.awt.Color(43, 131, 194));
-        sideCabannas.setPreferredSize(new java.awt.Dimension(300, 50));
+        btnCalendario.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
+        btnCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        btnCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCalendario.setText("Calendario");
+        sideBar.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 150, 40));
 
-        lblCabannas.setBackground(new java.awt.Color(43, 131, 194));
-        lblCabannas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblCabannas.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabannas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCabannas.setText("Cabañas");
-        lblCabannas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblCabannasMousePressed(evt);
-            }
-        });
+        ui_btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 150, -1));
 
-        javax.swing.GroupLayout sideCabannasLayout = new javax.swing.GroupLayout(sideCabannas);
-        sideCabannas.setLayout(sideCabannasLayout);
-        sideCabannasLayout.setHorizontalGroup(
-            sideCabannasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideCabannasLayout.createSequentialGroup()
-                .addComponent(lblCabannas, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        sideCabannasLayout.setVerticalGroup(
-            sideCabannasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideCabannasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCabannas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        UI_sideBar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UI_sideBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/sideBar.png"))); // NOI18N
+        UI_sideBar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        UI_sideBar.setPreferredSize(new java.awt.Dimension(150, 600));
+        sideBar.add(UI_sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
 
-        sideCalendario.setBackground(new java.awt.Color(43, 131, 194));
-        sideCalendario.setPreferredSize(new java.awt.Dimension(300, 50));
+        getContentPane().add(sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 610));
 
-        lblCalendario.setBackground(new java.awt.Color(43, 131, 194));
-        lblCalendario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblCalendario.setForeground(new java.awt.Color(255, 255, 255));
-        lblCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCalendario.setText("Calendario");
-        lblCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblCalendarioMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout sideCalendarioLayout = new javax.swing.GroupLayout(sideCalendario);
-        sideCalendario.setLayout(sideCalendarioLayout);
-        sideCalendarioLayout.setHorizontalGroup(
-            sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
-            .addGroup(sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(lblCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
-        );
-        sideCalendarioLayout.setVerticalGroup(
-            sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
-            .addGroup(sideCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(lblCalendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout sideBarLayout = new javax.swing.GroupLayout(sideBar);
-        sideBar.setLayout(sideBarLayout);
-        sideBarLayout.setHorizontalGroup(
-            sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideBarLayout.createSequentialGroup()
-                .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(sideReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(sideClear, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sideCabannas, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sideCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
-        );
-        sideBarLayout.setVerticalGroup(
-            sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideCabannas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
-                .addComponent(sideClear, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
-
-        name.getAccessibleContext().setAccessibleName("name");
-
-        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         content.setPreferredSize(new java.awt.Dimension(600, 600));
 
         lyrPaneTop.setBackground(new java.awt.Color(204, 204, 204));
@@ -213,64 +131,73 @@ public class Index extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lyrPaneTop, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-            .addComponent(lyrPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lyrPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lyrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lyrPaneTop, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lyrPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(sideBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sideBar, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 33, 760, 570));
+
+        topBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ui_Dispose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ui_Dispose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/buttonDISPOSE.png"))); // NOI18N
+        ui_Dispose.setToolTipText("");
+        ui_Dispose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ui_DisposeMousePressed(evt);
+            }
+        });
+        topBar.add(ui_Dispose, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, -1, 30));
+
+        ui_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/buttonEXIT.png"))); // NOI18N
+        ui_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ui_ExitMousePressed(evt);
+            }
+        });
+        topBar.add(ui_Exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, -1, 30));
+
+        ui_topBar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ui_topBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/topBar.png"))); // NOI18N
+        ui_topBar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ui_topBar.setIconTextGap(0);
+        ui_topBar.setPreferredSize(new java.awt.Dimension(610, 35));
+        topBar.add(ui_topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
+
+        getContentPane().add(topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 750, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblClearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClearMousePressed
+    private void ui_ExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_ExitMousePressed
+        System.exit(0);
+    }//GEN-LAST:event_ui_ExitMousePressed
 
-        lyrPaneTop.removeAll();
-        lyrPaneTop.repaint();
-        lyrPaneTop.revalidate();
-    }//GEN-LAST:event_lblClearMousePressed
-
-    private void lblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReservasMousePressed
+    private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         paintPanel(new Reservar(), lyrPaneTop);
+    }//GEN-LAST:event_btnReservasMousePressed
 
-    }//GEN-LAST:event_lblReservasMousePressed
-
-    private void lblCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCabannasMousePressed
+    private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         paintPanel(new ingCabanna(), lyrPaneTop);
         paintPanel(new Tabla(), lyrPaneTable);
-    }//GEN-LAST:event_lblCabannasMousePressed
+    }//GEN-LAST:event_btnCabannasMousePressed
 
-    private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
-        // Ya vas a ver...
-    }//GEN-LAST:event_nameMouseClicked
-
-    private void lblCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCalendarioMousePressed
-        
-    }//GEN-LAST:event_lblCalendarioMousePressed
+    private void ui_DisposeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_DisposeMousePressed
+        this.setState(Frame.ICONIFIED);
+    }//GEN-LAST:event_ui_DisposeMousePressed
 
     public Color bgSidebar = new Color(94, 99, 184);
     public Color bgSidebar2 = new Color(19, 21, 128);
@@ -305,18 +232,24 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel UI_sideBar;
+    private javax.swing.JLabel btnCabannas;
+    private javax.swing.JLabel btnCalendario;
+    private javax.swing.JLabel btnReservas;
     private javax.swing.JPanel content;
-    private javax.swing.JLabel lblCabannas;
-    private javax.swing.JLabel lblCalendario;
-    private javax.swing.JLabel lblClear;
-    private javax.swing.JLabel lblReservas;
+    private javax.swing.JLabel iconCabanna;
+    private javax.swing.JLabel iconReserva;
+    private javax.swing.JLabel inconCalendario;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLayeredPane lyrPaneTable;
     private javax.swing.JLayeredPane lyrPaneTop;
-    private javax.swing.JLabel name;
     private javax.swing.JPanel sideBar;
-    private javax.swing.JPanel sideCabannas;
-    private javax.swing.JPanel sideCalendario;
-    private javax.swing.JPanel sideClear;
-    private javax.swing.JPanel sideReservas;
+    private javax.swing.JPanel topBar;
+    private javax.swing.JLabel ui_Dispose;
+    private javax.swing.JLabel ui_Exit;
+    private javax.swing.JLabel ui_btnCabannas;
+    private javax.swing.JLabel ui_btnCalendario;
+    private javax.swing.JLabel ui_btnReservas;
+    private javax.swing.JLabel ui_topBar;
     // End of variables declaration//GEN-END:variables
 }
