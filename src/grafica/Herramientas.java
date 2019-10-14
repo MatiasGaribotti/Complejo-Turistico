@@ -3,7 +3,6 @@ package grafica;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLCabanna;
-import grafica.Index;
 
 
 public class Herramientas extends javax.swing.JPanel {
@@ -122,34 +121,37 @@ public class Herramientas extends javax.swing.JPanel {
         // TODO add your handling code here:
         String patron=fieldPattern.getText();
         String atributo;
-        switch(cmbFilter.getSelectedIndex()){
-            case 0:
+        switch(cmbFilter.getSelectedItem().toString()){
+            case "ID":
                 atributo="id";
                 break;
-            case 1:
+            case "Nº Habitaciones":
                 atributo="cantHabitaciones"; 
                 break;
-            case 2:
+            case "Nº Camas":
                 atributo="cantCamas"; 
                 break;
-            case 3:
+            case "Nº Baños":
                 atributo="cantBannos"; 
                 break; 
-            case 4:
+            case "Nº Huéspedes":
                 atributo="cantHuespedes"; 
                 break;
-            case 5:
+            case "Descripción":
                 atributo="descripcion"; 
                 break;
-            case 6:
+            case "Aire Acon.":
                 atributo="aireAcondicionado"; 
                 break;
-            case 7:
+            case "Parrillero":
                 atributo="parrillero"; 
                 break;
-            default:
+            case "Costo Hr.":
                 atributo="costHour"; 
-                break;     
+                break; 
+            default:
+                atributo="";
+                break;
         }
         SQLCabanna Auxiliar=new SQLCabanna();
         DefaultTableModel Busqueda=Auxiliar.select(patron, atributo);
