@@ -36,6 +36,7 @@ public class Herramientas extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
         btnEliminar = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JLabel();
         panelOrdenar = new javax.swing.JPanel();
         btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
@@ -87,7 +88,17 @@ public class Herramientas extends javax.swing.JPanel {
                 btnEliminarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 50, 20));
+        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, -1, 20));
+
+        btnModificar.setLabelFor(this);
+        btnModificar.setText("Modificar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarMouseClicked(evt);
+            }
+        });
+        panelBuscar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, 20));
 
         add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
 
@@ -181,10 +192,15 @@ public class Herramientas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
 
+    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JLabel btnEliminar;
+    private javax.swing.JLabel btnModificar;
     private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;

@@ -73,7 +73,7 @@ public class SQLCabanna extends ConexionDB {
     
     public  DefaultTableModel select(String patron, String campo) {
 
-        String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire A.", "Parrillero", "Costo Hora"};
+        String[] headers = {"ID↕", "Habitaciones↑↓", "Camas↑↓", "Baños↑↓", "Aire A.↑↓", "Parrillero↑↓", "Costo Hora↑↓"};
         String[] Registro = new String[7];
         NR = 0;
 
@@ -113,14 +113,14 @@ public class SQLCabanna extends ConexionDB {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
             
         }finally {
             
             try {
                 con.close();
             } catch (SQLException e) {
-                JOptionPane.showConfirmDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
                 
             }
         }
@@ -150,13 +150,13 @@ public class SQLCabanna extends ConexionDB {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
             return false;
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                JOptionPane.showConfirmDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }
@@ -192,21 +192,21 @@ public class SQLCabanna extends ConexionDB {
             return true;
             
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
             return false;
             
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                JOptionPane.showConfirmDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }
     
     /**
      * Método a través del que se eliminan las cabañas.
-     * @param cab Objeto que contiene la cabaña a eliminar.
+     * @param id Id de la cabaña
      * @return Devuelve si se ejecutó con éxito o no.
      */
     
@@ -220,14 +220,14 @@ public class SQLCabanna extends ConexionDB {
             return true;
             
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
             return false;
             
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                JOptionPane.showConfirmDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }

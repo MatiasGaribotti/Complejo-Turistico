@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  * @author Matías Garibotti
  * @author Facundo Gallo
+ * 
  */
 
 public class Index extends javax.swing.JFrame {
@@ -25,7 +26,7 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         currentView = "RESERVAS";
         modeloDef=camposComboB(currentView, modeloDefSort);
-        modeloDefSort=camposSort(currentView,modeloDefSort);
+        modeloDefSort=camposSort(currentView, modeloDefSort);
         initComponents();
         this.setSize(1200, 768);
         this.setLocationRelativeTo(null);
@@ -287,7 +288,6 @@ public class Index extends javax.swing.JFrame {
                 Def.addElement("Cancelada");
                 Def.addElement("CI");
                 Def.addElement("ID");
-                break;
         }
         return Def;
     }
