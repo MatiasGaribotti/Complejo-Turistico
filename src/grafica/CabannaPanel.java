@@ -2,8 +2,16 @@ package grafica;
 
 import javax.swing.JOptionPane;
 import logica.Cabanna;
-import logica.SQL.SQLQueries;
+import logica.SQL.SQLCabanna;
 
+/**
+ * Clase que hereda de JPanel en la que tenemos toda la GUI para que el usuario
+ * pueda ingresar nuevas Cabannas
+ *
+ * @version 13/10/2019/A
+ * @author Matías Garibotti
+ * @author Facundo Gallo
+ */
 public class CabannaPanel extends javax.swing.JPanel {
 
     private byte cntHabitaciones;
@@ -136,12 +144,22 @@ public class CabannaPanel extends javax.swing.JPanel {
         checkAireAcondicionado.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkAireAcondicionado.setForeground(new java.awt.Color(43, 41, 41));
         checkAireAcondicionado.setText("Aire Acondicionado");
+        checkAireAcondicionado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAireAcondicionadoActionPerformed(evt);
+            }
+        });
         add(checkAireAcondicionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         checkParrillero.setBackground(new java.awt.Color(236, 235, 255));
         checkParrillero.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkParrillero.setForeground(new java.awt.Color(43, 41, 41));
         checkParrillero.setText("Parrillero");
+        checkParrillero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkParrilleroActionPerformed(evt);
+            }
+        });
         add(checkParrillero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 117, -1));
 
         lblCosto.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -149,9 +167,33 @@ public class CabannaPanel extends javax.swing.JPanel {
         lblCosto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCosto.setText("Costo por hora");
         add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 20));
+
+        fieldCostoHour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCostoHourActionPerformed(evt);
+            }
+        });
         add(fieldCostoHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 88, 20));
+
+        fieldCntHabitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCntHabitacionesActionPerformed(evt);
+            }
+        });
         add(fieldCntHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 88, 20));
+
+        fieldCntBannos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCntBannosActionPerformed(evt);
+            }
+        });
         add(fieldCntBannos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 88, 20));
+
+        fieldCntCamas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCntCamasActionPerformed(evt);
+            }
+        });
         add(fieldCntCamas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 88, 20));
 
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnIngresar.png"))); // NOI18N
@@ -166,14 +208,44 @@ public class CabannaPanel extends javax.swing.JPanel {
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         getInput();
+
         Cabanna cabanna = new Cabanna(cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
-        SQLQueries test = new SQLQueries();
-        boolean complete=test.insertar(cabanna);
-        if(complete)
+
+        SQLCabanna sCabanna = new SQLCabanna();
+
+        boolean complete = sCabanna.insertar(cabanna);
+
+        if (complete) {
             JOptionPane.showConfirmDialog(null, "Consulta realizada");
-        else
+        } else {
             JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+        }
+
     }//GEN-LAST:event_btnIngresarMouseClicked
+
+    private void fieldCntHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCntHabitacionesActionPerformed
+        fieldCntHabitaciones.transferFocus();
+    }//GEN-LAST:event_fieldCntHabitacionesActionPerformed
+
+    private void fieldCntCamasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCntCamasActionPerformed
+        fieldCntCamas.transferFocus();
+    }//GEN-LAST:event_fieldCntCamasActionPerformed
+
+    private void fieldCntBannosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCntBannosActionPerformed
+        fieldCntBannos.transferFocus();
+    }//GEN-LAST:event_fieldCntBannosActionPerformed
+
+    private void fieldCostoHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCostoHourActionPerformed
+        fieldCostoHour.transferFocus();
+    }//GEN-LAST:event_fieldCostoHourActionPerformed
+
+    private void checkAireAcondicionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAireAcondicionadoActionPerformed
+        checkAireAcondicionado.transferFocus();
+    }//GEN-LAST:event_checkAireAcondicionadoActionPerformed
+
+    private void checkParrilleroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkParrilleroActionPerformed
+        checkParrillero.transferFocus();
+    }//GEN-LAST:event_checkParrilleroActionPerformed
 
     public void getInput() {
         this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());

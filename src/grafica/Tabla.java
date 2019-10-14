@@ -4,12 +4,14 @@ import javax.swing.JOptionPane;
 import logica.SQL.SQLQueries;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import utilidades.ManageCellsTable;
 import utilidades.ManageHeaderTable;
+import utilidades.Utilidades;
 
 public class Tabla extends javax.swing.JPanel {
 
     //Variable que define qué tipo de tabla va a ser
-    private String tipoTabla;
+    private String view;
 
     SQLQueries sql = new SQLQueries();
     DefaultTableModel modelo = new DefaultTableModel();
@@ -17,24 +19,25 @@ public class Tabla extends javax.swing.JPanel {
     public Tabla() {
     }
 
-    public Tabla(String tipoTabla) {
+    public Tabla(String currentView) {
 
         initComponents();
         this.setSize(936, 286);
-        this.tipoTabla = tipoTabla;
+        this.view = currentView;
         selectModel();
         table.setModel(modelo);
-        styleTable("CABANNAS");
+        styleTable();
     }
 
     public void selectModel() {
         /*
-        * En base a el tipo de tabla
-        * se obtienen ciertos datos u otros.
-        * En este caso la consulta es para obtener
-        * todos los datos de la tabla que corresponda
+            En base a el tipo de tabla
+            se obtienen ciertos datos u otros.
+            En este caso la consulta es para obtener
+            todos los datos de la tabla que corresponda
          */
-        switch (tipoTabla) {
+
+        switch (view) {
             case "CABANNAS":
                 String[] atributos = {"id", "cantHabitaciones", "cantCamas", "cantBannos", "aireAcondicionado", "parrillero", "costHour"};
                 String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "aireAcondicionad", "Parrillero", "Costo Hora"};
@@ -60,7 +63,7 @@ public class Tabla extends javax.swing.JPanel {
 
     }
 
-    public void styleTable(String tipoTabla) {
+    public void styleTable() {
 
         //Header Personalizado default para todas las tablas
         JTableHeader jtableHeader = table.getTableHeader();
@@ -68,9 +71,13 @@ public class Tabla extends javax.swing.JPanel {
         table.setTableHeader(jtableHeader);
         table.getColumnModel().getColumn(0).setMaxWidth(35);
 
-        switch (tipoTabla) {
+        switch (view) {
             case "CABANNAS":
-
+                int size = table.getColumnCount();
+                for(int i=0; i < size; i++){
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
+                }
+ 
                 break;
 
             case "RESERVAS":

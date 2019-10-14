@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logica.Reserva;
 import logica.SQL.SQLQueries;
+import logica.SQL.SQLReserva;
+import logica.SQL.SQLTurista;
 import logica.Turista;
 
 public class Reservar extends javax.swing.JPanel {
@@ -57,6 +59,11 @@ public class Reservar extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         fieldCI.setCaretColor(new java.awt.Color(43, 41, 41));
+        fieldCI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCIActionPerformed(evt);
+            }
+        });
         add(fieldCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 111, 22));
 
         lblNombre.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -123,6 +130,11 @@ public class Reservar extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         fieldTelefono.setCaretColor(new java.awt.Color(43, 41, 41));
+        fieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldTelefonoActionPerformed(evt);
+            }
+        });
         add(fieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 156, 22));
 
         lblDireccion.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -163,6 +175,11 @@ public class Reservar extends javax.swing.JPanel {
                 fieldNumeroFocusLost(evt);
             }
         });
+        fieldNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldNumeroActionPerformed(evt);
+            }
+        });
         add(fieldNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 69, 22));
 
         fieldLocalidad.setForeground(new java.awt.Color(173, 173, 173));
@@ -176,6 +193,11 @@ public class Reservar extends javax.swing.JPanel {
                 fieldLocalidadFocusLost(evt);
             }
         });
+        fieldLocalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldLocalidadActionPerformed(evt);
+            }
+        });
         add(fieldLocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 110, 22));
 
         lblCabanna.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -186,6 +208,11 @@ public class Reservar extends javax.swing.JPanel {
 
         fieldCabanna.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#####"))));
         fieldCabanna.setCaretColor(new java.awt.Color(43, 41, 41));
+        fieldCabanna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCabannaActionPerformed(evt);
+            }
+        });
         add(fieldCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 70, 22));
 
         lblFechaInicio.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
@@ -239,15 +266,15 @@ public class Reservar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNombreActionPerformed
-
+        fieldNombre.transferFocus();
     }//GEN-LAST:event_fieldNombreActionPerformed
 
     private void fieldApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldApellidoActionPerformed
-
+        fieldApellido.transferFocus();
     }//GEN-LAST:event_fieldApellidoActionPerformed
 
     private void fieldFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFechaNacActionPerformed
-
+        fieldFechaNac.transferFocus();
     }//GEN-LAST:event_fieldFechaNacActionPerformed
 
     private void fieldCalleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldCalleFocusGained
@@ -262,7 +289,7 @@ public class Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldCalleFocusLost
 
     private void fieldCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCalleActionPerformed
-
+        fieldCalle.transferFocus();
     }//GEN-LAST:event_fieldCalleActionPerformed
 
     private void fieldNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldNumeroFocusGained
@@ -286,11 +313,11 @@ public class Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldLocalidadFocusLost
 
     private void fieldFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFechaInicioActionPerformed
-
+        fieldFechaInicio.transferFocus();
     }//GEN-LAST:event_fieldFechaInicioActionPerformed
 
     private void fieldFechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFechaFinActionPerformed
-
+        fieldFechaFin.transferFocus();
     }//GEN-LAST:event_fieldFechaFinActionPerformed
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
@@ -298,15 +325,18 @@ public class Reservar extends javax.swing.JPanel {
 
         Turista turista = new Turista(ci, nombre, apellido, fechaNac, telefono, calle, numero, localidad); //Se crea el turista
 
-        SQLQueries test = new SQLQueries();
-        boolean consultaTur=test.insertar(turista);
+        SQLTurista sTurista = new SQLTurista();
+        boolean consultaTur=sTurista.insertar(turista);
 
+        SQLReserva sReserva = new SQLReserva();
+        
         int codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
         Reserva reserva = new Reserva(codigoReserva, fechaInicio, fechaFin, false, false, ci, idCabanna);
-        boolean consultaRes=test.insertar(reserva);
+        
+        boolean consultaRes=sReserva.insertar(reserva);
         
         /*
-        * Testing
+            Testing
         */
         if(consultaTur&&consultaRes)
             JOptionPane.showConfirmDialog(null, "Consulta realizada");
@@ -318,6 +348,26 @@ public class Reservar extends javax.swing.JPanel {
             JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
        
     }//GEN-LAST:event_btnReservarMouseClicked
+
+    private void fieldCIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCIActionPerformed
+        fieldCI.transferFocus();
+    }//GEN-LAST:event_fieldCIActionPerformed
+
+    private void fieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTelefonoActionPerformed
+        fieldTelefono.transferFocus();
+    }//GEN-LAST:event_fieldTelefonoActionPerformed
+
+    private void fieldNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNumeroActionPerformed
+        fieldNumero.transferFocus();
+    }//GEN-LAST:event_fieldNumeroActionPerformed
+
+    private void fieldLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldLocalidadActionPerformed
+        fieldLocalidad.transferFocus();
+    }//GEN-LAST:event_fieldLocalidadActionPerformed
+
+    private void fieldCabannaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCabannaActionPerformed
+        fieldCabanna.transferFocus();
+    }//GEN-LAST:event_fieldCabannaActionPerformed
 
     private int ci;
     private String nombre;

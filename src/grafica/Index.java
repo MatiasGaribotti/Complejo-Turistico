@@ -5,15 +5,26 @@ import java.awt.Frame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import logica.Cabanna;
+
+/**
+ * Ventana principal del software.
+ * 
+ * @author Matías Garibotti
+ * @author Facundo Gallo
+ */
 
 public class Index extends javax.swing.JFrame {
 
+    //Almacenará la vista actual
+    String currentView;
+    
     public Index() {
         initComponents();
         this.setSize(1200, 768);
         this.setLocationRelativeTo(null);
+        currentView = "RESERVAS";
         paintPanel(new Reservar(), layerIngresos);
+        paintPanel(new Herramientas(), layerHerramientas);
         
     }
 
@@ -123,7 +134,7 @@ public class Index extends javax.swing.JFrame {
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("3 Weeks");
-        sideBar.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 150, 40));
+        sideBar.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 40));
 
         UI_sideBar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UI_sideBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_sideBar.png"))); // NOI18N
@@ -162,7 +173,7 @@ public class Index extends javax.swing.JFrame {
         getContentPane().add(topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 960, -1));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
-        content.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        content.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, null, java.awt.Color.lightGray));
         content.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layerIngresos.setPreferredSize(new java.awt.Dimension(483, 402));
@@ -200,12 +211,14 @@ public class Index extends javax.swing.JFrame {
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         paintPanel(new Reservar(), layerIngresos);
         paintPanel(new Herramientas(), layerHerramientas);
+        currentView = "RESERVA";
     }//GEN-LAST:event_btnReservasMousePressed
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         paintPanel(new CabannaPanel(), layerIngresos);
         paintPanel(new Tabla("CABANNAS"), layerTabla);
         paintPanel(new Herramientas(), layerHerramientas);
+        currentView = "CABANNAS";
     }//GEN-LAST:event_btnCabannasMousePressed
 
     private void ui_DisposeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_DisposeMousePressed

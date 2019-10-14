@@ -29,9 +29,9 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
     * acciones como: ver la descripción de una cabaña, eliminar
     * una fila (cabaña, reserva, turista;
      */
-    private final ImageIcon iconoInfo = new ImageIcon(getClass().getResource("/assets.ui/"));
-    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets.ui/"));
-    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets.ui/"));
+    private final ImageIcon iconoInfo = new ImageIcon(getClass().getResource("/assets/ui/"));
+    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets/ui/"));
+    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets/ui/"));
 
     public ManageCellsTable() {
         this.tipo = "normal";
@@ -49,19 +49,21 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 
         /*
-            * Este método controla toda la tabla, contiene los valores
-            * de si está seleciconada o no, tiene el foco o no, entre otros.
-            *
-            * Cada evento sobre la tabla invoca a este método.
-         */
+        * Este método controla toda la tabla, contiene los valores
+        * de si está seleciconada o no, tiene el foco o no, entre otros.
+        *
+        * Cada evento sobre la tabla invoca a este método.
+        */
+        
         //Algunos colores por defecto
         Color bgColor = null;
         Color bgColorDefault = new Color(192, 192, 192);
         Color bgCOlorSelected = new Color(140, 140, 140);
 
         /*
-            * Si la celda del evento es la seleccionada se asigna el fondo por defecto para la selección.
-         */
+        * Si la celda del evento es la seleccionada se asigna el fondo por defecto para la selección.
+        */
+        
         if (selected) {
             this.setBackground(bgColorDefault);
 
@@ -86,6 +88,7 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
 
             this.setBackground((selected) ? bgColor : Color.WHITE);
             this.setFont(normal);
+            
             return this;
 
         }
