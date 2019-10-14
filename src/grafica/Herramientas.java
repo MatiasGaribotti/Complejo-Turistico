@@ -1,6 +1,9 @@
 package grafica;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import logica.SQL.SQLCabanna;
+import grafica.Index;
 
 
 public class Herramientas extends javax.swing.JPanel {
@@ -8,7 +11,8 @@ public class Herramientas extends javax.swing.JPanel {
     /**
      * Panel con las herramientas que son necesarias
      * en los menues con tablas.
-     * @param aModel Esto es mágico, contiene el modelo de items que se mostrará
+     * @param aModel Esto es mágico, contiene el modelo de items que se mostrará en la búsqueda
+     * @param aModelSort Idem. pero muestra el del cmbSort
      */
     public Herramientas(DefaultComboBoxModel aModel, DefaultComboBoxModel aModelSort) {
         initComponents();
@@ -32,7 +36,7 @@ public class Herramientas extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
         panelOrdenar = new javax.swing.JPanel();
-        btnBuscar1 = new javax.swing.JLabel();
+        btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
         cmbSort = new javax.swing.JComboBox<>();
 
@@ -57,6 +61,11 @@ public class Herramientas extends javax.swing.JPanel {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnBuscar.png"))); // NOI18N
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
         panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -76,9 +85,9 @@ public class Herramientas extends javax.swing.JPanel {
         panelOrdenar.setPreferredSize(new java.awt.Dimension(454, 59));
         panelOrdenar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnOrdenar.png"))); // NOI18N
-        btnBuscar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelOrdenar.add(btnBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+        btnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnOrdenar.png"))); // NOI18N
+        btnSort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelOrdenar.add(btnSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         lblOrdenar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblOrdenar.setForeground(new java.awt.Color(43, 41, 41));
@@ -109,10 +118,48 @@ public class Herramientas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbFilterActionPerformed
 
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        // TODO add your handling code here:
+        String patron=fieldPattern.getText();
+        String atributo;
+        switch(cmbFilter.getSelectedIndex()){
+            case 0:
+                atributo="id";
+                break;
+            case 1:
+                atributo="cantHabitaciones"; 
+                break;
+            case 2:
+                atributo="cantCamas"; 
+                break;
+            case 3:
+                atributo="cantBannos"; 
+                break; 
+            case 4:
+                atributo="cantHuespedes"; 
+                break;
+            case 5:
+                atributo="descripcion"; 
+                break;
+            case 6:
+                atributo="aireAcondicionado"; 
+                break;
+            case 7:
+                atributo="parrillero"; 
+                break;
+            default:
+                atributo="costHour"; 
+                break;     
+        }
+        SQLCabanna Auxiliar=new SQLCabanna();
+        DefaultTableModel Busqueda=Auxiliar.select(patron, atributo);
+        Index.mostrarTabla(Busqueda);
+    }//GEN-LAST:event_btnBuscarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
-    private javax.swing.JLabel btnBuscar1;
+    private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;
     private javax.swing.JTextField fieldPattern;

@@ -19,11 +19,18 @@ public class Tabla extends javax.swing.JPanel {
     }
 
     public Tabla(String currentView) {
-
         initComponents();
         this.setSize(936, 286);
         this.view = currentView;
         selectModel();
+        table.setModel(modelo);
+        styleTable();
+    }
+    public Tabla(DefaultTableModel mod, String currentView){
+        initComponents();
+        this.setSize(936, 286);
+        this.modelo=mod;
+        this.view = currentView;
         table.setModel(modelo);
         styleTable();
     }

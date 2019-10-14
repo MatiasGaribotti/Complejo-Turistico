@@ -6,6 +6,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel; 
+import javax.swing.table.DefaultTableModel;
 /**
  * Ventana principal del software.
  * 
@@ -253,35 +254,40 @@ public class Index extends javax.swing.JFrame {
             obj.setForeground(textHint);
         }
     }
-    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def){ //Va a setear el modelo por defecto de los combo boxes
+    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def){ 
+    //Va a setear el modelo por defecto de los combo boxes
         Def=new DefaultComboBoxModel();
-        if(view.equals("TURISTAS")){
-            Def.addElement("CI");
-            Def.addElement("Nombre");
-            Def.addElement("Apellido");
-            Def.addElement("Fecha Nacimiento");
-            Def.addElement("Teléfono");
-            Def.addElement("Calle");
-            Def.addElement("Número");
-            Def.addElement("Localidad");
-        }else if(view.equals("CABANNAS")){
-            Def.addElement("ID");
-            Def.addElement("Nº Habitaciones");
-            Def.addElement("Nº Camas");
-            Def.addElement("Nº Baños");
-            Def.addElement("Nº Huéspedes");
-            Def.addElement("Descripción");
-            Def.addElement("Aire Acon.");
-            Def.addElement("Parrillero");
-            Def.addElement("Costo Hr.");
-        }else{
-            Def.addElement("Código");
-            Def.addElement("Fecha Inicio");
-            Def.addElement("Fecha Fin");
-            Def.addElement("Confirmada");
-            Def.addElement("Cancelada");
-            Def.addElement("CI");
-            Def.addElement("ID");
+        switch (view) {
+            case "TURISTAS":
+                Def.addElement("CI");
+                Def.addElement("Nombre");
+                Def.addElement("Apellido");
+                Def.addElement("Fecha Nacimiento");
+                Def.addElement("Teléfono");
+                Def.addElement("Calle");
+                Def.addElement("Número");
+                Def.addElement("Localidad");
+                break;
+            case "CABANNAS":
+                Def.addElement("ID");
+                Def.addElement("Nº Habitaciones");
+                Def.addElement("Nº Camas");
+                Def.addElement("Nº Baños");
+                Def.addElement("Nº Huéspedes");
+                Def.addElement("Descripción");
+                Def.addElement("Aire Acon.");
+                Def.addElement("Parrillero");
+                Def.addElement("Costo Hr.");
+                break;
+            default:
+                Def.addElement("Código");
+                Def.addElement("Fecha Inicio");
+                Def.addElement("Fecha Fin");
+                Def.addElement("Confirmada");
+                Def.addElement("Cancelada");
+                Def.addElement("CI");
+                Def.addElement("ID");
+                break;
         }
         return Def;
     }
@@ -313,7 +319,13 @@ public class Index extends javax.swing.JFrame {
         }
         return Def;
     }
-    public void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
+    public static void mostrarTabla(DefaultTableModel tabla){
+        paintPanel(new Tabla(tabla, "CABANNAS"),layerTabla);
+    }
+    
+    
+    
+    public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
         lyrPane.removeAll();
         lyrPane.add(panel);
         lyrPane.repaint();
@@ -324,11 +336,8 @@ public class Index extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Index().setVisible(true);
-            }
-        });
+        Index Indice=new Index();
+        Indice.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -343,7 +352,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel iconReserva;
     private javax.swing.JLayeredPane layerHerramientas;
     private javax.swing.JLayeredPane layerIngresos;
-    private javax.swing.JLayeredPane layerTabla;
+    private static javax.swing.JLayeredPane layerTabla;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel sideBar;
     private javax.swing.JPanel topBar;

@@ -71,7 +71,7 @@ public class SQLCabanna extends ConexionDB {
     * 
     */
     
-    public DefaultTableModel select(String patron, String campo) {
+    public  DefaultTableModel select(String patron, String campo) {
 
         String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire A.", "Parrillero", "Costo Hora"};
         String[] Registro = new String[7];
@@ -104,7 +104,7 @@ public class SQLCabanna extends ConexionDB {
                 Registro[1] = rs.getString("cantHabitaciones");
                 Registro[2] = rs.getString("cantCamas");
                 Registro[3] = rs.getString("cantBannos");
-                Registro[4] = rs.getString("aireAconicionado");
+                Registro[4] = rs.getString("aireAcondicionado");
                 Registro[5] = rs.getString("parrillero");
                 Registro[6] = rs.getString("costHour");
 
