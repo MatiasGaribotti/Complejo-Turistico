@@ -210,12 +210,12 @@ public class SQLCabanna extends ConexionDB {
      * @return Devuelve si se ejecutó con éxito o no.
      */
     
-    public boolean eliminar(Cabanna cab) {
+    public boolean eliminar(short id) {
         Connection con = conectar();
         sSQL = "DELETE FROM Cabannas WHERE id=?";
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
-            pst.setShort(1, cab.getId());
+            pst.setShort(1, id);
             pst.execute();
             return true;
             

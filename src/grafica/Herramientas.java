@@ -1,6 +1,7 @@
 package grafica;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLCabanna;
 
@@ -34,6 +35,7 @@ public class Herramientas extends javax.swing.JPanel {
         fieldPattern = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JLabel();
         panelOrdenar = new javax.swing.JPanel();
         btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
@@ -65,7 +67,7 @@ public class Herramientas extends javax.swing.JPanel {
                 btnBuscarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
+        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
@@ -76,6 +78,16 @@ public class Herramientas extends javax.swing.JPanel {
             }
         });
         panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 200, -1));
+
+        btnEliminar.setLabelFor(this);
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
+        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 50, 20));
 
         add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
 
@@ -158,9 +170,21 @@ public class Herramientas extends javax.swing.JPanel {
         Index.mostrarTabla(Busqueda);
     }//GEN-LAST:event_btnBuscarMouseClicked
 
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        // TODO add your handling code here:
+        String patron=fieldPattern.getText();
+        try{
+        SQLCabanna Auxiliar=new SQLCabanna();
+        boolean resultado=Auxiliar.eliminar(Short.parseShort(patron));
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Debe insertar un id");
+        }
+    }//GEN-LAST:event_btnEliminarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
+    private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;
