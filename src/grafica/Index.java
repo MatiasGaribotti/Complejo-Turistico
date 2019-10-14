@@ -5,7 +5,7 @@ import java.awt.Frame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import javax.swing.DefaultComboBoxModel; 
 /**
  * Ventana principal del software.
  * 
@@ -17,14 +17,19 @@ public class Index extends javax.swing.JFrame {
 
     //Almacenará la vista actual
     String currentView;
+    Herramientas Herramienta;
+    DefaultComboBoxModel modeloDef;
+    DefaultComboBoxModel modeloDefSort;
     
     public Index() {
+        currentView = "RESERVAS";
+        modeloDef=camposComboB(currentView, modeloDefSort);
+        modeloDefSort=camposSort(currentView,modeloDefSort);
         initComponents();
         this.setSize(1200, 768);
         this.setLocationRelativeTo(null);
-        currentView = "RESERVAS";
         paintPanel(new Reservar(), layerIngresos);
-        paintPanel(new Herramientas(), layerHerramientas);
+        paintPanel(new Herramientas(modeloDef, modeloDefSort), layerHerramientas);
         
     }
 
@@ -209,16 +214,22 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_ui_ExitMousePressed
 
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
+        currentView = "RESERVAS";
         paintPanel(new Reservar(), layerIngresos);
-        paintPanel(new Herramientas(), layerHerramientas);
-        currentView = "RESERVA";
+        modeloDef=camposComboB(currentView,modeloDef);
+        modeloDefSort=camposSort(currentView,modeloDefSort);
+        Herramienta=new Herramientas(modeloDef, modeloDefSort);
+        paintPanel(Herramienta, layerHerramientas);
     }//GEN-LAST:event_btnReservasMousePressed
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
+        currentView = "CABANNAS";
         paintPanel(new CabannaPanel(), layerIngresos);
         paintPanel(new Tabla("CABANNAS"), layerTabla);
-        paintPanel(new Herramientas(), layerHerramientas);
-        currentView = "CABANNAS";
+        modeloDef=camposComboB(currentView,modeloDef);
+        modeloDefSort=camposSort(currentView,modeloDefSort);
+        Herramienta=new Herramientas(modeloDef, modeloDefSort);
+        paintPanel(Herramienta, layerHerramientas);
     }//GEN-LAST:event_btnCabannasMousePressed
 
     private void ui_DisposeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_DisposeMousePressed
@@ -242,7 +253,66 @@ public class Index extends javax.swing.JFrame {
             obj.setForeground(textHint);
         }
     }
-
+    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def){ //Va a setear el modelo por defecto de los combo boxes
+        Def=new DefaultComboBoxModel();
+        if(view.equals("TURISTAS")){
+            Def.addElement("CI");
+            Def.addElement("Nombre");
+            Def.addElement("Apellido");
+            Def.addElement("Fecha Nacimiento");
+            Def.addElement("Teléfono");
+            Def.addElement("Calle");
+            Def.addElement("Número");
+            Def.addElement("Localidad");
+        }else if(view.equals("CABANNAS")){
+            Def.addElement("ID");
+            Def.addElement("Nº Habitaciones");
+            Def.addElement("Nº Camas");
+            Def.addElement("Nº Baños");
+            Def.addElement("Nº Huéspedes");
+            Def.addElement("Descripción");
+            Def.addElement("Aire Acon.");
+            Def.addElement("Parrillero");
+            Def.addElement("Costo Hr.");
+        }else{
+            Def.addElement("Código");
+            Def.addElement("Fecha Inicio");
+            Def.addElement("Fecha Fin");
+            Def.addElement("Confirmada");
+            Def.addElement("Cancelada");
+            Def.addElement("CI");
+            Def.addElement("ID");
+        }
+        return Def;
+    }
+    public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def){ //Va a setear el modelo por defecto del combo box del sort
+        Def=new DefaultComboBoxModel();
+        if(view.equals("TURISTAS")){
+            Def.addElement("CI");
+            Def.addElement("Nombre");
+            Def.addElement("Apellido");
+            Def.addElement("Fecha Nacimiento");
+            Def.addElement("Teléfono");
+        }else if(view.equals("CABANNAS")){
+            Def.addElement("ID");
+            Def.addElement("Nº Habitaciones");
+            Def.addElement("Nº Camas");
+            Def.addElement("Nº Baños");
+            Def.addElement("Nº Huéspedes");
+            Def.addElement("Aire Acon.");
+            Def.addElement("Parrillero");
+            Def.addElement("Costo Hr.");
+        }else{
+            Def.addElement("Código");
+            Def.addElement("Fecha Inicio");
+            Def.addElement("Fecha Fin");
+            Def.addElement("Confirmada");
+            Def.addElement("Cancelada");
+            Def.addElement("CI");
+            Def.addElement("ID");
+        }
+        return Def;
+    }
     public void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
         lyrPane.removeAll();
         lyrPane.add(panel);

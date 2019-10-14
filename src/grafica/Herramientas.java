@@ -1,15 +1,20 @@
 package grafica;
 
+import javax.swing.DefaultComboBoxModel;
+
 
 public class Herramientas extends javax.swing.JPanel {
 
     /**
      * Panel con las herramientas que son necesarias
      * en los menues con tablas.
+     * @param aModel Esto es mágico, contiene el modelo de items que se mostrará
      */
-    public Herramientas() {
+    public Herramientas(DefaultComboBoxModel aModel, DefaultComboBoxModel aModelSort) {
         initComponents();
         this.setSize(454,145);
+        cmbFilter.setModel(aModel);
+        cmbSort.setModel(aModelSort);
     }
 
     /**
@@ -56,7 +61,7 @@ public class Herramientas extends javax.swing.JPanel {
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
-        cmbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
         cmbFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbFilterActionPerformed(evt);
@@ -85,7 +90,7 @@ public class Herramientas extends javax.swing.JPanel {
 
         cmbSort.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbSort.setForeground(new java.awt.Color(43, 41, 41));
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
         cmbSort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSortActionPerformed(evt);

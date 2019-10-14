@@ -4,7 +4,6 @@ import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logica.Reserva;
-import logica.SQL.SQLQueries;
 import logica.SQL.SQLReserva;
 import logica.SQL.SQLTurista;
 import logica.Turista;

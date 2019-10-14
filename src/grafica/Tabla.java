@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import utilidades.ManageCellsTable;
 import utilidades.ManageHeaderTable;
-import utilidades.Utilidades;
 
 public class Tabla extends javax.swing.JPanel {
 
@@ -40,7 +39,7 @@ public class Tabla extends javax.swing.JPanel {
         switch (view) {
             case "CABANNAS":
                 String[] atributos = {"id", "cantHabitaciones", "cantCamas", "cantBannos", "aireAcondicionado", "parrillero", "costHour"};
-                String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "aireAcondicionad", "Parrillero", "Costo Hora"};
+                String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire Acondicionado", "Parrillero", "Costo Hora"};
                 modelo = sql.customSelectQuery(atributos, "cabannas", headers);
                 break;
 
