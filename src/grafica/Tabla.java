@@ -11,37 +11,42 @@ public class Tabla extends javax.swing.JPanel {
 
     //Variable que define qué tipo de tabla va a ser
     private String view;
-
-    SQLQueries sql = new SQLQueries();
     DefaultTableModel modelo = new DefaultTableModel();
 
     public Tabla() {
+        this.view = "CABANNAS";
     }
 
     public Tabla(String currentView) {
+        this.view = currentView;
+    }
+    
+    
+    public void buildTable(){
+        initComponents();
+        this.setSize(936, 286); //Check if this works
+        table.setModel(selectModel());
+        styleTable();
+    }
+    
+    public void buildTable(DefaultTableModel modelo){
         initComponents();
         this.setSize(936, 286);
-        this.view = currentView;
-        selectModel();
+        this.modelo=modelo;
         table.setModel(modelo);
         styleTable();
     }
-    public Tabla(DefaultTableModel mod, String currentView){
-        initComponents();
-        this.setSize(936, 286);
-        this.modelo=mod;
-        this.view = currentView;
-        table.setModel(modelo);
-        styleTable();
-    }
+            
 
-    public void selectModel() {
+    public DefaultTableModel selectModel() {
         /*
             En base a el tipo de tabla
             se obtienen ciertos datos u otros.
             En este caso la consulta es para obtener
             todos los datos de la tabla que corresponda
          */
+        
+        SQLQueries sql = new SQLQueries();
 
         switch (view) {
             case "CABANNAS":
@@ -66,6 +71,7 @@ public class Tabla extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Consulta no realizada");
 
         }
+        return modelo;
 
     }
 

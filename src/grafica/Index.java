@@ -5,14 +5,15 @@ import java.awt.Frame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel; 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  * Ventana principal del software.
- * 
+ *
  * @author Matías Garibotti
  * @author Facundo Gallo
- * 
+ *
  */
 
 public class Index extends javax.swing.JFrame {
@@ -22,20 +23,39 @@ public class Index extends javax.swing.JFrame {
     Herramientas Herramienta;
     DefaultComboBoxModel modeloDef;
     DefaultComboBoxModel modeloDefSort;
-    
+
     public Index() {
-        currentView = "RESERVAS";
-        modeloDef=camposComboB(currentView, modeloDefSort);
-        modeloDefSort=camposSort(currentView, modeloDefSort);
+        setCurrentView("CABANNAS");
+    }
+    
+    public void buildIndex(){
+        modeloDef = camposComboB(currentView, modeloDefSort);
+        modeloDefSort = camposSort(currentView, modeloDefSort);
+        
         initComponents();
+        
         this.setSize(1200, 768);
         this.setLocationRelativeTo(null);
-        paintPanel(new Reservar(), layerIngresos);
-        paintPanel(new Herramientas(modeloDef, modeloDefSort), layerHerramientas);
         
+        paintPanel(new CabannaPanel(), layerIngresos);
+        
+        Herramienta = new Herramientas(currentView);
+        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        
+        paintPanel(Herramienta, layerHerramientas);   
+        paintTabla();
     }
 
+    public String getCurrentView() {
+        return currentView;
+    }
+
+    public void setCurrentView(String currentView) {
+        this.currentView = currentView;
+    }
     
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -216,21 +236,31 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_ui_ExitMousePressed
 
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
-        currentView = "RESERVAS";
+        setCurrentView("RESERVAS");
+        
         paintPanel(new Reservar(), layerIngresos);
-        modeloDef=camposComboB(currentView,modeloDef);
-        modeloDefSort=camposSort(currentView,modeloDefSort);
-        Herramienta=new Herramientas(modeloDef, modeloDefSort);
+        
+        modeloDef = camposComboB(this.getCurrentView(), modeloDef);
+        modeloDefSort = camposSort(this.getCurrentView(), modeloDefSort);
+        
+        Herramienta = new Herramientas(this.getCurrentView());
+        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        
         paintPanel(Herramienta, layerHerramientas);
     }//GEN-LAST:event_btnReservasMousePressed
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
-        currentView = "CABANNAS";
+        setCurrentView("CABANNAS");
+        
         paintPanel(new CabannaPanel(), layerIngresos);
-        paintPanel(new Tabla("CABANNAS"), layerTabla);
-        modeloDef=camposComboB(currentView,modeloDef);
-        modeloDefSort=camposSort(currentView,modeloDefSort);
-        Herramienta=new Herramientas(modeloDef, modeloDefSort);
+        paintTabla();
+        
+        modeloDef = camposComboB(currentView, modeloDef);
+        modeloDefSort = camposSort(currentView, modeloDefSort);
+        
+        Herramienta = new Herramientas(this.getCurrentView());
+        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        
         paintPanel(Herramienta, layerHerramientas);
     }//GEN-LAST:event_btnCabannasMousePressed
 
@@ -255,9 +285,10 @@ public class Index extends javax.swing.JFrame {
             obj.setForeground(textHint);
         }
     }
-    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def){ 
-    //Va a setear el modelo por defecto de los combo boxes
-        Def=new DefaultComboBoxModel();
+
+    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def) {
+        //Va a setear el modelo por defecto de los combo boxes
+        Def = new DefaultComboBoxModel();
         switch (view) {
             case "TURISTAS":
                 Def.addElement("CI");
@@ -291,15 +322,16 @@ public class Index extends javax.swing.JFrame {
         }
         return Def;
     }
-    public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def){ //Va a setear el modelo por defecto del combo box del sort
-        Def=new DefaultComboBoxModel();
-        if(view.equals("TURISTAS")){
+
+    public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def) { //Va a setear el modelo por defecto del combo box del sort
+        Def = new DefaultComboBoxModel();
+        if (view.equals("TURISTAS")) {
             Def.addElement("CI");
             Def.addElement("Nombre");
             Def.addElement("Apellido");
             Def.addElement("Fecha Nacimiento");
             Def.addElement("Teléfono");
-        }else if(view.equals("CABANNAS")){
+        } else if (view.equals("CABANNAS")) {
             Def.addElement("ID");
             Def.addElement("Nº Habitaciones");
             Def.addElement("Nº Camas");
@@ -308,7 +340,7 @@ public class Index extends javax.swing.JFrame {
             Def.addElement("Aire Acon.");
             Def.addElement("Parrillero");
             Def.addElement("Costo Hr.");
-        }else{
+        } else {
             Def.addElement("Código");
             Def.addElement("Fecha Inicio");
             Def.addElement("Fecha Fin");
@@ -319,12 +351,19 @@ public class Index extends javax.swing.JFrame {
         }
         return Def;
     }
-    public static void mostrarTabla(DefaultTableModel tabla){
-        paintPanel(new Tabla(tabla, "CABANNAS"),layerTabla);
+
+    public void paintTabla() {
+        Tabla tabla = new Tabla(currentView);
+        tabla.buildTable();
+        paintPanel(tabla, layerTabla);
     }
     
-    
-    
+    public static void paintTabla(DefaultTableModel modelo, String view) {
+        Tabla tabla = new Tabla(view);
+        tabla.buildTable(modelo);
+        paintPanel(tabla, layerTabla);
+    }
+
     public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
         lyrPane.removeAll();
         lyrPane.add(panel);
@@ -336,8 +375,9 @@ public class Index extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Index Indice=new Index();
-        Indice.setVisible(true);
+        Index main = new Index();
+        main.buildIndex();
+        main.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

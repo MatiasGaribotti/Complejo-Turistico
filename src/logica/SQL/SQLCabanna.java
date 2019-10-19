@@ -73,7 +73,7 @@ public class SQLCabanna extends ConexionDB {
     
     public  DefaultTableModel select(String patron, String campo) {
 
-        String[] headers = {"ID↕", "Habitaciones↑↓", "Camas↑↓", "Baños↑↓", "Aire A.↑↓", "Parrillero↑↓", "Costo Hora↑↓"};
+        String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire A.", "Parrillero", "Costo Hora"};
         String[] Registro = new String[7];
         NR = 0;
 

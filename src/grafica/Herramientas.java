@@ -5,18 +5,29 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLCabanna;
 
-
 public class Herramientas extends javax.swing.JPanel {
 
+    String view;
+
     /**
-     * Panel con las herramientas que son necesarias
-     * en los menues con tablas.
-     * @param aModel Esto es mágico, contiene el modelo de items que se mostrará en la búsqueda
+     * Panel con las herramientas que son necesarias en los menues con tablas.
+     *
+     * @param aModel Esto es mágico, contiene el modelo de items que se mostrará
+     * en la búsqueda
      * @param aModelSort Idem. pero muestra el del cmbSort
      */
-    public Herramientas(DefaultComboBoxModel aModel, DefaultComboBoxModel aModelSort) {
+    public Herramientas() {
+        this.view = "CABANNAS";
+
+    }
+
+    public Herramientas(String view) {
+        this.view = view;
+    }
+
+    public void buildHerramientas(DefaultComboBoxModel aModel, DefaultComboBoxModel aModelSort) {
         initComponents();
-        this.setSize(454,145);
+        this.setSize(454, 145);
         cmbFilter.setModel(aModel);
         cmbSort.setModel(aModelSort);
     }
@@ -61,14 +72,14 @@ public class Herramientas extends javax.swing.JPanel {
         fieldPattern.setPreferredSize(new java.awt.Dimension(144, 21));
         panelBuscar.add(fieldPattern, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnBuscar.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnSearch.png"))); // NOI18N
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBuscarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 30, -1));
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
@@ -80,25 +91,25 @@ public class Herramientas extends javax.swing.JPanel {
         });
         panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 200, -1));
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete.png"))); // NOI18N
         btnEliminar.setLabelFor(this);
-        btnEliminar.setText("Eliminar");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEliminarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, -1, 20));
+        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 30, -1));
 
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit.png"))); // NOI18N
         btnModificar.setLabelFor(this);
-        btnModificar.setText("Modificar");
         btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnModificarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, 20));
+        panelBuscar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 30, -1));
 
         add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
 
@@ -142,52 +153,58 @@ public class Herramientas extends javax.swing.JPanel {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
-        String patron=fieldPattern.getText();
+        String patron = fieldPattern.getText();
         String atributo;
-        switch(cmbFilter.getSelectedItem().toString()){
+
+        switch (cmbFilter.getSelectedItem().toString()) {
             case "ID":
-                atributo="id";
+                atributo = "id";
                 break;
             case "Nº Habitaciones":
-                atributo="cantHabitaciones"; 
+                atributo = "cantHabitaciones";
                 break;
             case "Nº Camas":
-                atributo="cantCamas"; 
+                atributo = "cantCamas";
                 break;
             case "Nº Baños":
-                atributo="cantBannos"; 
-                break; 
+                atributo = "cantBannos";
+                break;
             case "Nº Huéspedes":
-                atributo="cantHuespedes"; 
+                atributo = "cantHuespedes";
                 break;
             case "Descripción":
-                atributo="descripcion"; 
+                atributo = "descripcion";
                 break;
             case "Aire Acon.":
-                atributo="aireAcondicionado"; 
+                atributo = "aireAcondicionado";
                 break;
             case "Parrillero":
-                atributo="parrillero"; 
+                atributo = "parrillero";
                 break;
             case "Costo Hr.":
-                atributo="costHour"; 
-                break; 
+                atributo = "costHour";
+                break;
             default:
-                atributo="";
+                atributo = "";
                 break;
         }
-        SQLCabanna Auxiliar=new SQLCabanna();
-        DefaultTableModel Busqueda=Auxiliar.select(patron, atributo);
-        Index.mostrarTabla(Busqueda);
+
+        SQLCabanna sqlCabanna = new SQLCabanna();
+        DefaultTableModel busqueda = sqlCabanna.select(patron, atributo);
+        Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         // TODO add your handling code here:
-        String patron=fieldPattern.getText();
-        try{
-        SQLCabanna Auxiliar=new SQLCabanna();
-        boolean resultado=Auxiliar.eliminar(Short.parseShort(patron));
-        }catch(NumberFormatException e){
+        String patron = fieldPattern.getText();
+        
+        try {
+            SQLCabanna sqlCabannas = new SQLCabanna();
+            boolean resultado = sqlCabannas.eliminar(Short.parseShort(patron));
+            DefaultTableModel modelo = sqlCabannas.select("", "id");
+            Index.paintTabla(modelo, view);
+            
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Debe insertar un id");
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
