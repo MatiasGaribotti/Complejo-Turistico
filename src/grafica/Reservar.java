@@ -320,8 +320,7 @@ public class Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldFechaFinActionPerformed
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
-        getInput(); //Obtengo todos los datos de los campos
-
+        boolean correcto=getInput(); //Obtengo todos los datos de los campos
         Turista turista = new Turista(ci, nombre, apellido, fechaNac, telefono, calle, numero, localidad); //Se crea el turista
 
         SQLTurista sTurista = new SQLTurista();
@@ -337,6 +336,10 @@ public class Reservar extends javax.swing.JPanel {
         /*
             Testing
         */
+        if(correcto)
+            JOptionPane.showConfirmDialog(null, "Cédula válida");
+        else
+            JOptionPane.showConfirmDialog(null, "Cédula inválida");
         if(consultaTur&&consultaRes)
             JOptionPane.showConfirmDialog(null, "Consulta realizada");
         else if(!consultaRes)
@@ -380,7 +383,21 @@ public class Reservar extends javax.swing.JPanel {
     private Date fechaInicio;
     private Date fechaFin;
 
-    public void getInput() {
+    public boolean getInput() {
+        boolean valido=true; //Creo una variable booleana como bandera para informar si están los campos válidos
+        int [] Ced=new int[8];
+        String Aux=fieldCI.getText();
+        for(int i=0;i<Ced.length;i++){
+            Ced[i]=Integer.parseInt(Aux.substring(i, i+1)); //Relleno el array con cada uno de los dígitos de la cédula
+            if(i==7){
+                //Matriz 2 9 8 7 6 3 4
+                int Suma=Ced[0]*2+Ced[1]*9+Ced[2]*8+Ced[3]*7+Ced[4]*6+Ced[5]*3+Ced[6]*4;
+                int M=(Suma%10);
+                int verificador=((10-M)%10);
+                if(Ced[i]!=verificador)
+                    valido=false;
+            }
+        }
         ci = Integer.parseInt(fieldCI.getText());
         nombre = fieldNombre.getText();
         apellido = fieldApellido.getText();
@@ -392,7 +409,7 @@ public class Reservar extends javax.swing.JPanel {
         idCabanna = Short.parseShort(fieldCabanna.getText());
         fechaInicio = toDate(fieldFechaInicio);
         fechaFin = toDate(fieldFechaFin);
-
+        return valido;
     }
 
     public Date toDate(JTextField field) {  //A partir de un JTextField obtengo la fecha que contiene
