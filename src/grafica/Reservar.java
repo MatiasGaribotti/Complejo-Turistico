@@ -388,12 +388,12 @@ public class Reservar extends javax.swing.JPanel {
     public boolean getInput() {
         boolean valido=true; //Creo una variable booleana como bandera para informar si están los campos válidos
         byte [] Ced=new byte[8];//Almaceno la cédula en un array de BYTE. Adivine usted quién lo hizo así. Garibotti, no lo cambies que funciona, pls
-        String Aux=fieldCI.getText();
+        String Aux=fieldCI.getText(); //Variable auxiliar que contiene la cédula en String para luego dividirla
         for(byte i=0;i<Ced.length;i++){
             Ced[i]=Byte.parseByte(Aux.substring(i, i+1)); //Relleno el array con cada uno de los dígitos de la cédula
             if(i==7){
                 //Matriz 2 9 8 7 6 3 4
-                int Suma=Ced[0]*2+Ced[1]*9+Ced[2]*8+Ced[3]*7+Ced[4]*6+Ced[5]*3+Ced[6]*4;
+                int Suma=Ced[0]*2+Ced[1]*9+Ced[2]*8+Ced[3]*7+Ced[4]*6+Ced[5]*3+Ced[6]*4;//Suma total de los dígitos de la cédula
                 byte M=(byte)(Suma%10); //Este será el módulo de la resta
                 byte verificador=(byte)((10-M)%10); //Este es el verificador posta
                 if(Ced[i]!=verificador)
