@@ -43,7 +43,7 @@ public class Index extends javax.swing.JFrame {
         Herramienta.buildHerramientas(modeloDef, modeloDefSort);
         
         paintPanel(Herramienta, layerHerramientas);   
-        paintTabla();
+        Index.paintTabla(currentView);
     }
 
     public String getCurrentView() {
@@ -253,7 +253,7 @@ public class Index extends javax.swing.JFrame {
         setCurrentView("CABANNAS");
         
         paintPanel(new CabannaPanel(), layerIngresos);
-        paintTabla();
+        Index.paintTabla(getCurrentView());
         
         modeloDef = camposComboB(currentView, modeloDef);
         modeloDefSort = camposSort(currentView, modeloDefSort);
@@ -272,8 +272,6 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTuristasMousePressed
 
-    public Color bgSidebar = new Color(94, 99, 184);
-    public Color bgSidebar2 = new Color(19, 21, 128);
     public Color textHint = new Color(212, 212, 212);
 
     public void textHint(String txt, JTextField obj) { //Procedimiento para textHints
@@ -325,39 +323,35 @@ public class Index extends javax.swing.JFrame {
 
     public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def) { //Va a setear el modelo por defecto del combo box del sort
         Def = new DefaultComboBoxModel();
-        switch (view) {
-            case "TURISTAS":
-                Def.addElement("CI");
-                Def.addElement("Nombre");
-                Def.addElement("Apellido");
-                Def.addElement("Fecha Nacimiento");
-                Def.addElement("Teléfono");
-                break;
-            case "CABANNAS":
-                Def.addElement("ID");
-                Def.addElement("Nº Habitaciones");
-                Def.addElement("Nº Camas");
-                Def.addElement("Nº Baños");
-                Def.addElement("Nº Huéspedes");
-                Def.addElement("Aire Acon.");
-                Def.addElement("Parrillero");
-                Def.addElement("Costo Hr.");
-                break;
-            default:
-                Def.addElement("Código");
-                Def.addElement("Fecha Inicio");
-                Def.addElement("Fecha Fin");
-                Def.addElement("Confirmada");
-                Def.addElement("Cancelada");
-                Def.addElement("CI");
-                Def.addElement("ID");
-                break;
+        if (view.equals("TURISTAS")) {
+            Def.addElement("CI");
+            Def.addElement("Nombre");
+            Def.addElement("Apellido");
+            Def.addElement("Fecha Nacimiento");
+            Def.addElement("Teléfono");
+        } else if (view.equals("CABANNAS")) {
+            Def.addElement("ID");
+            Def.addElement("Nº Habitaciones");
+            Def.addElement("Nº Camas");
+            Def.addElement("Nº Baños");
+            Def.addElement("Nº Huéspedes");
+            Def.addElement("Aire Acon.");
+            Def.addElement("Parrillero");
+            Def.addElement("Costo Hr.");
+        } else {
+            Def.addElement("Código");
+            Def.addElement("Fecha Inicio");
+            Def.addElement("Fecha Fin");
+            Def.addElement("Confirmada");
+            Def.addElement("Cancelada");
+            Def.addElement("CI");
+            Def.addElement("ID");
         }
         return Def;
     }
 
-    public void paintTabla() {
-        Tabla tabla = new Tabla(currentView);
+    public static void paintTabla(String view) {
+        Tabla tabla = new Tabla(view);
         tabla.buildTable();
         paintPanel(tabla, layerTabla);
     }
@@ -366,6 +360,11 @@ public class Index extends javax.swing.JFrame {
         Tabla tabla = new Tabla(view);
         tabla.buildTable(modelo);
         paintPanel(tabla, layerTabla);
+    }
+    
+    public static void paintIngreso(CabannaPanel cabanna) {
+        cabanna.setFields();
+        paintPanel(cabanna, layerIngresos);
     }
 
     public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
@@ -388,14 +387,14 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel UI_sideBar;
     private javax.swing.JLabel btnCabannas;
     private javax.swing.JLabel btnCalendario;
-    public javax.swing.JLabel btnReservas;
+    private javax.swing.JLabel btnReservas;
     private javax.swing.JLabel btnTuristas;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
     private javax.swing.JLabel iconCalendario;
     private javax.swing.JLabel iconReserva;
     private javax.swing.JLayeredPane layerHerramientas;
-    private javax.swing.JLayeredPane layerIngresos;
+    private static javax.swing.JLayeredPane layerIngresos;
     private static javax.swing.JLayeredPane layerTabla;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel sideBar;

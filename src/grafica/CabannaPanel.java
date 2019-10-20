@@ -1,6 +1,8 @@
 package grafica;
 
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import logica.Cabanna;
 import logica.SQL.SQLCabanna;
 
@@ -14,6 +16,7 @@ import logica.SQL.SQLCabanna;
  */
 public class CabannaPanel extends javax.swing.JPanel {
 
+    private short id;
     private byte cntHabitaciones;
     private byte cntCamas;
     private byte cntBannos;
@@ -22,6 +25,16 @@ public class CabannaPanel extends javax.swing.JPanel {
     private boolean parrillero;
     private short costoHour;
 
+    private String accion;
+
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+     
     public byte getCntHabitaciones() {
         return cntHabitaciones;
     }
@@ -80,6 +93,19 @@ public class CabannaPanel extends javax.swing.JPanel {
 
     public CabannaPanel() {
         initComponents();
+    }
+
+    public CabannaPanel(short id, byte cntHabitaciones, byte cntCamas, byte cntBannos, String descripcion, boolean aireAcondicionado, boolean parrillero, short costoHour, String accion) {
+        initComponents();
+        this.id = id;
+        this.cntHabitaciones = cntHabitaciones;
+        this.cntCamas = cntCamas;
+        this.cntBannos = cntBannos;
+        this.descripcion = descripcion;
+        this.aireAcondicionado = aireAcondicionado;
+        this.parrillero = parrillero;
+        this.costoHour = costoHour;
+        this.accion = accion;
     }
 
     @SuppressWarnings("unchecked")
@@ -209,16 +235,23 @@ public class CabannaPanel extends javax.swing.JPanel {
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         getInput();
 
-        Cabanna cabanna = new Cabanna(cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
+        Cabanna cabanna = new Cabanna(id,cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
 
         SQLCabanna sCabanna = new SQLCabanna();
 
-        boolean complete = sCabanna.insertar(cabanna);
+        if (accion.equals("MODIFICAR")) {
+            sCabanna.modificar(cabanna);
 
-        if (complete) {
-            JOptionPane.showConfirmDialog(null, "Consulta realizada");
         } else {
-            JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+            boolean complete = sCabanna.insertar(cabanna);
+
+            if (complete) {
+                JOptionPane.showConfirmDialog(null, "Cabaña Ingresada correctamente");
+                Index.paintTabla("CABANNAS");
+                clearFields();
+            } else {
+                JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+            }
         }
 
     }//GEN-LAST:event_btnIngresarMouseClicked
@@ -256,6 +289,26 @@ public class CabannaPanel extends javax.swing.JPanel {
         this.parrillero = checkParrillero.isSelected();
         this.costoHour = Short.parseShort(fieldCostoHour.getText());
 
+    }
+
+    public void clearFields() {
+        this.fieldCntHabitaciones.setText("");
+        this.fieldCntCamas.setText("");
+        this.fieldCntBannos.setText("");
+        this.fieldCostoHour.setText("");
+        this.checkAireAcondicionado.setSelected(false);
+        this.checkParrillero.setSelected(false);
+        this.txtDescripcion.setText("");
+    }
+
+    public void setFields() {
+        fieldCntHabitaciones.setText(Byte.toString(cntHabitaciones));
+        fieldCntCamas.setText(Byte.toString(cntCamas));
+        fieldCntBannos.setText(Byte.toString(cntBannos));
+        checkAireAcondicionado.setSelected(aireAcondicionado);
+        checkParrillero.setSelected(parrillero);
+        txtDescripcion.setText(descripcion);
+        fieldCostoHour.setText(Short.toString(costoHour));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

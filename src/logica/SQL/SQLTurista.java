@@ -48,10 +48,7 @@ public class SQLTurista extends ConexionDB {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Nombre de excepción:"+e.toString()+"\n"
-                    + "Mensaje:"+e.getMessage()+"\n"
-                            + "Código de error:"+e.getErrorCode()+"\n"
-                                    + "Estado de la BD:"+e.getSQLState());
+            JOptionPane.showConfirmDialog(null, e);
             return false;
 
         } finally {

@@ -129,6 +129,57 @@ public class SQLCabanna extends ConexionDB {
 
     }
     
+    public  String[] select(String id) {
+        String[] Registro = new String[9];
+        NR = 0;
+
+        Connection con = conectar();
+
+        /*
+            Establezco la sentencia SQL a ejecutar ya aplicando el filtro
+        */
+        sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,aireAcondicionado,parrillero,costHour,descripcion,cantHuespedes "
+                + "FROM cabannas WHERE id=" + id + "";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("id");
+                Registro[1] = rs.getString("cantHabitaciones");
+                Registro[2] = rs.getString("cantCamas");
+                Registro[3] = rs.getString("cantBannos");
+                Registro[4] = rs.getString("aireAcondicionado");
+                Registro[5] = rs.getString("parrillero");
+                Registro[6] = rs.getString("costHour");
+
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+
+        return Registro;
+
+    }
+    
     /**
      * Este es el método a través del que se ingresan las cabañas.
      * @param cab Objeto que contiene los datos de la cabaña a ingresar

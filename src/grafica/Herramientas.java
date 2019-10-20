@@ -1,5 +1,6 @@
 package grafica;
 
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -79,7 +80,7 @@ public class Herramientas extends javax.swing.JPanel {
                 btnBuscarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 30, -1));
+        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 30, -1));
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
@@ -89,7 +90,7 @@ public class Herramientas extends javax.swing.JPanel {
                 cmbFilterActionPerformed(evt);
             }
         });
-        panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 200, -1));
+        panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 120, -1));
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete.png"))); // NOI18N
         btnEliminar.setLabelFor(this);
@@ -99,7 +100,7 @@ public class Herramientas extends javax.swing.JPanel {
                 btnEliminarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 30, -1));
+        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 30, -1));
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit.png"))); // NOI18N
         btnModificar.setLabelFor(this);
@@ -197,20 +198,52 @@ public class Herramientas extends javax.swing.JPanel {
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         // TODO add your handling code here:
         String patron = fieldPattern.getText();
-        
-        try {
-            SQLCabanna sqlCabannas = new SQLCabanna();
-            boolean resultado = sqlCabannas.eliminar(Short.parseShort(patron));
-            DefaultTableModel modelo = sqlCabannas.select("", "id");
-            Index.paintTabla(modelo, view);
-            
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Debe insertar un id");
+
+        if (view.equals("CABANNAS")) {
+            try {
+                SQLCabanna sqlCabannas = new SQLCabanna();
+                boolean resultado = sqlCabannas.eliminar(Short.parseShort(patron));
+                DefaultTableModel modelo = sqlCabannas.select("", "id");
+                Index.paintTabla(modelo, view);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Debe insertar un id");
+            }
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-        // TODO add your handling code here:
+        String patron = fieldPattern.getText();
+
+        if (view.equals("CABANNAS")) {
+            SQLCabanna sqlCabannas = new SQLCabanna();
+            String[] datos = sqlCabannas.select(patron);
+
+            short id = Short.parseShort(datos[0]);
+            byte habitaciones = (Byte.parseByte(datos[1]) );
+            byte camas = (Byte.parseByte(datos[2]));
+            byte bannos = (Byte.parseByte(datos[3]));
+            boolean aireAcondicionado;
+            
+            if (datos[4].equals("1"))
+                aireAcondicionado = true;
+            else
+                aireAcondicionado = false;
+            
+            boolean parrillero;
+            
+            if (datos[5].equals("1"))
+                parrillero = true;
+            else
+                parrillero = false;
+            
+            short costo = Short.parseShort(datos[6]);
+            
+            String descripcion = datos[7];
+            
+            Index.paintIngreso(new CabannaPanel(id,habitaciones, camas, bannos, descripcion, aireAcondicionado, parrillero, costo, "MODIFICAR"));
+
+        }
     }//GEN-LAST:event_btnModificarMouseClicked
 
 

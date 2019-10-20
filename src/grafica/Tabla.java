@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import logica.SQL.SQLQueries;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import utilidades.ManageCellsTable;
 import utilidades.ManageHeaderTable;
 
@@ -47,12 +48,13 @@ public class Tabla extends javax.swing.JPanel {
          */
         
         SQLQueries sql = new SQLQueries();
+        DefaultTableModel modeloSelected = new DefaultTableModel();
 
         switch (view) {
             case "CABANNAS":
                 String[] atributos = {"id", "cantHabitaciones", "cantCamas", "cantBannos", "aireAcondicionado", "parrillero", "costHour"};
                 String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire Acondicionado", "Parrillero", "Costo Hora"};
-                modelo = sql.customSelectQuery(atributos, "cabannas", headers);
+                modeloSelected = sql.customSelectQuery(atributos, "cabannas", headers);
                 break;
 
             case "RESERVAS":
@@ -71,7 +73,7 @@ public class Tabla extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Consulta no realizada");
 
         }
-        return modelo;
+        return modeloSelected;
 
     }
 
@@ -82,13 +84,14 @@ public class Tabla extends javax.swing.JPanel {
         jtableHeader.setDefaultRenderer(new ManageHeaderTable());
         table.setTableHeader(jtableHeader);
         table.getColumnModel().getColumn(0).setMaxWidth(35);
+        
 
         switch (view) {
             case "CABANNAS":
                 int size = table.getColumnCount();
                 for(int i=0; i < size; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
-                }
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                }             
  
                 break;
 

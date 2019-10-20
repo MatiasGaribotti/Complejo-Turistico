@@ -28,9 +28,9 @@ public class Utilidades {
     public static final int AIRE_ACONDICIONADO = 4;
     public static final int PARRILLERO = 5;
     public static final int COSTO_HORA = 6;
-    public static final int INFO = 7;
-    public static final int MODIFICAR_CABANNA = 8;
-    public static final int ELIMINAR_CABANNA = 9;
+    public static final int MODIFICAR_CABANNA = 7;
+    public static final int ELIMINAR_CABANNA = 8;
+        public static final int INFO = 9;
 
     //Tabla Reservas
     public static final int CODIGO_RESERVA = 0;

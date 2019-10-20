@@ -30,8 +30,8 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
     * una fila (cabaña, reserva, turista;
      */
     private final ImageIcon iconoInfo = new ImageIcon(getClass().getResource("/assets/ui/"));
-    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets/ui/"));
-    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets/ui/"));
+    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit.png"));
+    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete.png"));
 
     public ManageCellsTable() {
         this.tipo = "normal";
@@ -93,7 +93,7 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
 
         }
 
-        if (tipo.equals("icono")) {
+        if (tipo.equals("ICONO")) {
 
             if (String.valueOf(value).equals("INFO_CABANNA")) {
                 label.setIcon(iconoInfo);

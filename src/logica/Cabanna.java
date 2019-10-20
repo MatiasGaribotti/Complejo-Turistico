@@ -84,7 +84,7 @@ public class Cabanna {
         return costHour;
     }
 
-    public Cabanna(short id, byte cantHabitaciones, byte cantCamas, byte cantBannos, byte cantHuespedes, String descripcion, boolean aireAcondicionado, boolean parrillero, short costHour) {
+    public Cabanna() {
         this.id = -1;
         this.cantHabitaciones = -1;
         this.cantCamas = -1;
@@ -96,6 +96,17 @@ public class Cabanna {
         this.costHour = -1;
     }
 
+    public Cabanna(short id, byte cantHabitaciones, byte cantCamas, byte cantBannos, byte cantHuespedes, String descripcion, boolean aireAcondicionado, boolean parrillero, short costHour) {
+        this.id = id;
+        this.cantHabitaciones = cantHabitaciones;
+        this.cantCamas = cantCamas;
+        this.cantBannos = cantBannos;
+        this.cantHuespedes = cantHuespedes;
+        this.descripcion = descripcion;
+        this.aireAcondicionado = aireAcondicionado;
+        this.parrillero = parrillero;
+        this.costHour = costHour;
+    }
     
     
     public Cabanna(byte cantHabitaciones, byte cantCamas, byte cantBannos, byte cantHuespedes, String descripcion, boolean aireAcondicionado, boolean parrillero, short costHour) {
