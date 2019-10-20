@@ -93,6 +93,7 @@ public class CabannaPanel extends javax.swing.JPanel {
 
     public CabannaPanel() {
         initComponents();
+        accion="INGRESAR";
     }
 
     public CabannaPanel(short id, byte cntHabitaciones, byte cntCamas, byte cntBannos, String descripcion, boolean aireAcondicionado, boolean parrillero, short costoHour, String accion) {
