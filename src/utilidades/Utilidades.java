@@ -2,7 +2,8 @@ package utilidades;
 
 /**
  * Contiene las variables estáticas que referencian a 
- * los números de columna de las tablas.
+ * los números de columnriables estáticas que referencian a 
+ * los números de las tablas.
  *
  * @author Matías Garibotti
  */

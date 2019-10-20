@@ -73,7 +73,13 @@ public class SQLQueries extends ConexionDB {
                     /*
                     * Asigno a cada posición del registro los datos que le corresponden.
                      */
-                    Registro[i] = rs.getString(atributos[i]);
+                    if(i>3&&i<6){
+                        if(rs.getString(atributos[i]).equalsIgnoreCase("1"))
+                            Registro[i]="Sí";
+                        else
+                            Registro[i]="No";
+                    }else
+                        Registro[i] = rs.getString(atributos[i]);
                     NR++;
                 }
 
