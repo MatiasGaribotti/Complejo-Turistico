@@ -282,13 +282,28 @@ public class CabannaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_checkParrilleroActionPerformed
 
     public void getInput() {
-        this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());
-        this.cntCamas = Byte.parseByte(fieldCntCamas.getText());
-        this.cntBannos = Byte.parseByte(fieldCntBannos.getText());
-        this.descripcion = txtDescripcion.getText();
+        if(!fieldCntHabitaciones.getText().equals(""))
+            this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());
+        else
+            this.cntHabitaciones =1;
+        if(!"".equals(fieldCntCamas.getText()))
+            this.cntCamas = Byte.parseByte(fieldCntCamas.getText());
+        else
+            this.cntCamas =1;
+        if(!"".equals(fieldCntBannos.getText()))
+            this.cntBannos = Byte.parseByte(fieldCntBannos.getText());
+        else
+            this.cntBannos =0;
+        if(!"".equals(txtDescripcion.getText()))
+            this.descripcion = txtDescripcion.getText();
+        else
+            this.descripcion ="Sin descripción";
         this.aireAcondicionado = checkAireAcondicionado.isSelected();
         this.parrillero = checkParrillero.isSelected();
-        this.costoHour = Short.parseShort(fieldCostoHour.getText());
+        if(!"".equals(fieldCostoHour.getText()))
+            this.costoHour = Short.parseShort(fieldCostoHour.getText());
+        else
+            this.costoHour =250;
 
     }
 
