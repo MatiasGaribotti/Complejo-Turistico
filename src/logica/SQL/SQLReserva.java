@@ -59,5 +59,36 @@ public class SQLReserva extends ConexionDB {
             }
         }
     }
+    
+    public boolean cancelar(Reserva res) {
+        //Nueva conexión
+        Connection con = conectar();
+        
+        /*
+          Sentencia SQL. Por temas de seguridad se utilizan los ? 
+        */
+        sSQL = "UPDATE Reservas SET confirmada=? WHERE id=?";
+        
+        
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+            
+            pst.setBoolean(1, true);
+            pst.setInt(2,res.getCodigoReserva());
+            pst.execute();
+            return true;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+            
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
 
 }
