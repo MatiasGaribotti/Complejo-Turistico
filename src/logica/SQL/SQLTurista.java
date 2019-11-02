@@ -3,8 +3,11 @@ package logica.SQL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logica.Turista;
 
 /**
@@ -63,6 +66,57 @@ public class SQLTurista extends ConexionDB {
 
             }
         }
+    }
+    public  DefaultTableModel selectHistory() {
+
+        String[] headers = {"CI", "Código", "Fecha Inicio", "Fecha Fin"};
+        String[] Registro = new String[4];
+        NR = 0;
+
+        //Creo el modelo sin datos y le paso las cabeceras.
+        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+
+        Connection con = conectar();
+
+        sSQL = "SELECT T.ci,R.codigoReserva,R.fechaInicio,R.fechaFin "
+                + "FROM `Turistas` AS T,`Reservas` AS R WHERE `T`.`ci`=`R`.`ci` AND `R`.`cancelada`=0  ORDER BY `fechaInicio`";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("ci");
+                Registro[1] = rs.getString("codigoReserva");
+                Registro[2] = rs.getString("fechaInicio");
+                Registro[3] = rs.getString("fechaFin");
+
+                //Agrego los datos obtenidos al modelo
+                modelo.addRow(Registro);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+
+        return modelo;
+
     }
 
 }
