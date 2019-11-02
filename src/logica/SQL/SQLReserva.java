@@ -1,6 +1,7 @@
 package logica.SQL;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,16 @@ import logica.Reserva;
 public class SQLReserva extends ConexionDB {
 
     String sSQL;
-    public short NR; //Number of Records
-
+    
+    //Función a la que llamaremos cuando se intente modificar o cancelar alguna reserva
+    public boolean aviseConTiempo(Date fechaAModificar){
+        boolean aviso=true;
+        Date fecAct;
+        fecAct=new Date();
+        if(fechaAModificar.getMonth()==fecAct.getMonth()&&(fechaAModificar.getDay()==(fecAct.getDay()-2)))
+            aviso=false;
+        return aviso;
+    }
     
     /**
      * Este método ingresa una nueva reserva a la base de datos.
@@ -97,7 +106,6 @@ public class SQLReserva extends ConexionDB {
 
         String[] headers = {"Código", "ID", "Fecha Inicio", "Fecha Fin", "CI"};
         String[] Registro = new String[5];
-        NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers);

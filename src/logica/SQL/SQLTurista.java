@@ -69,8 +69,8 @@ public class SQLTurista extends ConexionDB {
     }
     public  DefaultTableModel selectHistory() {
 
-        String[] headers = {"CI", "Código", "Fecha Inicio", "Fecha Fin"};
-        String[] Registro = new String[4];
+        String[] headers = {"CI", "Código","ID", "Fecha Inicio", "Fecha Fin"};
+        String[] Registro = new String[5];
         NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
@@ -78,7 +78,7 @@ public class SQLTurista extends ConexionDB {
 
         Connection con = conectar();
 
-        sSQL = "SELECT T.ci,R.codigoReserva,R.fechaInicio,R.fechaFin "
+        sSQL = "SELECT T.ci,R.codigoReserva,R.idCabanna,R.fechaInicio,R.fechaFin "
                 + "FROM `Turistas` AS T,`Reservas` AS R WHERE `T`.`ci`=`R`.`ci` AND `R`.`cancelada`=0  ORDER BY `fechaInicio`";
 
         try {
@@ -95,8 +95,9 @@ public class SQLTurista extends ConexionDB {
 
                 Registro[0] = rs.getString("ci");
                 Registro[1] = rs.getString("codigoReserva");
-                Registro[2] = rs.getString("fechaInicio");
-                Registro[3] = rs.getString("fechaFin");
+                Registro[2] = rs.getString("idCabanna");
+                Registro[3] = rs.getString("fechaInicio");
+                Registro[4] = rs.getString("fechaFin");
 
                 //Agrego los datos obtenidos al modelo
                 modelo.addRow(Registro);
