@@ -5,6 +5,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLCabanna;
+import logica.SQL.SQLReserva;
+import logica.SQL.SQLTurista;
 
 public class Herramientas extends javax.swing.JPanel {
 
@@ -49,6 +51,8 @@ public class Herramientas extends javax.swing.JPanel {
         cmbFilter = new javax.swing.JComboBox<>();
         btnEliminar = new javax.swing.JLabel();
         btnModificar = new javax.swing.JLabel();
+        btnCanceladas = new javax.swing.JButton();
+        btnHistory = new javax.swing.JButton();
         panelOrdenar = new javax.swing.JPanel();
         btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
@@ -111,6 +115,22 @@ public class Herramientas extends javax.swing.JPanel {
             }
         });
         panelBuscar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 30, -1));
+
+        btnCanceladas.setText("Canceladas");
+        btnCanceladas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCanceladasActionPerformed(evt);
+            }
+        });
+        panelBuscar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 90, 20));
+
+        btnHistory.setText("HISTÓRICO");
+        btnHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoryActionPerformed(evt);
+            }
+        });
+        panelBuscar.add(btnHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 90, 20));
 
         add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
 
@@ -246,10 +266,24 @@ public class Herramientas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnModificarMouseClicked
 
+    private void btnCanceladasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanceladasActionPerformed
+        SQLReserva sqlReserva = new SQLReserva();
+        DefaultTableModel busqueda = sqlReserva.selectCanceladas();
+        Index.paintTabla(busqueda, view);
+    }//GEN-LAST:event_btnCanceladasActionPerformed
+
+    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
+        SQLTurista sqlTurista = new SQLTurista();
+        DefaultTableModel busqueda = sqlTurista.selectHistory();
+        Index.paintTabla(busqueda, view);
+    }//GEN-LAST:event_btnHistoryActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
+    private javax.swing.JButton btnCanceladas;
     private javax.swing.JLabel btnEliminar;
+    private volatile javax.swing.JButton btnHistory;
     private javax.swing.JLabel btnModificar;
     private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
