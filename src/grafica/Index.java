@@ -324,29 +324,33 @@ public class Index extends javax.swing.JFrame {
 
     public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def) { //Va a setear el modelo por defecto del combo box del sort
         Def = new DefaultComboBoxModel();
-        if (view.equals("TURISTAS")) {
-            Def.addElement("CI");
-            Def.addElement("Nombre");
-            Def.addElement("Apellido");
-            Def.addElement("Fecha Nacimiento");
-            Def.addElement("Teléfono");
-        } else if (view.equals("CABANNAS")) {
-            Def.addElement("ID");
-            Def.addElement("Nº Habitaciones");
-            Def.addElement("Nº Camas");
-            Def.addElement("Nº Baños");
-            Def.addElement("Nº Huéspedes");
-            Def.addElement("Aire Acon.");
-            Def.addElement("Parrillero");
-            Def.addElement("Costo Hr.");
-        } else {
-            Def.addElement("Código");
-            Def.addElement("Fecha Inicio");
-            Def.addElement("Fecha Fin");
-            Def.addElement("Confirmada");
-            Def.addElement("Cancelada");
-            Def.addElement("CI");
-            Def.addElement("ID");
+        switch (view) {
+            case "TURISTAS":
+                Def.addElement("CI");
+                Def.addElement("Nombre");
+                Def.addElement("Apellido");
+                Def.addElement("Fecha Nacimiento");
+                Def.addElement("Teléfono");
+                break;
+            case "CABANNAS":
+                Def.addElement("ID");
+                Def.addElement("Nº Habitaciones");
+                Def.addElement("Nº Camas");
+                Def.addElement("Nº Baños");
+                Def.addElement("Nº Huéspedes");
+                Def.addElement("Aire Acon.");
+                Def.addElement("Parrillero");
+                Def.addElement("Costo Hr.");
+                break;
+            default:
+                Def.addElement("Código");
+                Def.addElement("Fecha Inicio");
+                Def.addElement("Fecha Fin");
+                Def.addElement("Confirmada");
+                Def.addElement("Cancelada");
+                Def.addElement("CI");
+                Def.addElement("ID");
+                break;
         }
         return Def;
     }
@@ -366,6 +370,11 @@ public class Index extends javax.swing.JFrame {
     public static void paintIngreso(CabannaPanel cabanna) {
         cabanna.setFields(cabanna.getId());
         paintPanel(cabanna, layerIngresos);
+        
+    }
+    public static void paintIngreso(Reservar res) {
+        res.setFields(res.getCodigoReserva());
+        paintPanel(res, layerIngresos);
         
     }
     
