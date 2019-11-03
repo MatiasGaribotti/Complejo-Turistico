@@ -49,8 +49,6 @@ public class Herramientas extends javax.swing.JPanel {
         fieldPattern = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
-        btnEliminar = new javax.swing.JLabel();
-        btnModificar = new javax.swing.JLabel();
         btnCanceladas = new javax.swing.JButton();
         btnHistory = new javax.swing.JButton();
         panelOrdenar = new javax.swing.JPanel();
@@ -84,7 +82,7 @@ public class Herramientas extends javax.swing.JPanel {
                 btnBuscarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 30, -1));
+        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 30, -1));
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
@@ -96,33 +94,13 @@ public class Herramientas extends javax.swing.JPanel {
         });
         panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 120, -1));
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete.png"))); // NOI18N
-        btnEliminar.setLabelFor(this);
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEliminarMouseClicked(evt);
-            }
-        });
-        panelBuscar.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 30, -1));
-
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit.png"))); // NOI18N
-        btnModificar.setLabelFor(this);
-        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnModificarMouseClicked(evt);
-            }
-        });
-        panelBuscar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 30, -1));
-
         btnCanceladas.setText("Canceladas");
         btnCanceladas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanceladasActionPerformed(evt);
             }
         });
-        panelBuscar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 90, 20));
+        panelBuscar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 110, 20));
 
         btnHistory.setText("HISTÓRICO");
         btnHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +108,7 @@ public class Herramientas extends javax.swing.JPanel {
                 btnHistoryActionPerformed(evt);
             }
         });
-        panelBuscar.add(btnHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 90, 20));
+        panelBuscar.add(btnHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 100, 20));
 
         add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
 
@@ -215,65 +193,16 @@ public class Herramientas extends javax.swing.JPanel {
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnBuscarMouseClicked
 
-    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        // TODO add your handling code here:
-        String patron = fieldPattern.getText();
-
-        if (view.equals("CABANNAS")) {
-            try {
-                SQLCabanna sqlCabannas = new SQLCabanna();
-                boolean resultado = sqlCabannas.eliminar(Short.parseShort(patron));
-                DefaultTableModel modelo = sqlCabannas.select("", "id");
-                Index.paintTabla(modelo, view);
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Debe insertar un id");
-            }
-        }
-    }//GEN-LAST:event_btnEliminarMouseClicked
-
-    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-        String patron = fieldPattern.getText();
-
-        if (view.equals("CABANNAS")) {
-            SQLCabanna sqlCabannas = new SQLCabanna();
-            String[] datos = sqlCabannas.select(patron);
-
-            short id = Short.parseShort(datos[0]);
-            byte habitaciones = (Byte.parseByte(datos[1]) );
-            byte camas = (Byte.parseByte(datos[2]));
-            byte bannos = (Byte.parseByte(datos[3]));
-            boolean aireAcondicionado;
-            
-            if (datos[4].equals("1"))
-                aireAcondicionado = true;
-            else
-                aireAcondicionado = false;
-            
-            boolean parrillero;
-            
-            if (datos[5].equals("1"))
-                parrillero = true;
-            else
-                parrillero = false;
-            
-            short costo = Short.parseShort(datos[6]);
-            
-            String descripcion = datos[7];
-            
-            Index.paintIngreso(new CabannaPanel(id,habitaciones, camas, bannos, descripcion, aireAcondicionado, parrillero, costo, "MODIFICAR"));
-
-        }
-    }//GEN-LAST:event_btnModificarMouseClicked
-
     private void btnCanceladasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanceladasActionPerformed
         SQLReserva sqlReserva = new SQLReserva();
+        this.view = "RESERVAS_CANCELADAS";
         DefaultTableModel busqueda = sqlReserva.selectCanceladas();
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnCanceladasActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
         SQLTurista sqlTurista = new SQLTurista();
+        this.view = "RESERVAS_HISTORY";
         DefaultTableModel busqueda = sqlTurista.selectHistory();
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnHistoryActionPerformed
@@ -282,9 +211,7 @@ public class Herramientas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnCanceladas;
-    private javax.swing.JLabel btnEliminar;
     private volatile javax.swing.JButton btnHistory;
-    private javax.swing.JLabel btnModificar;
     private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;

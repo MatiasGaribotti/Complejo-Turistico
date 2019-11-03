@@ -247,6 +247,7 @@ public class Index extends javax.swing.JFrame {
         Herramienta.buildHerramientas(modeloDef, modeloDefSort);
         
         paintPanel(Herramienta, layerHerramientas);
+        paintTabla("RESERVAS");
     }//GEN-LAST:event_btnReservasMousePressed
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed

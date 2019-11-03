@@ -106,14 +106,14 @@ public class SQLReserva extends ConexionDB {
     }
     
     public DefaultTableModel select() {
-        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "", ""}; //Dos columnas vacías para botones
-        String[] Registro = new String[headers.length+2];
+        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin","CheckIn", "", ""}; //Dos columnas vacías para botones
+        String[] Registro = new String[headers.length];
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
         
         Connection con = conectar();
         
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin "
-                + "FROM 'reservas' WHERE 'Cancelada'=0 ORDER BY fechaInicio";
+        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
+                + "FROM reservas WHERE cancelada=0 ORDER BY fechaInicio";
         
         try {
             
@@ -133,8 +133,10 @@ public class SQLReserva extends ConexionDB {
                 Registro[2] = rs.getString("idCabanna");
                 Registro[3] = rs.getString("fechaInicio");
                 Registro[4] = rs.getString("fechaFin");
-                Registro[5] = "MODIFICAR";
-                Registro[6] = "ELIMINAR";
+                Registro[5] = rs.getString("confirmada");
+                
+                Registro[Registro.length-2] = "MODIFICAR";
+                Registro[Registro.length-1] = "ELIMINAR";
                 
                 //Agrego los datos obtenidos al modelo
                 modelo.addRow(Registro);
