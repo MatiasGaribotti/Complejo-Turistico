@@ -79,7 +79,7 @@ public class SQLTurista extends ConexionDB {
         Connection con = conectar();
 
         sSQL = "SELECT T.ci,R.codigoReserva,R.idCabanna,R.fechaInicio,R.fechaFin "
-                + "FROM `Turistas` AS T,`Reservas` AS R WHERE `T`.`ci`=`R`.`ci` AND `R`.`cancelada`=0  ORDER BY `fechaInicio`";
+                + "FROM `Turistas` AS T,`Reservas` AS R WHERE `T`.`ci`=`R`.`ci` AND `R`.`cancelada`=0 AND 'confirmada'=1  ORDER BY `fechaInicio`";
 
         try {
 

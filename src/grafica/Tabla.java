@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import logica.SQL.SQLCabanna;
 import logica.SQL.SQLReserva;
+import logica.SQL.SQLTurista;
 import utilidades.ManageCellsTable;
 import utilidades.ManageHeaderTable;
 
@@ -39,6 +40,11 @@ public class Tabla extends javax.swing.JPanel {
         styleTable();
         
     }
+    
+    public void changeSize(int width, int height){
+        this.setSize(width, height);
+        
+    }
             
     public DefaultTableModel buildModel() {
         /*
@@ -66,7 +72,8 @@ public class Tabla extends javax.swing.JPanel {
                 break;
 
             case "HISTORICO":
-
+                SQLTurista sqlTurista = new SQLTurista();
+                modelo = sqlTurista.selectHistory();
                 break;
 
             default:
@@ -123,21 +130,15 @@ public class Tabla extends javax.swing.JPanel {
                 }
  
                 break;
-                
-            case "HISTORY":
-                table.getColumnModel().getColumn(0).setMaxWidth(35);
-
-                for(int i=0; i < size; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
-                }
- 
-                break;
 
             case "TURISTAS":
 
                 break;
 
             case "HISTORICO":
+                for(int i=0; i < size; i++){
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                }
 
                 break;
 

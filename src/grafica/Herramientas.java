@@ -33,6 +33,87 @@ public class Herramientas extends javax.swing.JPanel {
         this.setSize(454, 145);
         cmbFilter.setModel(aModel);
         cmbSort.setModel(aModelSort);
+        
+    }
+    
+    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def) {
+        //Va a setear el modelo por defecto de los combo boxes
+        Def = new DefaultComboBoxModel();
+        switch (view) {
+            case "TURISTAS":
+                Def.addElement("CI");
+                Def.addElement("Nombre");
+                Def.addElement("Apellido");
+                Def.addElement("Fecha Nacimiento");
+                Def.addElement("Teléfono");
+                Def.addElement("Calle");
+                Def.addElement("Número");
+                Def.addElement("Localidad");
+                break;
+            case "CABANNAS":
+                Def.addElement("ID");
+                Def.addElement("Nº Habitaciones");
+                Def.addElement("Nº Camas");
+                Def.addElement("Nº Baños");
+                Def.addElement("Nº Huéspedes");
+                Def.addElement("Descripción");
+                Def.addElement("Aire Acon.");
+                Def.addElement("Parrillero");
+                Def.addElement("Costo Hr.");
+                break;
+            default:
+                Def.addElement("Código");
+                Def.addElement("Fecha Inicio");
+                Def.addElement("Fecha Fin");
+                Def.addElement("Confirmada");
+                Def.addElement("Cancelada");
+                Def.addElement("CI");
+                Def.addElement("ID");
+        }
+        return Def;
+    }
+
+    public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def) { //Va a setear el modelo por defecto del combo box del sort
+        Def = new DefaultComboBoxModel();
+        if (view.equals("TURISTAS")) {
+            Def.addElement("CI");
+            Def.addElement("Nombre");
+            Def.addElement("Apellido");
+            Def.addElement("Fecha Nacimiento");
+            Def.addElement("Teléfono");
+        } else if (view.equals("CABANNAS")) {
+            Def.addElement("ID");
+            Def.addElement("Nº Habitaciones");
+            Def.addElement("Nº Camas");
+            Def.addElement("Nº Baños");
+            Def.addElement("Nº Huéspedes");
+            Def.addElement("Aire Acon.");
+            Def.addElement("Parrillero");
+            Def.addElement("Costo Hr.");
+        } else {
+            Def.addElement("Código");
+            Def.addElement("Fecha Inicio");
+            Def.addElement("Fecha Fin");
+            Def.addElement("Confirmada");
+            Def.addElement("Cancelada");
+            Def.addElement("CI");
+            Def.addElement("ID");
+        }
+        return Def;
+    }
+    
+
+    
+    public void horizontalView(){
+        this.setSize(940, panelBuscar.getHeight());
+        panelBuscar.setLocation(0, 0);
+        panelOrdenar.setSize(this.getWidth(), panelBuscar.getHeight());
+        lblOrdenar.setLocation(10, (panelOrdenar.getHeight()/2)-lblOrdenar.getHeight());
+        cmbSort.setLocation(lblOrdenar.getLocation().x + lblOrdenar.getWidth()+10, (panelOrdenar.getHeight()/2)-cmbSort.getHeight());
+        btnSort.setLocation(cmbSort.getLocation().x + cmbSort.getWidth()+10, (panelOrdenar.getHeight()/2) - btnSort.getHeight());
+        cmbSort.updateUI();
+        panelOrdenar.setLocation(panelBuscar.getWidth()+10,0);
+        this.repaint();
     }
 
     /**
@@ -57,12 +138,12 @@ public class Herramientas extends javax.swing.JPanel {
         cmbSort = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(null);
 
         panelBuscar.setBackground(new java.awt.Color(236, 235, 255));
         panelBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(204, 204, 204)));
         panelBuscar.setPreferredSize(new java.awt.Dimension(100, 83));
-        panelBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelBuscar.setLayout(null);
 
         lblBuscar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblBuscar.setForeground(new java.awt.Color(43, 41, 41));
@@ -70,10 +151,12 @@ public class Herramientas extends javax.swing.JPanel {
         lblBuscar.setMaximumSize(new java.awt.Dimension(46, 21));
         lblBuscar.setMinimumSize(new java.awt.Dimension(46, 21));
         lblBuscar.setPreferredSize(new java.awt.Dimension(46, 21));
-        panelBuscar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 20));
+        panelBuscar.add(lblBuscar);
+        lblBuscar.setBounds(10, 10, 50, 20);
 
         fieldPattern.setPreferredSize(new java.awt.Dimension(144, 21));
-        panelBuscar.add(fieldPattern, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+        panelBuscar.add(fieldPattern);
+        fieldPattern.setBounds(70, 10, 144, 21);
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnSearch.png"))); // NOI18N
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -82,7 +165,8 @@ public class Herramientas extends javax.swing.JPanel {
                 btnBuscarMouseClicked(evt);
             }
         });
-        panelBuscar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 30, -1));
+        panelBuscar.add(btnBuscar);
+        btnBuscar.setBounds(360, 10, 30, 26);
 
         cmbFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbFilter.setForeground(new java.awt.Color(43, 41, 41));
@@ -92,7 +176,8 @@ public class Herramientas extends javax.swing.JPanel {
                 cmbFilterActionPerformed(evt);
             }
         });
-        panelBuscar.add(cmbFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 120, -1));
+        panelBuscar.add(cmbFilter);
+        cmbFilter.setBounds(230, 10, 120, 21);
 
         btnCanceladas.setText("Canceladas");
         btnCanceladas.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +185,8 @@ public class Herramientas extends javax.swing.JPanel {
                 btnCanceladasActionPerformed(evt);
             }
         });
-        panelBuscar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 110, 20));
+        panelBuscar.add(btnCanceladas);
+        btnCanceladas.setBounds(10, 50, 110, 20);
 
         btnHistory.setText("HISTÓRICO");
         btnHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -108,18 +194,21 @@ public class Herramientas extends javax.swing.JPanel {
                 btnHistoryActionPerformed(evt);
             }
         });
-        panelBuscar.add(btnHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 100, 20));
+        panelBuscar.add(btnHistory);
+        btnHistory.setBounds(130, 50, 100, 20);
 
-        add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 454, -1));
+        add(panelBuscar);
+        panelBuscar.setBounds(0, 0, 454, 83);
 
         panelOrdenar.setBackground(new java.awt.Color(236, 235, 255));
         panelOrdenar.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(204, 204, 204)));
         panelOrdenar.setPreferredSize(new java.awt.Dimension(454, 59));
-        panelOrdenar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelOrdenar.setLayout(null);
 
         btnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnOrdenar.png"))); // NOI18N
         btnSort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelOrdenar.add(btnSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+        panelOrdenar.add(btnSort);
+        btnSort.setBounds(320, 10, 111, 22);
 
         lblOrdenar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblOrdenar.setForeground(new java.awt.Color(43, 41, 41));
@@ -127,7 +216,8 @@ public class Herramientas extends javax.swing.JPanel {
         lblOrdenar.setMaximumSize(new java.awt.Dimension(46, 21));
         lblOrdenar.setMinimumSize(new java.awt.Dimension(46, 21));
         lblOrdenar.setPreferredSize(new java.awt.Dimension(46, 21));
-        panelOrdenar.add(lblOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
+        panelOrdenar.add(lblOrdenar);
+        lblOrdenar.setBounds(10, 10, 100, 20);
 
         cmbSort.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cmbSort.setForeground(new java.awt.Color(43, 41, 41));
@@ -137,9 +227,11 @@ public class Herramientas extends javax.swing.JPanel {
                 cmbSortActionPerformed(evt);
             }
         });
-        panelOrdenar.add(cmbSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 160, -1));
+        panelOrdenar.add(cmbSort);
+        cmbSort.setBounds(150, 10, 160, 21);
 
-        add(panelOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
+        add(panelOrdenar);
+        panelOrdenar.setBounds(0, 100, 454, 59);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSortActionPerformed

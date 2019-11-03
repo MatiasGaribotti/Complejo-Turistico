@@ -1,11 +1,14 @@
 package grafica;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,15 +26,16 @@ public class Index extends javax.swing.JFrame {
     Herramientas Herramienta;
     DefaultComboBoxModel modeloDef;
     DefaultComboBoxModel modeloDefSort;
+    private JLayeredPane layerHerramientasHistory = new JLayeredPane();
+    private JLayeredPane layerTablaHistory = new JLayeredPane();
+    
+    JPanel contentHistory = new JPanel();
 
     public Index() {
         setCurrentView("CABANNAS");
     }
     
-    public void buildIndex(){
-        modeloDef = camposComboB(currentView, modeloDefSort);
-        modeloDefSort = camposSort(currentView, modeloDefSort);
-        
+    public void buildIndex(){       
         initComponents();
         
         this.setSize(1200, 768);
@@ -40,6 +44,8 @@ public class Index extends javax.swing.JFrame {
         paintPanel(new CabannaPanel(), layerIngresos);
         
         Herramienta = new Herramientas(currentView);
+        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
+        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
         Herramienta.buildHerramientas(modeloDef, modeloDefSort);
         
         paintPanel(Herramienta, layerHerramientas);   
@@ -67,8 +73,6 @@ public class Index extends javax.swing.JFrame {
         iconCabanna = new javax.swing.JLabel();
         btnCabannas = new javax.swing.JLabel();
         ui_btnCabannas = new javax.swing.JLabel();
-        btnTuristas = new javax.swing.JLabel();
-        ui_btnTuristas = new javax.swing.JLabel();
         btnCalendario = new javax.swing.JLabel();
         iconCalendario = new javax.swing.JLabel();
         ui_btnCalendario = new javax.swing.JLabel();
@@ -88,7 +92,7 @@ public class Index extends javax.swing.JFrame {
         setName("frame"); // NOI18N
         setUndecorated(true);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
@@ -130,32 +134,23 @@ public class Index extends javax.swing.JFrame {
         ui_btnCabannas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
         sideBar.add(ui_btnCabannas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 240, -1));
 
-        btnTuristas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
-        btnTuristas.setForeground(new java.awt.Color(255, 255, 255));
-        btnTuristas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnTuristas.setText("Turistas");
-        btnTuristas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnTuristasMousePressed(evt);
-            }
-        });
-        sideBar.add(btnTuristas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 40));
-
-        ui_btnTuristas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnTuristas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, -1));
-
         btnCalendario.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCalendario.setForeground(new java.awt.Color(255, 255, 255));
         btnCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCalendario.setText("Calendario");
-        sideBar.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, 40));
+        btnCalendario.setText("Histórico");
+        btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCalendarioMousePressed(evt);
+            }
+        });
+        sideBar.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 40));
 
         iconCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_calendario.png"))); // NOI18N
-        sideBar.add(iconCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 40, 40));
+        sideBar.add(iconCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 40, 40));
 
         ui_btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, -1));
+        sideBar.add(ui_btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, -1));
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,7 +163,8 @@ public class Index extends javax.swing.JFrame {
         UI_sideBar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         sideBar.add(UI_sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 770));
 
-        getContentPane().add(sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 770));
+        getContentPane().add(sideBar);
+        sideBar.setBounds(0, 0, 240, 770);
 
         topBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -197,19 +193,22 @@ public class Index extends javax.swing.JFrame {
         ui_topBar.setPreferredSize(new java.awt.Dimension(610, 35));
         topBar.add(ui_topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 30));
 
-        getContentPane().add(topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 960, -1));
+        getContentPane().add(topBar);
+        topBar.setBounds(240, 0, 960, 30);
 
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, null, java.awt.Color.lightGray));
-        content.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        content.setLayout(null);
 
         layerIngresos.setPreferredSize(new java.awt.Dimension(483, 402));
         layerIngresos.setLayout(new java.awt.CardLayout());
-        content.add(layerIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        content.add(layerIngresos);
+        layerIngresos.setBounds(10, 0, 483, 402);
 
         layerHerramientas.setPreferredSize(new java.awt.Dimension(454, 145));
         layerHerramientas.setLayout(new java.awt.CardLayout());
-        content.add(layerHerramientas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, -1));
+        content.add(layerHerramientas);
+        layerHerramientas.setBounds(500, 250, 454, 145);
 
         layerTabla.setPreferredSize(new java.awt.Dimension(936, 286));
 
@@ -224,9 +223,11 @@ public class Index extends javax.swing.JFrame {
             .addGap(0, 320, Short.MAX_VALUE)
         );
 
-        content.add(layerTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 410, 950, 320));
+        content.add(layerTabla);
+        layerTabla.setBounds(6, 410, 950, 320);
 
-        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 960, 740));
+        getContentPane().add(content);
+        content.setBounds(240, 30, 960, 740);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,13 +238,13 @@ public class Index extends javax.swing.JFrame {
 
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         setCurrentView("RESERVAS");
+        resetView();
         
         paintPanel(new Reservar(), layerIngresos);
-        
-        modeloDef = camposComboB(this.getCurrentView(), modeloDef);
-        modeloDefSort = camposSort(this.getCurrentView(), modeloDefSort);
-        
+               
         Herramienta = new Herramientas(this.getCurrentView());
+        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
+        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
         Herramienta.buildHerramientas(modeloDef, modeloDefSort);
         
         paintPanel(Herramienta, layerHerramientas);
@@ -252,14 +253,14 @@ public class Index extends javax.swing.JFrame {
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         setCurrentView("CABANNAS");
+        resetView();
         
         paintPanel(new CabannaPanel(), layerIngresos);
         Index.paintTabla(getCurrentView());
-        
-        modeloDef = camposComboB(currentView, modeloDef);
-        modeloDefSort = camposSort(currentView, modeloDefSort);
-        
+                
         Herramienta = new Herramientas(this.getCurrentView());
+        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
+        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
         Herramienta.buildHerramientas(modeloDef, modeloDefSort);
         
         paintPanel(Herramienta, layerHerramientas);
@@ -269,10 +270,60 @@ public class Index extends javax.swing.JFrame {
         this.setState(Frame.ICONIFIED);
     }//GEN-LAST:event_ui_DisposeMousePressed
 
-    private void btnTuristasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTuristasMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTuristasMousePressed
+    private void btnCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMousePressed
+        this.currentView = "HISTORICO";
+        setupHistorico();
+        
+    }//GEN-LAST:event_btnCalendarioMousePressed
 
+    public void setupHistorico(){
+        layerHerramientas.setVisible(false);
+        layerIngresos.setVisible(false);
+        layerTabla.setVisible(false);
+        layerTabla.setEnabled(false);
+        
+        content.add(contentHistory);
+        
+        contentHistory.setLayout(null);
+        contentHistory.setBounds(0,0,content.getWidth(),content.getHeight());
+        contentHistory.setVisible(true);
+        contentHistory.setBackground(Color.WHITE);
+        JLabel lblTituloHistory = new JLabel("Histórico");
+        contentHistory.add(lblTituloHistory);
+        lblTituloHistory.setSize(300,30);
+        lblTituloHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloHistory.setLocation((contentHistory.getWidth()/2) - lblTituloHistory.getWidth(), 10);
+        lblTituloHistory.setFont(new java.awt.Font("Segoe UI Bold", 0, 30));
+        lblTituloHistory.setVisible(true);
+        
+        layerHerramientasHistory.setBounds(10, 50, 940, 85);
+        Herramientas panel = new Herramientas();
+        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
+        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
+        panel.buildHerramientas(modeloDef, modeloDefSort);
+        
+        layerHerramientasHistory.add(panel);
+        contentHistory.add(layerHerramientasHistory);
+        panel.horizontalView();
+        
+        layerTablaHistory.setBounds(10, layerHerramientasHistory.getLocation().y + layerHerramientasHistory.getHeight() + 10, 940, contentHistory.getHeight() - layerHerramientasHistory.getHeight() - 50 -10);
+        Tabla tabla = new Tabla("HISTORICO");
+        tabla.setVisible(true);
+        tabla.buildTable();
+        
+        tabla.changeSize(layerTablaHistory.getWidth(), layerTablaHistory.getHeight()-20);
+        layerTablaHistory.add(tabla);
+        contentHistory.add(layerTablaHistory);
+        contentHistory.repaint();
+    }
+    
+    public void resetView(){
+        contentHistory.setVisible(false);
+        contentHistory.removeAll();
+        layerIngresos.setVisible(true);
+        layerHerramientas.setVisible(true);
+        layerTabla.setVisible(true);
+    }
     public Color textHint = new Color(212, 212, 212);
 
     public void textHint(String txt, JTextField obj) { //Procedimiento para textHints
@@ -285,71 +336,7 @@ public class Index extends javax.swing.JFrame {
         }
     }
 
-    public DefaultComboBoxModel camposComboB(String view, DefaultComboBoxModel Def) {
-        //Va a setear el modelo por defecto de los combo boxes
-        Def = new DefaultComboBoxModel();
-        switch (view) {
-            case "TURISTAS":
-                Def.addElement("CI");
-                Def.addElement("Nombre");
-                Def.addElement("Apellido");
-                Def.addElement("Fecha Nacimiento");
-                Def.addElement("Teléfono");
-                Def.addElement("Calle");
-                Def.addElement("Número");
-                Def.addElement("Localidad");
-                break;
-            case "CABANNAS":
-                Def.addElement("ID");
-                Def.addElement("Nº Habitaciones");
-                Def.addElement("Nº Camas");
-                Def.addElement("Nº Baños");
-                Def.addElement("Nº Huéspedes");
-                Def.addElement("Descripción");
-                Def.addElement("Aire Acon.");
-                Def.addElement("Parrillero");
-                Def.addElement("Costo Hr.");
-                break;
-            default:
-                Def.addElement("Código");
-                Def.addElement("Fecha Inicio");
-                Def.addElement("Fecha Fin");
-                Def.addElement("Confirmada");
-                Def.addElement("Cancelada");
-                Def.addElement("CI");
-                Def.addElement("ID");
-        }
-        return Def;
-    }
-
-    public DefaultComboBoxModel camposSort(String view, DefaultComboBoxModel Def) { //Va a setear el modelo por defecto del combo box del sort
-        Def = new DefaultComboBoxModel();
-        if (view.equals("TURISTAS")) {
-            Def.addElement("CI");
-            Def.addElement("Nombre");
-            Def.addElement("Apellido");
-            Def.addElement("Fecha Nacimiento");
-            Def.addElement("Teléfono");
-        } else if (view.equals("CABANNAS")) {
-            Def.addElement("ID");
-            Def.addElement("Nº Habitaciones");
-            Def.addElement("Nº Camas");
-            Def.addElement("Nº Baños");
-            Def.addElement("Nº Huéspedes");
-            Def.addElement("Aire Acon.");
-            Def.addElement("Parrillero");
-            Def.addElement("Costo Hr.");
-        } else {
-            Def.addElement("Código");
-            Def.addElement("Fecha Inicio");
-            Def.addElement("Fecha Fin");
-            Def.addElement("Confirmada");
-            Def.addElement("Cancelada");
-            Def.addElement("CI");
-            Def.addElement("ID");
-        }
-        return Def;
-    }
+    
 
     public static void paintTabla(String view) {
         Tabla tabla = new Tabla(view);
@@ -391,7 +378,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel btnCabannas;
     private javax.swing.JLabel btnCalendario;
     private javax.swing.JLabel btnReservas;
-    private javax.swing.JLabel btnTuristas;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
     private javax.swing.JLabel iconCalendario;
@@ -407,7 +393,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_btnCabannas;
     private javax.swing.JLabel ui_btnCalendario;
     private javax.swing.JLabel ui_btnReservas;
-    private javax.swing.JLabel ui_btnTuristas;
     private javax.swing.JLabel ui_topBar;
     // End of variables declaration//GEN-END:variables
 }
