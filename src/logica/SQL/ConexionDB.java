@@ -9,7 +9,7 @@ public class ConexionDB {
     public String url="jdbc:mysql://localhost:3306/" + dataBase; //la direción de phpmyadmin
     public String user="root"; //para el login en la DB
     public String pass=""; //contraseña 
-    public Connection conectar(){
+    public Connection conectar(String usuario, String motDePasse){
         Connection enlace=null; 
         try {
             Class.forName("org.gjt.mm.mysql.Driver"); //Se selecciona el Driver de la DB

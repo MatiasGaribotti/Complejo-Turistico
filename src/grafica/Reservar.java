@@ -14,6 +14,11 @@ public class Reservar extends javax.swing.JPanel {
         initComponents();
 
     }
+    public Reservar(int codigo, String accion){
+        initComponents();
+        this.codigoReserva = codigo;
+        this.accion = accion;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -331,7 +336,7 @@ public class Reservar extends javax.swing.JPanel {
 
             SQLReserva sReserva = new SQLReserva();
 
-            int codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
+            codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
             Reserva reserva = new Reserva(codigoReserva, fechaInicio, fechaFin, false, false, ci, idCabanna);
 
             boolean consultaRes = sReserva.insertar(reserva);
@@ -375,6 +380,7 @@ public class Reservar extends javax.swing.JPanel {
         fieldCabanna.transferFocus();
     }//GEN-LAST:event_fieldCabannaActionPerformed
 
+    private int codigoReserva;
     private int ci;
     private String nombre;
     private String apellido;
@@ -386,6 +392,63 @@ public class Reservar extends javax.swing.JPanel {
     private short idCabanna; //FK
     private Date fechaInicio;
     private Date fechaFin;
+    private String accion;
+
+    public int getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(int codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
+
+    public int getCi() {
+        return ci;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public Date getFechaNac() {
+        return fechaNac;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setCi(int ci) {
+        this.ci = ci;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setFechaNac(Date fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
     public boolean getInput() {
         boolean valido = true; //Creo una variable booleana como bandera para informar si están los campos válidos
@@ -443,6 +506,17 @@ public class Reservar extends javax.swing.JPanel {
     public int getYear(String date) {
         int year = (Integer.parseInt(date.substring(6, 10)));
         return year;
+    }
+    
+    public void setFields(int codigo) {
+        SQLReserva sql = new SQLReserva();
+        String[] datos = sql.select(Integer.toString(codigo));
+        /*Acá tiene que estar la validación de las 48 horas*/
+        fieldCI.setText(datos[5]);
+        fieldCabanna.setText(datos[1]);
+        fieldFechaInicio.setText(datos[2]);
+        fieldFechaFin.setText(datos[3]);
+        
     }
 
 

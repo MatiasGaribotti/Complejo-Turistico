@@ -336,8 +336,6 @@ public class Index extends javax.swing.JFrame {
         }
     }
 
-    
-
     public static void paintTabla(String view) {
         Tabla tabla = new Tabla(view);
         tabla.buildTable();
@@ -353,6 +351,11 @@ public class Index extends javax.swing.JFrame {
     public static void paintIngreso(CabannaPanel cabanna) {
         cabanna.setFields(cabanna.getId());
         paintPanel(cabanna, layerIngresos);
+        
+    }
+    public static void paintIngreso(Reservar res) {
+        res.setFields(res.getCodigoReserva());
+        paintPanel(res, layerIngresos);
         
     }
     

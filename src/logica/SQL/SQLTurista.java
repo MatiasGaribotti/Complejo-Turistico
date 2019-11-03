@@ -29,7 +29,7 @@ public class SQLTurista extends ConexionDB {
      * @return Retorna si se ejecutó con éxito la consulta o no.
      */
     public boolean insertar(Turista tur) {
-        Connection con = conectar();
+        Connection con = conectar("root", "");
 
         sSQL = "INSERT INTO Turistas (ci, nombre, apellido, fechaNacimiento, telefonoMovil, calle, numero, localidad)"
                 + "VALUES (?,?,?,?,?,?,?,?)";
@@ -76,7 +76,7 @@ public class SQLTurista extends ConexionDB {
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
 
-        Connection con = conectar();
+        Connection con = conectar("root", "");
 
         sSQL = "SELECT T.ci,R.codigoReserva,R.idCabanna,R.fechaInicio,R.fechaFin "
                 + "FROM `Turistas` AS T,`Reservas` AS R WHERE `T`.`ci`=`R`.`ci` AND `R`.`cancelada`=0 AND 'confirmada'=1  ORDER BY `fechaInicio`";

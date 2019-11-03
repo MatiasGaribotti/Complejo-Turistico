@@ -217,7 +217,8 @@ public class Tabla extends javax.swing.JPanel {
             Index.paintIngreso(new CabannaPanel(id, "MODIFICAR"));
             
             }else if(view.equals("RESERVAS")){
-                
+                int codigo = Integer.parseInt(table.getModel().getValueAt(fila, 0).toString());
+                Index.paintIngreso(new Reservar(codigo, "MODIFICAR"));
             }
                 
         }else if (columna==table.getColumnModel().getColumnCount()-1){//se valida que sea la columna del otro evento

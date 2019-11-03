@@ -39,7 +39,7 @@ public class SQLQueries extends ConexionDB {
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
         
 
-        Connection con = conectar();
+        Connection con = conectar("root", "");
 
         for (int i = 0; i < atributos.length; i++) {
             sSQL = sSQL.concat(atributos[i]);

@@ -41,7 +41,7 @@ public class SQLReserva extends ConexionDB {
      */
     
     public boolean insertar(Reserva res) {
-        Connection con = conectar();
+        Connection con = conectar("root", "");
         sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, confirmada, cancelada, ci, idCabanna)"
                 + "VALUES (?,?,?,?,?,?,?)";
         try {
@@ -76,7 +76,7 @@ public class SQLReserva extends ConexionDB {
     
     public boolean cancelar(Reserva res) {
         //Nueva conexión
-        Connection con = conectar();
+        Connection con = conectar("root", "");
         
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
@@ -110,7 +110,7 @@ public class SQLReserva extends ConexionDB {
         String[] Registro = new String[headers.length];
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
         
-        Connection con = conectar();
+        Connection con = conectar("root", "");
         
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
                 + "FROM reservas WHERE cancelada=0 ORDER BY fechaInicio";
@@ -168,7 +168,7 @@ public class SQLReserva extends ConexionDB {
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
 
-        Connection con = conectar();
+        Connection con = conectar("root", "");
 
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin "
                 + "FROM `reservas` WHERE `Cancelada`=1  ORDER BY idCabanna";
@@ -209,6 +209,59 @@ public class SQLReserva extends ConexionDB {
         }
 
         return modelo;
+
+    }
+    public  String[] select(String codigo) {
+        String[] Registro = new String[6];
+
+        Connection con = conectar("root", "");
+
+        /*
+            Establezco la sentencia SQL a ejecutar ya aplicando el filtro
+        */
+        sSQL = "SELECT codigoReserva,idCabanna,fechaInicio,fechaFin,confirmada,ci "
+                + "FROM reservas WHERE codigoReserva=" + codigo + "";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("codigoReserva");
+                Registro[1] = rs.getString("idCabanna");
+                Registro[2] = rs.getString("fechaInicio");
+                Registro[3] = rs.getString("fechaFin");
+                Registro[4] = rs.getString("confirmada");
+                Registro[5] = rs.getString("ci");
+                
+                if(Registro[4].equals("1"))
+                    Registro[4] = "Sí";
+                else
+                    Registro[4] = "No";
+
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+
+        return Registro;
 
     }
 
