@@ -27,6 +27,14 @@ public class CabannaPanel extends javax.swing.JPanel {
 
     private String accion;
 
+    public short getId() {
+        return id;
+    }
+
+    public void setId(short id) {
+        this.id = id;
+    }
+    
     public String getAccion() {
         return accion;
     }
@@ -106,6 +114,12 @@ public class CabannaPanel extends javax.swing.JPanel {
         this.aireAcondicionado = aireAcondicionado;
         this.parrillero = parrillero;
         this.costoHour = costoHour;
+        this.accion = accion;
+    }
+    
+    public CabannaPanel(short id, String accion){
+        initComponents();
+        this.id = id;
         this.accion = accion;
     }
 
@@ -241,7 +255,15 @@ public class CabannaPanel extends javax.swing.JPanel {
         SQLCabanna sCabanna = new SQLCabanna();
 
         if (accion.equals("MODIFICAR")) {
-            sCabanna.modificar(cabanna);
+            boolean complete = sCabanna.modificar(cabanna);
+            
+            if (complete) {
+                JOptionPane.showConfirmDialog(null, "Cabaña modificada correctamente");
+                Index.paintTabla("CABANNAS");
+                clearFields();
+            } else {
+                JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+            }
 
         } else {
             boolean complete = sCabanna.insertar(cabanna);
@@ -316,15 +338,28 @@ public class CabannaPanel extends javax.swing.JPanel {
         this.checkParrillero.setSelected(false);
         this.txtDescripcion.setText("");
     }
+    
+    public void setFields(short id) {
+        SQLCabanna sql = new SQLCabanna();
+        String[] datos = sql.select(Short.toString(id));
 
-    public void setFields() {
-        fieldCntHabitaciones.setText(Byte.toString(cntHabitaciones));
-        fieldCntCamas.setText(Byte.toString(cntCamas));
-        fieldCntBannos.setText(Byte.toString(cntBannos));
-        checkAireAcondicionado.setSelected(aireAcondicionado);
-        checkParrillero.setSelected(parrillero);
-        txtDescripcion.setText(descripcion);
-        fieldCostoHour.setText(Short.toString(costoHour));
+        fieldCntHabitaciones.setText(datos[1]);
+        fieldCntCamas.setText(datos[2]);
+        fieldCntBannos.setText(datos[3]);
+        
+        if(datos[4].equals("Sí"))
+            checkAireAcondicionado.setSelected(true);
+        else
+            checkAireAcondicionado.setSelected(false);
+        
+        if(datos[5].equals("Sí"))
+            checkParrillero.setSelected(true);
+        else
+            checkParrillero.setSelected(false);
+        
+        txtDescripcion.setText(datos[6]);
+        fieldCostoHour.setText(datos[7]);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -343,4 +378,5 @@ public class CabannaPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollDescripcion;
     public javax.swing.JTextArea txtDescripcion;
     // End of variables declaration//GEN-END:variables
+
 }

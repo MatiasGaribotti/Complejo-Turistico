@@ -363,9 +363,11 @@ public class Index extends javax.swing.JFrame {
     }
     
     public static void paintIngreso(CabannaPanel cabanna) {
-        cabanna.setFields();
+        cabanna.setFields(cabanna.getId());
         paintPanel(cabanna, layerIngresos);
+        
     }
+    
 
     public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
         lyrPane.removeAll();

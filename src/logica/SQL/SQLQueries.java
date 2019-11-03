@@ -32,11 +32,12 @@ public class SQLQueries extends ConexionDB {
     public DefaultTableModel customSelectQuery(String[] atributos, String dbTable, String[] headers) {
 
         sSQL = "SELECT ";
-        String[] Registro = new String[atributos.length];
+        String[] Registro = new String[atributos.length+2];
         NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        
 
         Connection con = conectar();
 
@@ -68,7 +69,7 @@ public class SQLQueries extends ConexionDB {
              */
             while (rs.next()) {
 
-                for (int i = 0; i < Registro.length; i++) {
+                for (int i = 0; i < Registro.length-2; i++) {
 
                     /*
                     * Asigno a cada posición del registro los datos que le corresponden.
@@ -82,6 +83,8 @@ public class SQLQueries extends ConexionDB {
                         Registro[i] = rs.getString(atributos[i]);
                     NR++;
                 }
+                Registro[Registro.length-2]="MODIFICAR";
+                Registro[Registro.length-1]="ELIMINAR";
 
                 //Agrego los datos obtenidos al modelo
                 modelo.addRow(Registro);
@@ -94,5 +97,4 @@ public class SQLQueries extends ConexionDB {
         return modelo;
 
     }
-
 }

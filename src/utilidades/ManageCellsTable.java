@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -58,7 +59,7 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
         //Algunos colores por defecto
         Color bgColor = null;
         Color bgColorDefault = new Color(192, 192, 192);
-        Color bgCOlorSelected = new Color(140, 140, 140);
+        Color bgColorSelected = new Color(140, 140, 140);
 
         /*
         * Si la celda del evento es la seleccionada se asigna el fondo por defecto para la selección.
@@ -79,7 +80,7 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
         if (tipo.equals("normal")) {
 
             if (focused) {
-                bgColor = bgCOlorSelected;
+                bgColor = bgColorSelected;
             } else {
                 bgColor = bgColorDefault;
             }
@@ -97,16 +98,19 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
 
             if (String.valueOf(value).equals("INFO_CABANNA")) {
                 label.setIcon(iconoInfo);
+                
+                
 
             }else if (String.valueOf(value).equals("MODIFICAR")) {
                 label.setIcon(iconoModificar);
+                
                 
             }else if (String.valueOf(value).equals("ELIMINAR")) {
                 label.setIcon(iconoEliminar);
             
             }
             
-            label.setHorizontalAlignment( JLabel.LEFT );
+            label.setHorizontalAlignment( JLabel.CENTER );
             
             //Le agrego un borde
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -116,7 +120,6 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
         }
 
         return this;
-
     }
 
 }

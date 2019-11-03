@@ -73,8 +73,8 @@ public class SQLCabanna extends ConexionDB {
     
     public  DefaultTableModel select(String patron, String campo) {
 
-        String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire A.", "Parrillero", "Costo Hora"};
-        String[] Registro = new String[7];
+        String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire A.", "Parrillero", "Costo Hora","",""};
+        String[] Registro = new String[headers.length+2];
         NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
@@ -107,8 +107,20 @@ public class SQLCabanna extends ConexionDB {
                 Registro[4] = rs.getString("aireAcondicionado");
                 Registro[5] = rs.getString("parrillero");
                 Registro[6] = rs.getString("costHour");
-
+                Registro[7] = "MODIFICAR";
+                Registro[8] = "ELIMINAR";
                 //Agrego los datos obtenidos al modelo
+                
+                if(Registro[4].equals("1"))
+                    Registro[4] = "Sí";
+                else
+                    Registro[4] = "No";
+                
+                if(Registro[5].equals("1"))
+                    Registro[5] = "Sí";
+                else
+                    Registro[5] = "No";
+                
                 modelo.addRow(Registro);
             }
 
@@ -130,7 +142,7 @@ public class SQLCabanna extends ConexionDB {
     }
     
     public  String[] select(String id) {
-        String[] Registro = new String[9];
+        String[] Registro = new String[8];
         NR = 0;
 
         Connection con = conectar();
@@ -138,7 +150,7 @@ public class SQLCabanna extends ConexionDB {
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
         */
-        sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,aireAcondicionado,parrillero,costHour,descripcion,cantHuespedes "
+        sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,aireAcondicionado,parrillero,descripcion, costHour "
                 + "FROM cabannas WHERE id=" + id + "";
 
         try {
@@ -159,7 +171,18 @@ public class SQLCabanna extends ConexionDB {
                 Registro[3] = rs.getString("cantBannos");
                 Registro[4] = rs.getString("aireAcondicionado");
                 Registro[5] = rs.getString("parrillero");
-                Registro[6] = rs.getString("costHour");
+                Registro[6] = rs.getString("descripcion");
+                Registro[7] = rs.getString("costHour");
+                
+                if(Registro[4].equals("1"))
+                    Registro[4] = "Sí";
+                else
+                    Registro[4] = "No";
+                
+                if(Registro[5].equals("1"))
+                    Registro[5] = "Sí";
+                else
+                    Registro[5] = "No";
 
             }
 

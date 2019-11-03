@@ -1,10 +1,17 @@
 package grafica;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Date;
+
 import javax.swing.JOptionPane;
+
 import logica.SQL.SQLQueries;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import logica.SQL.SQLCabanna;
 import utilidades.ManageCellsTable;
 import utilidades.ManageHeaderTable;
 
@@ -36,9 +43,9 @@ public class Tabla extends javax.swing.JPanel {
         this.modelo=modelo;
         table.setModel(modelo);
         styleTable();
+        
     }
             
-
     public DefaultTableModel selectModel() {
         /*
             En base a el tipo de tabla
@@ -47,14 +54,12 @@ public class Tabla extends javax.swing.JPanel {
             todos los datos de la tabla que corresponda
          */
         
-        SQLQueries sql = new SQLQueries();
-        DefaultTableModel modeloSelected = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel();
 
         switch (view) {
             case "CABANNAS":
-                String[] atributos = {"id", "cantHabitaciones", "cantCamas", "cantBannos", "aireAcondicionado", "parrillero", "costHour"};
-                String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Aire Acondicionado", "Parrillero", "Costo Hora"};
-                modeloSelected = sql.customSelectQuery(atributos, "cabannas", headers);
+                SQLCabanna sql = new SQLCabanna();
+                modelo = sql.select("", "id");
                 break;
 
             case "RESERVAS":
@@ -73,7 +78,7 @@ public class Tabla extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Consulta no realizada");
 
         }
-        return modeloSelected;
+        return modelo;
 
     }
 
@@ -84,14 +89,19 @@ public class Tabla extends javax.swing.JPanel {
         jtableHeader.setDefaultRenderer(new ManageHeaderTable());
         table.setTableHeader(jtableHeader);
         table.getColumnModel().getColumn(0).setMaxWidth(35);
+        table.setRowHeight(25);
+        table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-2).setMaxWidth(40);
+        table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-1).setMaxWidth(40);
         
 
         switch (view) {
             case "CABANNAS":
                 int size = table.getColumnCount();
-                for(int i=0; i < size; i++){
+                for(int i=0; i < size-2; i++){
                     table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
-                }             
+                }
+                table.getColumnModel().getColumn(size-2).setCellRenderer(new ManageCellsTable("ICONO"));
+                table.getColumnModel().getColumn(size-1).setCellRenderer(new ManageCellsTable("ICONO"));
  
                 break;
 
@@ -111,7 +121,8 @@ public class Tabla extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Estilos no aplicados");
 
         }
-    }
+    }    
+        
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -150,6 +161,11 @@ public class Tabla extends javax.swing.JPanel {
         table.setGridColor(new java.awt.Color(0, 0, 0));
         table.setRowHeight(20);
         table.setRowMargin(2);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
         table.setSize(600,300);
 
@@ -165,6 +181,47 @@ public class Tabla extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int fila = table.rowAtPoint(evt.getPoint());
+        int columna = table.columnAtPoint(evt.getPoint());
+		
+        if (columna==table.getColumnModel().getColumnCount()-2) {
+            Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
+            Index.paintIngreso(new CabannaPanel(id, "MODIFICAR"));
+                
+        }else if (columna==table.getColumnModel().getColumnCount()-1){//se valida que sea la columna del otro evento
+            eliminarRegistro(fila);
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+//     public boolean aviseConTiempo(Date fechaAModificar){
+//        boolean aviso=true;
+//        Date fecAct;
+//        
+//        fecAct=new Date();
+//        if(fechaAModificar.getMonth()==fecAct.getMonth() && (fechaAModificar.getDay()==(fecAct.getDay()-2) || ))
+//            aviso=false;
+//        return aviso;
+//    }
+    
+    public void eliminarRegistro(int fila){
+        Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
+        
+        
+        System.out.println(id);
+        SQLCabanna sqlCabannas = new SQLCabanna();
+        boolean eliminar = sqlCabannas.eliminar(id);
+        DefaultTableModel modelo = sqlCabannas.select("","id");
+        
+        Index.paintTabla(modelo, view);
+        if(eliminar)
+            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+        else
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+
+
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
