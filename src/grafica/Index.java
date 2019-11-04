@@ -1,9 +1,7 @@
 package grafica;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
