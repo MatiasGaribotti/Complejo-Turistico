@@ -218,6 +218,7 @@ public class Tabla extends javax.swing.JPanel {
 
             } else if (view.equals("RESERVAS")) {
                 int codigo = Integer.parseInt(table.getModel().getValueAt(fila, 0).toString());
+                
                 Index.paintIngreso(new Panel_Reservar(new Reserva(codigo), "MODIFICAR"));
             }
 

@@ -67,6 +67,58 @@ public class SQLTurista extends ConexionDB {
             }
         }
     }
+    
+    public  String[] select(int ci) {
+        String[] Registro = new String[8];
+
+        Connection con = conectar("root", "");
+
+        /*
+            Establezco la sentencia SQL a ejecutar ya aplicando el filtro
+        */
+        sSQL = "SELECT ci,nombre,apellido,fechaNacimiento,telefonoMovil,calle,numero,localidad "
+                + "FROM turistas WHERE ci=" + ci + "";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("ci");
+                Registro[1] = rs.getString("nombre");
+                Registro[2] = rs.getString("apellido");
+                Registro[3] = rs.getString("fechaNacimiento");
+                Registro[4] = rs.getString("telefonoMovil");
+                Registro[5] = rs.getString("calle");
+                Registro[6] = rs.getString("numero");
+                Registro[7] = rs.getString("localidad");          
+
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+
+        return Registro;
+
+    }
+    
     public  DefaultTableModel selectHistory() {
 
         String[] headers = {"CI", "Código","ID", "Fecha Inicio", "Fecha Fin"};
