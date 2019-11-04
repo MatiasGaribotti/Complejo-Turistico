@@ -171,7 +171,7 @@ public class SQLReserva extends ConexionDB {
         Connection con = conectar("root", "");
 
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin "
-                + "FROM `reservas` WHERE `Cancelada`=1  ORDER BY idCabanna";
+                + "FROM `reservas` WHERE `cancelada`=1 ORDER BY fechaInicio";
 
         try {
 
