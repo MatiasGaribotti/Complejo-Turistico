@@ -14,112 +14,24 @@ import logica.SQL.SQLCabanna;
  * @author Matías Garibotti
  * @author Facundo Gallo
  */
-public class CabannaPanel extends javax.swing.JPanel {
-
-    private short id;
-    private byte cntHabitaciones;
-    private byte cntCamas;
-    private byte cntBannos;
-    private String descripcion;
-    private boolean aireAcondicionado;
-    private boolean parrillero;
-    private short costoHour;
+public class Panel_Cabanna extends javax.swing.JPanel {
 
     private String accion;
+    Cabanna cabanna;
 
-    public short getId() {
-        return id;
+    public Panel_Cabanna() {
+        initComponents();
+        accion = "INGRESAR";
     }
 
-    public void setId(short id) {
-        this.id = id;
-    }
-    
-    public String getAccion() {
-        return accion;
-    }
-
-    public void setAccion(String accion) {
+    public Panel_Cabanna(String accion) {
+        initComponents();
         this.accion = accion;
     }
-     
-    public byte getCntHabitaciones() {
-        return cntHabitaciones;
-    }
 
-    public void setCntHabitaciones(byte cntHabitaciones) {
-        this.cntHabitaciones = cntHabitaciones;
-    }
-
-    public byte getCntCamas() {
-        return cntCamas;
-    }
-
-    public void setCntCamas(byte cntCamas) {
-        this.cntCamas = cntCamas;
-    }
-
-    public byte getCntBannos() {
-        return cntBannos;
-    }
-
-    public void setCntBannos(byte cntBannos) {
-        this.cntBannos = cntBannos;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public boolean getAireAcondicionado() {
-        return aireAcondicionado;
-    }
-
-    public void setAireAcondicionado(boolean aireAcondicionado) {
-        this.aireAcondicionado = aireAcondicionado;
-    }
-
-    public boolean getParrillero() {
-        return parrillero;
-    }
-
-    public void setParrillero(boolean parrillero) {
-        this.parrillero = parrillero;
-    }
-
-    public short getCostoHour() {
-        return costoHour;
-    }
-
-    public void setCostoHour(short costoHour) {
-        this.costoHour = costoHour;
-    }
-
-    public CabannaPanel() {
+    public Panel_Cabanna(Cabanna cabanna, String accion) {
         initComponents();
-        accion="INGRESAR";
-    }
-
-    public CabannaPanel(short id, byte cntHabitaciones, byte cntCamas, byte cntBannos, String descripcion, boolean aireAcondicionado, boolean parrillero, short costoHour, String accion) {
-        initComponents();
-        this.id = id;
-        this.cntHabitaciones = cntHabitaciones;
-        this.cntCamas = cntCamas;
-        this.cntBannos = cntBannos;
-        this.descripcion = descripcion;
-        this.aireAcondicionado = aireAcondicionado;
-        this.parrillero = parrillero;
-        this.costoHour = costoHour;
-        this.accion = accion;
-    }
-    
-    public CabannaPanel(short id, String accion){
-        initComponents();
-        this.id = id;
+        this.cabanna = cabanna;
         this.accion = accion;
     }
 
@@ -248,15 +160,23 @@ public class CabannaPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        getInput();
-
-        Cabanna cabanna = new Cabanna(id,cntHabitaciones, cntCamas, cntBannos, (byte) 0, descripcion, aireAcondicionado, parrillero, costoHour);
+        Cabanna cabanna = new Cabanna(
+                Byte.parseByte(fieldCntHabitaciones.getText()),
+                Byte.parseByte(fieldCntHabitaciones.getText()),
+                Byte.parseByte(fieldCntCamas.getText()),
+                Byte.parseByte(fieldCntBannos.getText()),
+                (byte) 0,
+                txtDescripcion.getText(),
+                checkAireAcondicionado.isSelected(),
+                checkParrillero.isSelected(),
+                Short.parseShort(fieldCostoHour.getText())
+        );
 
         SQLCabanna sCabanna = new SQLCabanna();
 
         if (accion.equals("MODIFICAR")) {
             boolean complete = sCabanna.modificar(cabanna);
-            
+
             if (complete) {
                 JOptionPane.showConfirmDialog(null, "Cabaña modificada correctamente");
                 Index.paintTabla("CABANNAS");
@@ -303,32 +223,6 @@ public class CabannaPanel extends javax.swing.JPanel {
         checkParrillero.transferFocus();
     }//GEN-LAST:event_checkParrilleroActionPerformed
 
-    public void getInput() {
-        if(!fieldCntHabitaciones.getText().equals(""))
-            this.cntHabitaciones = Byte.parseByte(fieldCntHabitaciones.getText());
-        else
-            this.cntHabitaciones =1;
-        if(!"".equals(fieldCntCamas.getText()))
-            this.cntCamas = Byte.parseByte(fieldCntCamas.getText());
-        else
-            this.cntCamas =1;
-        if(!"".equals(fieldCntBannos.getText()))
-            this.cntBannos = Byte.parseByte(fieldCntBannos.getText());
-        else
-            this.cntBannos =0;
-        if(!"".equals(txtDescripcion.getText()))
-            this.descripcion = txtDescripcion.getText();
-        else
-            this.descripcion ="Sin descripción";
-        this.aireAcondicionado = checkAireAcondicionado.isSelected();
-        this.parrillero = checkParrillero.isSelected();
-        if(!"".equals(fieldCostoHour.getText()))
-            this.costoHour = Short.parseShort(fieldCostoHour.getText());
-        else
-            this.costoHour =250;
-
-    }
-
     public void clearFields() {
         this.fieldCntHabitaciones.setText("");
         this.fieldCntCamas.setText("");
@@ -338,7 +232,7 @@ public class CabannaPanel extends javax.swing.JPanel {
         this.checkParrillero.setSelected(false);
         this.txtDescripcion.setText("");
     }
-    
+
     public void setFields(short id) {
         SQLCabanna sql = new SQLCabanna();
         String[] datos = sql.select(Short.toString(id));
@@ -346,17 +240,19 @@ public class CabannaPanel extends javax.swing.JPanel {
         fieldCntHabitaciones.setText(datos[1]);
         fieldCntCamas.setText(datos[2]);
         fieldCntBannos.setText(datos[3]);
-        
-        if(datos[4].equals("Sí"))
+
+        if (datos[4].equals("Sí")) {
             checkAireAcondicionado.setSelected(true);
-        else
+        } else {
             checkAireAcondicionado.setSelected(false);
-        
-        if(datos[5].equals("Sí"))
+        }
+
+        if (datos[5].equals("Sí")) {
             checkParrillero.setSelected(true);
-        else
+        } else {
             checkParrillero.setSelected(false);
-        
+        }
+
         txtDescripcion.setText(datos[6]);
         fieldCostoHour.setText(datos[7]);
 

@@ -131,7 +131,6 @@ public class Herramientas extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
         btnCanceladas = new javax.swing.JButton();
-        btnHistory = new javax.swing.JButton();
         panelOrdenar = new javax.swing.JPanel();
         btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
@@ -187,15 +186,6 @@ public class Herramientas extends javax.swing.JPanel {
         });
         panelBuscar.add(btnCanceladas);
         btnCanceladas.setBounds(10, 50, 110, 20);
-
-        btnHistory.setText("HISTÓRICO");
-        btnHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistoryActionPerformed(evt);
-            }
-        });
-        panelBuscar.add(btnHistory);
-        btnHistory.setBounds(130, 50, 100, 20);
 
         add(panelBuscar);
         panelBuscar.setBounds(0, 0, 454, 83);
@@ -292,18 +282,10 @@ public class Herramientas extends javax.swing.JPanel {
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnCanceladasActionPerformed
 
-    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        SQLTurista sqlTurista = new SQLTurista();
-        this.view = "RESERVAS_HISTORY";
-        DefaultTableModel busqueda = sqlTurista.selectHistory();
-        Index.paintTabla(busqueda, view);
-    }//GEN-LAST:event_btnHistoryActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnCanceladas;
-    private volatile javax.swing.JButton btnHistory;
     private javax.swing.JLabel btnSort;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;

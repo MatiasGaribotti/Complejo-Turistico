@@ -41,7 +41,7 @@ public class Index extends javax.swing.JFrame {
         this.setSize(1200, 768);
         this.setLocationRelativeTo(null);
         
-        paintPanel(new CabannaPanel(), layerIngresos);
+        paintPanel(new Panel_Cabanna(), layerIngresos);
         
         Herramienta = new Herramientas(currentView);
         modeloDef = Herramienta.camposComboB(currentView, modeloDef);
@@ -240,7 +240,7 @@ public class Index extends javax.swing.JFrame {
         setCurrentView("RESERVAS");
         resetView();
         
-        paintPanel(new Reservar(), layerIngresos);
+        paintPanel(new Panel_Reservar(), layerIngresos);
                
         Herramienta = new Herramientas(this.getCurrentView());
         modeloDef = Herramienta.camposComboB(currentView, modeloDef);
@@ -255,7 +255,7 @@ public class Index extends javax.swing.JFrame {
         setCurrentView("CABANNAS");
         resetView();
         
-        paintPanel(new CabannaPanel(), layerIngresos);
+        paintPanel(new Panel_Cabanna(), layerIngresos);
         Index.paintTabla(getCurrentView());
                 
         Herramienta = new Herramientas(this.getCurrentView());
@@ -348,13 +348,13 @@ public class Index extends javax.swing.JFrame {
         paintPanel(tabla, layerTabla);
     }
     
-    public static void paintIngreso(CabannaPanel cabanna) {
-        cabanna.setFields(cabanna.getId());
+    public static void paintIngreso(Panel_Cabanna cabanna) {
+        cabanna.setFields(cabanna.cabanna.getId());
         paintPanel(cabanna, layerIngresos);
         
     }
-    public static void paintIngreso(Reservar res) {
-        res.setFields(res.getCodigoReserva());
+    public static void paintIngreso(Panel_Reservar res) {
+        res.setFields(res.reserva.getCodigoReserva());
         paintPanel(res, layerIngresos);
         
     }

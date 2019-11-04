@@ -96,6 +96,20 @@ public class Cabanna {
         this.costHour = -1;
     }
 
+    public Cabanna(short id) {
+        this.id = id;
+        this.cantHabitaciones = -1;
+        this.cantCamas = -1;
+        this.cantBannos = -1;
+        this.cantHuespedes = -1;
+        this.descripcion = "None";
+        this.aireAcondicionado = false;
+        this.parrillero = false;
+        this.costHour = -1;
+    }
+    
+    
+
     public Cabanna(short id, byte cantHabitaciones, byte cantCamas, byte cantBannos, byte cantHuespedes, String descripcion, boolean aireAcondicionado, boolean parrillero, short costHour) {
         this.id = id;
         this.cantHabitaciones = cantHabitaciones;

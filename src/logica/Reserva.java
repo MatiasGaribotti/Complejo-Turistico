@@ -12,6 +12,13 @@ public class Reserva {
     int ci; //FK
     short idCabanna; //FK
 
+    public Reserva() {
+    }
+
+    public Reserva(int codigoReserva) {
+        this.codigoReserva = codigoReserva;
+    }
+
     public Reserva(int codigoReserva, Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
         this.codigoReserva = codigoReserva;
         this.fechaInicio = fechaInicio;

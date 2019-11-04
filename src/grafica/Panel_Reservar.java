@@ -8,15 +8,19 @@ import logica.SQL.SQLReserva;
 import logica.SQL.SQLTurista;
 import logica.Turista;
 
-public class Reservar extends javax.swing.JPanel {
+public class Panel_Reservar extends javax.swing.JPanel {
 
-    public Reservar() {
+    Reserva reserva;
+    String accion;
+
+    public Panel_Reservar() {
         initComponents();
 
     }
-    public Reservar(int codigo, String accion){
+
+    public Panel_Reservar(Reserva reserva, String accion) {
         initComponents();
-        this.codigoReserva = codigo;
+        this.reserva = reserva;
         this.accion = accion;
     }
 
@@ -325,19 +329,37 @@ public class Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldFechaFinActionPerformed
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
-        boolean correcto = getInput(); //Obtengo todos los datos de los campos
-        
-        if (correcto) {
+
+        if (verificarCi()) {
+
             JOptionPane.showConfirmDialog(null, "Cédula válida");
-            Turista turista = new Turista(ci, nombre, apellido, fechaNac, telefono, calle, numero, localidad); //Se crea el turista
+
+            Turista turista = new Turista(
+                    Integer.parseInt(fieldCI.getText()),
+                    fieldNombre.getText(),
+                    fieldApellido.getText(),
+                    toDate(fieldFechaNac),
+                    Integer.parseInt(fieldTelefono.getText()),
+                    fieldCalle.getText(),
+                    Short.parseShort(fieldNumero.getText()),
+                    fieldLocalidad.getText()
+            ); //Se crea el turista
 
             SQLTurista sTurista = new SQLTurista();
             boolean consultaTur = sTurista.insertar(turista);
 
             SQLReserva sReserva = new SQLReserva();
 
-            codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
-            Reserva reserva = new Reserva(codigoReserva, fechaInicio, fechaFin, false, false, ci, idCabanna);
+            int codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
+
+            Reserva reserva = new Reserva(
+                    codigoReserva,
+                    toDate(fieldFechaInicio),
+                    toDate(fieldFechaFin),
+                    false,
+                    false,
+                    turista.getCi(),
+                    Short.parseShort(fieldCabanna.getText()));
 
             boolean consultaRes = sReserva.insertar(reserva);
 
@@ -380,111 +402,33 @@ public class Reservar extends javax.swing.JPanel {
         fieldCabanna.transferFocus();
     }//GEN-LAST:event_fieldCabannaActionPerformed
 
-    private int codigoReserva;
-    private int ci;
-    private String nombre;
-    private String apellido;
-    private Date fechaNac;
-    private int telefono;
-    private String calle;
-    private short numero;
-    private String localidad;
-    private short idCabanna; //FK
-    private Date fechaInicio;
-    private Date fechaFin;
-    private String accion;
+    public boolean verificarCi() {
 
-    public int getCodigoReserva() {
-        return codigoReserva;
-    }
-
-    public void setCodigoReserva(int codigoReserva) {
-        this.codigoReserva = codigoReserva;
-    }
-
-    public int getCi() {
-        return ci;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setCi(int ci) {
-        this.ci = ci;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public void setFechaNac(Date fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public boolean getInput() {
-        boolean valido = true; //Creo una variable booleana como bandera para informar si están los campos válidos
         byte[] Ced = new byte[8];//Almaceno la cédula en un array de BYTE. Adivine usted quién lo hizo así. Garibotti, no lo cambies que funciona, pls
-        String Aux = fieldCI.getText(); //Variable auxiliar que contiene la cédula en String para luego dividirla
+
+        String aux = fieldCI.getText(); //Variable auxiliar que contiene la cédula en String para luego dividirla
 
         for (byte i = 0; i < Ced.length; i++) {
-            Ced[i] = Byte.parseByte(Aux.substring(i, i + 1)); //Relleno el array con cada uno de los dígitos de la cédula
+            Ced[i] = Byte.parseByte(aux.substring(i, i + 1)); //Relleno el array con cada uno de los dígitos de la cédula
 
             if (i == 7) {
                 //Matriz 2 9 8 7 6 3 4
                 int Suma = Ced[0] * 2 + Ced[1] * 9 + Ced[2] * 8 + Ced[3] * 7 + Ced[4] * 6 + Ced[5] * 3 + Ced[6] * 4;//Suma total de los dígitos de la cédula
-                byte M = (byte) (Suma % 10); //Este será el módulo de la resta
-                byte verificador = (byte) ((10 - M) % 10); //Este es el verificador posta
+
+                byte modulo = (byte) (Suma % 10); //Este será el módulo de la resta
+
+                byte verificador = (byte) ((10 - modulo) % 10); //Este es el verificador posta
+
                 if (Ced[i] != verificador) {
-                    valido = false; //Si no coinciden, mando un false a la variable de retorno
+                    return false; //Si no coinciden, retorno false
                 }
             }
         }
-
-        ci = Integer.parseInt(fieldCI.getText());
-        nombre = fieldNombre.getText();
-        apellido = fieldApellido.getText();
-        fechaNac = toDate(fieldFechaNac);
-        telefono = Integer.parseInt(fieldTelefono.getText());
-        calle = fieldCalle.getText();
-        numero = Short.parseShort(fieldNumero.getText());
-        localidad = fieldLocalidad.getText();
-        idCabanna = Short.parseShort(fieldCabanna.getText());
-        fechaInicio = toDate(fieldFechaInicio);
-        fechaFin = toDate(fieldFechaFin);
-        return valido;
+        return true;
     }
 
     public Date toDate(JTextField field) {  //A partir de un JTextField obtengo la fecha que contiene
-        Reservar reservar = new Reservar();
+        Panel_Reservar reservar = new Panel_Reservar();
         int day = reservar.getDay(field.getText());
         int month = reservar.getMonth(field.getText());
         int year = reservar.getYear(field.getText());
@@ -507,7 +451,7 @@ public class Reservar extends javax.swing.JPanel {
         int year = (Integer.parseInt(date.substring(6, 10)));
         return year;
     }
-    
+
     public void setFields(int codigo) {
         SQLReserva sql = new SQLReserva();
         String[] datos = sql.select(Integer.toString(codigo));
@@ -516,7 +460,7 @@ public class Reservar extends javax.swing.JPanel {
         fieldCabanna.setText(datos[1]);
         fieldFechaInicio.setText(datos[2]);
         fieldFechaFin.setText(datos[3]);
-        
+
     }
 
 

@@ -3,6 +3,8 @@ package grafica;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import logica.Cabanna;
+import logica.Reserva;
 import logica.SQL.SQLCabanna;
 import logica.SQL.SQLReserva;
 import logica.SQL.SQLTurista;
@@ -22,30 +24,29 @@ public class Tabla extends javax.swing.JPanel {
     public Tabla(String currentView) {
         this.view = currentView;
     }
-    
-    
-    public void buildTable(){
+
+    public void buildTable() {
         initComponents();
         this.setSize(936, 286); //Check if this works
         table.setModel(buildModel());
         styleTable();
-        
+
     }
-    
-    public void buildTable(DefaultTableModel modelo){
+
+    public void buildTable(DefaultTableModel modelo) {
         initComponents();
         this.setSize(936, 286);
-        this.modelo=modelo;
+        this.modelo = modelo;
         table.setModel(modelo);
         styleTable();
-        
+
     }
-    
-    public void changeSize(int width, int height){
+
+    public void changeSize(int width, int height) {
         this.setSize(width, height);
-        
+
     }
-            
+
     public DefaultTableModel buildModel() {
         /*
             En base a el tipo de tabla
@@ -53,7 +54,7 @@ public class Tabla extends javax.swing.JPanel {
             En este caso la consulta es para obtener
             todos los datos de la tabla que corresponda
          */
-        
+
         DefaultTableModel modelo = new DefaultTableModel();
 
         switch (view) {
@@ -90,45 +91,45 @@ public class Tabla extends javax.swing.JPanel {
         JTableHeader jtableHeader = table.getTableHeader();
         jtableHeader.setDefaultRenderer(new ManageHeaderTable());
         table.setTableHeader(jtableHeader);
-        
+
         table.setRowHeight(25);
-             
-        int size = table.getColumnCount();       
+
+        int size = table.getColumnCount();
 
         switch (view) {
             case "CABANNAS":
                 table.getColumnModel().getColumn(0).setMaxWidth(35);
 
-                for(int i=0; i < size-2; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                for (int i = 0; i < size - 2; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
-                
-                table.getColumnModel().getColumn(size-2).setCellRenderer(new ManageCellsTable("ICONO"));
-                table.getColumnModel().getColumn(size-1).setCellRenderer(new ManageCellsTable("ICONO"));
-                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-2).setMaxWidth(40);
-                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-1).setMaxWidth(40);
- 
+
+                table.getColumnModel().getColumn(size - 2).setCellRenderer(new ManageCellsTable("ICONO"));
+                table.getColumnModel().getColumn(size - 1).setCellRenderer(new ManageCellsTable("ICONO"));
+                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 2).setMaxWidth(40);
+                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 1).setMaxWidth(40);
+
                 break;
-                
+
             case "RESERVAS":
-                for(int i=0; i < size-2; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                for (int i = 0; i < size - 2; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
-                
-                table.getColumnModel().getColumn(size-2).setCellRenderer(new ManageCellsTable("ICONO"));
-                table.getColumnModel().getColumn(size-1).setCellRenderer(new ManageCellsTable("ICONO"));
-                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-2).setMaxWidth(40);
-                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount()-1).setMaxWidth(40);
-                
+
+                table.getColumnModel().getColumn(size - 2).setCellRenderer(new ManageCellsTable("ICONO"));
+                table.getColumnModel().getColumn(size - 1).setCellRenderer(new ManageCellsTable("ICONO"));
+                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 2).setMaxWidth(40);
+                table.getColumnModel().getColumn(table.getColumnModel().getColumnCount() - 1).setMaxWidth(40);
+
                 break;
-                
+
             case "RESERVAS_CANCELADAS":
                 table.getColumnModel().getColumn(0).setMaxWidth(35);
 
-                for(int i=0; i < size; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                for (int i = 0; i < size; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
- 
+
                 break;
 
             case "TURISTAS":
@@ -136,8 +137,8 @@ public class Tabla extends javax.swing.JPanel {
                 break;
 
             case "HISTORICO":
-                for(int i=0; i < size; i++){
-                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal")); 
+                for (int i = 0; i < size; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
 
                 break;
@@ -146,8 +147,7 @@ public class Tabla extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Estilos no aplicados");
 
         }
-    }    
-        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -209,46 +209,45 @@ public class Tabla extends javax.swing.JPanel {
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int fila = table.rowAtPoint(evt.getPoint());
         int columna = table.columnAtPoint(evt.getPoint());
-		
-        if (columna==table.getColumnModel().getColumnCount()-2) {
-            
-            if(view.equals("CABANNAS")){
-            Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
-            Index.paintIngreso(new CabannaPanel(id, "MODIFICAR"));
-            
-            }else if(view.equals("RESERVAS")){
+
+        if (columna == table.getColumnModel().getColumnCount() - 2) {
+
+            if (view.equals("CABANNAS")) {
+                Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
+                Index.paintIngreso(new Panel_Cabanna(new Cabanna(id), "MODIFICAR"));
+
+            } else if (view.equals("RESERVAS")) {
                 int codigo = Integer.parseInt(table.getModel().getValueAt(fila, 0).toString());
-                Index.paintIngreso(new Reservar(codigo, "MODIFICAR"));
+                Index.paintIngreso(new Panel_Reservar(new Reserva(codigo), "MODIFICAR"));
             }
-                
-        }else if (columna==table.getColumnModel().getColumnCount()-1){//se valida que sea la columna del otro evento
-            if(view.equals("CABANNAS")){
+
+        } else if (columna == table.getColumnModel().getColumnCount() - 1) {//se valida que sea la columna del otro evento
+            if (view.equals("CABANNAS")) {
                 eliminarRegistro(fila);
-                
-            }else if(view.equals("RESERVAS")){
-                
+
+            } else if (view.equals("RESERVAS")) {
+
             }
         }
     }//GEN-LAST:event_tableMouseClicked
-   
-    public void eliminarRegistro(int fila){
+
+    public void eliminarRegistro(int fila) {
         Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
-        
-        
+
         System.out.println(id);
         SQLCabanna sqlCabannas = new SQLCabanna();
         boolean eliminar = sqlCabannas.eliminar(id);
-        DefaultTableModel modelo = sqlCabannas.select("","id");
-        
-        Index.paintTabla(modelo, view);
-        if(eliminar)
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
-        else
-            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        DefaultTableModel modelo = sqlCabannas.select("", "id");
 
+        Index.paintTabla(modelo, view);
+        if (eliminar) {
+            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Algo ha salido mal.");
+        }
 
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
