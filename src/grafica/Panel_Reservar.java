@@ -301,23 +301,31 @@ public class Panel_Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldCalleActionPerformed
 
     private void fieldNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldNumeroFocusGained
-        Index idx = new Index();
-        idx.textHint("Numero", fieldNumero);
+        if (!accion.equals("MODIFICAR")){
+            Index idx = new Index();
+            idx.textHint("Numero", fieldNumero);
+        }
     }//GEN-LAST:event_fieldNumeroFocusGained
 
     private void fieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldNumeroFocusLost
-        Index idx = new Index();
-        idx.textHint("Numero", fieldNumero);
+        if (!accion.equals("MODIFICAR")){
+            Index idx = new Index();
+            idx.textHint("Numero", fieldNumero);
+        }
     }//GEN-LAST:event_fieldNumeroFocusLost
 
     private void fieldLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldLocalidadFocusGained
-        Index idx = new Index();
-        idx.textHint("Localidad", fieldLocalidad);
+        if (!accion.equals("MODIFICAR")){
+            Index idx = new Index();
+            idx.textHint("Localidad", fieldLocalidad);
+        }
     }//GEN-LAST:event_fieldLocalidadFocusGained
 
     private void fieldLocalidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldLocalidadFocusLost
-        Index idx = new Index();
-        idx.textHint("Localidad", fieldLocalidad);
+        if (!accion.equals("MODIFICAR")){
+            Index idx = new Index();
+            idx.textHint("Localidad", fieldLocalidad);
+        }
     }//GEN-LAST:event_fieldLocalidadFocusLost
 
     private void fieldFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFechaInicioActionPerformed
@@ -451,15 +459,59 @@ public class Panel_Reservar extends javax.swing.JPanel {
         int year = (Integer.parseInt(date.substring(6, 10)));
         return year;
     }
+    
+    public String getDaySQL(String date) {
+        String day = date.substring(8, 10);
+        return day;
+    }
+    
+    public String getMonthSQL(String date) {
+        String month = date.substring(5, 7);
+        return month;
+    }
+    
+    public String getYearSQL(String date) {
+        String year = date.substring(0, 4);
+        return year;
+    }
 
     public void setFields(int codigo) {
-        SQLReserva sql = new SQLReserva();
-        String[] datos = sql.select(Integer.toString(codigo));
+        SQLReserva sqlReserva = new SQLReserva();
+        SQLTurista sqlTurista = new SQLTurista();
+        String[] datosReserva = sqlReserva.select(Integer.toString(codigo));
+        String[] datosTurista = sqlTurista.select(Integer.parseInt(datosReserva[5]));
+        
         /*Acá tiene que estar la validación de las 48 horas*/
-        fieldCI.setText(datos[5]);
-        fieldCabanna.setText(datos[1]);
-        fieldFechaInicio.setText(datos[2]);
-        fieldFechaFin.setText(datos[3]);
+        fieldCI.setText(datosReserva[5]);
+        fieldNombre.setText(datosTurista[1]);
+        fieldApellido.setText(datosTurista[2]);
+        
+        String[]fecha = new String[3];
+        fecha[0] = getDaySQL(datosTurista[3]);
+        fecha[1] = getMonthSQL(datosTurista[3]);
+        fecha[2] = getYearSQL(datosTurista[3]);
+        
+        fieldFechaNac.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
+        fieldTelefono.setText(datosTurista[4]);
+        fieldCalle.setText(datosTurista[5]);
+        fieldNumero.setText(datosTurista[6]);
+        fieldLocalidad.setText(datosTurista[7]);
+        
+        fieldCabanna.setText(datosReserva[1]);
+        
+        fecha[0] = getDaySQL(datosReserva[2]);
+        fecha[1] = getMonthSQL(datosReserva[2]);
+        fecha[2] = getYearSQL(datosReserva[2]);
+        
+        fieldFechaInicio.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
+        
+        fecha[0] = getDaySQL(datosReserva[3]);
+        fecha[1] = getMonthSQL(datosReserva[3]);
+        fecha[2] = getYearSQL(datosReserva[3]);
+        
+        fieldFechaFin.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
+        
+        
 
     }
 
