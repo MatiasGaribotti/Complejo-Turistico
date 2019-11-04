@@ -245,9 +245,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldCalle">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ad" green="ad" red="ad" type="rgb"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="Calle"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -274,9 +271,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldNumero">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ad" green="ad" red="ad" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Numero"/>
         <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="29" green="29" red="2b" type="rgb"/>
@@ -298,9 +292,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldLocalidad">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ad" green="ad" red="ad" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Localidad"/>
         <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="29" green="29" red="2b" type="rgb"/>

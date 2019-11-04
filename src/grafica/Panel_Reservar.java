@@ -12,9 +12,11 @@ public class Panel_Reservar extends javax.swing.JPanel {
 
     Reserva reserva;
     String accion;
-
-    public Panel_Reservar() {
+    
+        public Panel_Reservar() {
         initComponents();
+        accion = "RESERVAR";
+        setHintColor();
 
     }
 
@@ -22,8 +24,9 @@ public class Panel_Reservar extends javax.swing.JPanel {
         initComponents();
         this.reserva = reserva;
         this.accion = accion;
+        setHintColor();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -151,7 +154,6 @@ public class Panel_Reservar extends javax.swing.JPanel {
         lblDireccion.setText("Dirección*");
         add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 70, 23));
 
-        fieldCalle.setForeground(new java.awt.Color(173, 173, 173));
         fieldCalle.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         fieldCalle.setText("Calle");
         fieldCalle.setToolTipText("");
@@ -172,7 +174,6 @@ public class Panel_Reservar extends javax.swing.JPanel {
         });
         add(fieldCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 120, 22));
 
-        fieldNumero.setForeground(new java.awt.Color(173, 173, 173));
         fieldNumero.setText("Numero");
         fieldNumero.setCaretColor(new java.awt.Color(43, 41, 41));
         fieldNumero.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -190,7 +191,6 @@ public class Panel_Reservar extends javax.swing.JPanel {
         });
         add(fieldNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 69, 22));
 
-        fieldLocalidad.setForeground(new java.awt.Color(173, 173, 173));
         fieldLocalidad.setText("Localidad");
         fieldLocalidad.setCaretColor(new java.awt.Color(43, 41, 41));
         fieldLocalidad.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -510,9 +510,13 @@ public class Panel_Reservar extends javax.swing.JPanel {
         fecha[2] = getYearSQL(datosReserva[3]);
         
         fieldFechaFin.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
-        
-        
 
+    }
+    
+    public void setHintColor(){
+        this.fieldCalle.setForeground(Index.color_textHint);
+        this.fieldNumero.setForeground(Index.color_textHint);
+        this.fieldLocalidad.setForeground(Index.color_textHint);
     }
 
 

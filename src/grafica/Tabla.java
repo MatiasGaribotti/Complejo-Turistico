@@ -224,7 +224,11 @@ public class Tabla extends javax.swing.JPanel {
 
         } else if (columna == table.getColumnModel().getColumnCount() - 1) {//se valida que sea la columna del otro evento
             if (view.equals("CABANNAS")) {
-                eliminarRegistro(fila);
+                int op = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if(op == JOptionPane.YES_OPTION)
+                    eliminarRegistro(fila);
+                else
+                    JOptionPane.showMessageDialog(null, "Eliminación cancelada");
 
             } else if (view.equals("RESERVAS")) {
 

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class Index extends javax.swing.JFrame {
-
+ 
     //Almacenará la vista actual
     String currentView;
     Herramientas Herramienta;
@@ -324,7 +324,7 @@ public class Index extends javax.swing.JFrame {
         layerHerramientas.setVisible(true);
         layerTabla.setVisible(true);
     }
-    public Color textHint = new Color(212, 212, 212);
+    public static Color color_textHint = new Color(212, 212, 212);
 
     public void textHint(String txt, JTextField obj) { //Procedimiento para textHints
         if (obj.getText().equals(txt)) {
@@ -332,7 +332,7 @@ public class Index extends javax.swing.JFrame {
             obj.setForeground(Color.BLACK);
         } else if (obj.getText().equals("")) {
             obj.setText(txt);
-            obj.setForeground(textHint);
+            obj.setForeground(color_textHint);
         }
     }
 
