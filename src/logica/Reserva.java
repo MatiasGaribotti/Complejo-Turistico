@@ -19,6 +19,17 @@ public class Reserva {
         this.codigoReserva = codigoReserva;
     }
 
+    public Reserva(Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.confirmada = confirmada;
+        this.cancelada = cancelada;
+        this.ci = ci;
+        this.idCabanna = idCabanna;
+    }
+
+    
+    
     public Reserva(int codigoReserva, Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
         this.codigoReserva = codigoReserva;
         this.fechaInicio = fechaInicio;

@@ -172,10 +172,10 @@ public class Panel_Cabanna extends javax.swing.JPanel {
                 Short.parseShort(fieldCostoHour.getText())
         );
 
-        SQLCabanna sCabanna = new SQLCabanna();
+        SQLCabanna sqlCabanna = new SQLCabanna();
 
         if (accion.equals("MODIFICAR")) {
-            boolean complete = sCabanna.modificar(cabanna);
+            boolean complete = sqlCabanna.modificar(cabanna);
 
             if (complete) {
                 JOptionPane.showConfirmDialog(null, "Cabaña modificada correctamente");
@@ -186,7 +186,7 @@ public class Panel_Cabanna extends javax.swing.JPanel {
             }
 
         } else {
-            boolean complete = sCabanna.insertar(cabanna);
+            boolean complete = sqlCabanna.insertar(cabanna);
 
             if (complete) {
                 JOptionPane.showConfirmDialog(null, "Cabaña Ingresada correctamente");

@@ -171,5 +171,43 @@ public class SQLTurista extends ConexionDB {
         return modelo;
 
     }
+    
+    public boolean modificar(Turista tur) {
+        //Nueva conexión
+        Connection con = conectar("root", "");
+        
+        /*
+          Sentencia SQL. Por temas de seguridad se utilizan los ?  
+        */
+        sSQL = "UPDATE Turistas SET nombre=?, apellido=?, fechaNacimiento=?, telefonoMovil=?, calle=?, numero=?, localidad=?  WHERE ci=?";
+        
+        
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+            
+            pst.setString(1, tur.getNombre());
+            pst.setString(2, tur.getApellido());
+            pst.setDate(3, (Date) tur.getFechaNac());
+            pst.setInt(4, tur.getTelefono());
+            pst.setString(5, tur.getCalle());
+            pst.setShort(6, tur.getNumero());
+            pst.setString(7, tur.getLocalidad());
+            pst.setInt(8, tur.getCi());
+            
+            pst.execute();
+            return true;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+            
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
 
 }

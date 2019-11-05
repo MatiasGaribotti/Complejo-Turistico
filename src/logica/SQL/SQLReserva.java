@@ -264,5 +264,41 @@ public class SQLReserva extends ConexionDB {
         return Registro;
 
     }
+    
+    public boolean modificar(Reserva res) {
+        //Nueva conexión
+        Connection con = conectar("root", "");
+        
+        /*
+          Sentencia SQL. Por temas de seguridad se utilizan los ?  
+        */
+        sSQL = "UPDATE Reservas SET fechaInicio=?, fechaFin=?, idCabanna=? WHERE codigoReserva=?";
+        
+        
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+            
+            pst.setDate(1, res.getFechaInicio());
+            System.out.print("INICIO:" + res.getFechaInicio());
+            pst.setDate(2, res.getFechaFin());
+            System.out.println("FIN: " + res.getFechaFin());
+            pst.setShort(3, res.getIdCabanna());
+            pst.setInt(4, res.getCodigoReserva());
+            
+            pst.execute();
+            return true;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+            
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
 
 }
