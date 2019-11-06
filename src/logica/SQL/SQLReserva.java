@@ -80,6 +80,37 @@ public class SQLReserva extends ConexionDB {
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
         */
+        sSQL = "UPDATE Reservas SET cancelada=? WHERE id=?";
+        
+        
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+            
+            pst.setBoolean(1, true);
+            pst.setInt(2,res.getCodigoReserva());
+            pst.execute();
+            return true;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+            
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
+    public boolean confirmar(Reserva res) {
+        //Nueva conexión
+        Connection con = conectar("root", "");
+        
+        /*
+          Sentencia SQL. Por temas de seguridad se utilizan los ? 
+        */
         sSQL = "UPDATE Reservas SET confirmada=? WHERE id=?";
         
         
@@ -280,7 +311,7 @@ public class SQLReserva extends ConexionDB {
         Connection con = conectar("root", "");
         
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
-                + "FROM reservas WHERE cancelada=0 AND fechaFin<"+maximo.toString()+" ORDER BY fechaInicio";
+                + "FROM reservas WHERE cancelada=0 AND fechaInicio<"+maximo.toString()+" ORDER BY fechaInicio";
         
         try {
             
