@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,15 +20,13 @@ import logica.Reserva;
  * @author Facundo Gallo
  */
 public class SQLReserva extends ConexionDB {
-
+    Calendar calendar = Calendar.getInstance();
+    Date sysDate = calendar.getTime();
     String sSQL;
     
     //Función a la que llamaremos cuando se intente modificar o cancelar alguna reserva
     public boolean aviseConTiempo(Date fechaAModificar){
-        
-        Calendar calendar = Calendar.getInstance();
-        Date sysDate = calendar.getTime();
-        
+
         long days = (sysDate.getTime()-fechaAModificar.getTime())/86400000;
         
         return days >= 2; //Si faltan 2 o más días retorna true;
@@ -263,6 +262,69 @@ public class SQLReserva extends ConexionDB {
 
         return Registro;
 
+    }
+    
+    public DefaultTableModel selectVisualizar(String periodo) {
+        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin","CheckIn", "", ""}; //Dos columnas vacías para botones
+        String[] Registro = new String[headers.length];
+        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        LocalDate maximo;
+        switch(periodo){
+            case "MES":
+                maximo=LocalDate.now().plusMonths(1);
+                break;
+            default:    
+                maximo=LocalDate.now().plusWeeks(1);   
+        }
+        
+        Connection con = conectar("root", "");
+        
+        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
+                + "FROM reservas WHERE cancelada=0 AND fechaFin<"+maximo.toString()+" ORDER BY fechaInicio";
+        
+        try {
+            
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            
+            while(rs.next()){
+                
+                Registro[0] = rs.getString("codigoReserva");
+                Registro[1] = rs.getString("ci");
+                Registro[2] = rs.getString("idCabanna");
+                Registro[3] = rs.getString("fechaInicio");
+                Registro[4] = rs.getString("fechaFin");
+                Registro[5] = rs.getString("confirmada");
+                
+                Registro[Registro.length-2] = "MODIFICAR";
+                Registro[Registro.length-1] = "ELIMINAR";
+                
+                //Agrego los datos obtenidos al modelo
+                modelo.addRow(Registro);
+                
+            }
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+        
+        return modelo;
     }
 
 }
