@@ -137,7 +137,14 @@ public class Tabla extends javax.swing.JPanel {
                 }
 
                 break;
+            case "RESERVAS_VISTA":
+                table.getColumnModel().getColumn(0).setMaxWidth(35);
 
+                for (int i = 0; i < size; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
+                }
+
+                break;
             case "TURISTAS":
 
                 break;

@@ -306,7 +306,7 @@ public class Herramientas extends javax.swing.JPanel {
     private void btnVisualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseClicked
         SQLReserva sqlReserva = new SQLReserva();
         this.view = "RESERVAS_VISTA";
-        DefaultTableModel busqueda = sqlReserva.selectVisualizar(cmbFilter.getSelectedItem().toString().toUpperCase());
+        DefaultTableModel busqueda = sqlReserva.selectVisualizar(cmbVisualizadas.getSelectedItem().toString().toUpperCase());
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnVisualizarMouseClicked
 

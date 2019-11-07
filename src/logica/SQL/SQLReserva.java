@@ -327,9 +327,9 @@ public class SQLReserva extends ConexionDB {
         }
         
         Connection con = conectar("root", "");
-        
+        System.out.println(maximo.toString());
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
-                + "FROM reservas WHERE cancelada=0 AND fechaInicio<"+maximo.toString()+" ORDER BY fechaInicio";
+                + "FROM reservas WHERE cancelada=0 AND `fechaInicio`>'"+maximo.toString()+"' ORDER BY fechaInicio";
         
         try {
             
