@@ -132,6 +132,8 @@ public class Herramientas extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JLabel();
         cmbFilter = new javax.swing.JComboBox<>();
         btnCanceladas = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
+        cmbVisualizadas = new javax.swing.JComboBox<>();
         panelOrdenar = new javax.swing.JPanel();
         btnSort = new javax.swing.JLabel();
         lblOrdenar = new javax.swing.JLabel();
@@ -187,6 +189,24 @@ public class Herramientas extends javax.swing.JPanel {
         });
         panelBuscar.add(btnCanceladas);
         btnCanceladas.setBounds(10, 50, 110, 20);
+
+        btnVisualizar.setText("Visualizar");
+        btnVisualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVisualizarMouseClicked(evt);
+            }
+        });
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
+        panelBuscar.add(btnVisualizar);
+        btnVisualizar.setBounds(300, 50, 80, 23);
+
+        cmbVisualizadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semana", "Mes" }));
+        panelBuscar.add(cmbVisualizadas);
+        cmbVisualizadas.setBounds(206, 50, 80, 20);
 
         add(panelBuscar);
         panelBuscar.setBounds(0, 0, 454, 83);
@@ -283,13 +303,26 @@ public class Herramientas extends javax.swing.JPanel {
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnCanceladasActionPerformed
 
+    private void btnVisualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseClicked
+        SQLReserva sqlReserva = new SQLReserva();
+        this.view = "RESERVAS_VISTA";
+        DefaultTableModel busqueda = sqlReserva.selectVisualizar(cmbFilter.getSelectedItem().toString().toUpperCase());
+        Index.paintTabla(busqueda, view);
+    }//GEN-LAST:event_btnVisualizarMouseClicked
+
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVisualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnCanceladas;
     private javax.swing.JLabel btnSort;
+    private javax.swing.JButton btnVisualizar;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JComboBox<String> cmbSort;
+    public javax.swing.JComboBox<String> cmbVisualizadas;
     private javax.swing.JTextField fieldPattern;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblOrdenar;
