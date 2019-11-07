@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -40,36 +41,53 @@ public class SQLReserva extends ConexionDB {
      */
     
     public boolean insertar(Reserva res) {
-        Connection con = conectar("root", "");
-        sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, confirmada, cancelada, ci, idCabanna)"
-                + "VALUES (?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement pst = con.prepareStatement(sSQL);
-
-            pst.setInt(1, res.getCodigoReserva());
-            pst.setDate(2, res.getFechaInicio());
-            pst.setDate(3, res.getFechaFin());
-            pst.setBoolean(4, res.getConfirmada());
-            pst.setBoolean(5, res.getCancelada());
-            pst.setInt(6, res.getCi());
-            pst.setShort(7, res.getIdCabanna());
-            
-            pst.execute();
-            
-            return true;
-            
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
-            
-        } finally {
+        Object [] proximosAux=selectCuenta(res.getIdCabanna()).toArray();
+        LocalDate [] proximos=new LocalDate[proximosAux.length];
+        boolean noDisponible=false;
+        for(int i=0;i<proximosAux.length;i++){
+            proximos[i]=(LocalDate)proximosAux[i];
+        }
+        for(int i=0;i<proximos.length;i+=2){
+            if((LocalDate.parse(res.getFechaInicio().toString()).isAfter(proximos[i])||LocalDate.parse(res.getFechaInicio().toString()).isEqual(proximos[i]))
+            &&(LocalDate.parse(res.getFechaFin().toString()).isBefore(proximos[i+1])||LocalDate.parse(res.getFechaFin().toString()).isEqual(proximos[i+1])))
+                noDisponible=true;
+        }
+        if(!noDisponible){
+            Connection con = conectar("root", "");
+            sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, confirmada, cancelada, ci, idCabanna)"
+                    + "VALUES (?,?,?,?,?,?,?)";
             try {
-                con.close();
-                
+                PreparedStatement pst = con.prepareStatement(sSQL);
+
+                pst.setInt(1, res.getCodigoReserva());
+                pst.setDate(2, res.getFechaInicio());
+                pst.setDate(3, res.getFechaFin());
+                pst.setBoolean(4, res.getConfirmada());
+                pst.setBoolean(5, res.getCancelada());
+                pst.setInt(6, res.getCi());
+                pst.setShort(7, res.getIdCabanna());
+
+                pst.execute();
+
+                return true;
+
             } catch (SQLException e) {
                 JOptionPane.showConfirmDialog(null, e);
-                
+                return false;
+
+            } finally {
+                try {
+                    con.close();
+
+                } catch (SQLException e) {
+                    JOptionPane.showConfirmDialog(null, e);
+
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Cabaña reservada para el período seleccionado");
+            
+            return false;
         }
     }
     
@@ -194,6 +212,47 @@ public class SQLReserva extends ConexionDB {
         }
         
         return modelo;
+    }
+    
+    public ArrayList<LocalDate> selectCuenta(short id) {
+        int cont=0;
+        ArrayList<LocalDate> Fechas = new ArrayList<>();
+        
+        Connection con = conectar("root", "");
+        
+        sSQL = "SELECT fechaInicio,fechaFin "
+                + "FROM reservas WHERE cancelada=0 AND fechaInicio>"+LocalDate.now().toString()+" AND idCabanna='"+id+"' ORDER BY fechaInicio";
+        
+        try {
+            
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            
+
+            
+            while(rs.next()){
+                
+                Fechas.add(cont,LocalDate.parse(rs.getString("fechaInicio")));
+                Fechas.add(cont+1,LocalDate.parse(rs.getString("fechaFin")));
+                cont++;
+                
+            }
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+        
+        return Fechas;
     }
     
     public  DefaultTableModel selectCanceladas() {

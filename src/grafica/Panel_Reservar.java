@@ -1,6 +1,8 @@
 package grafica;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -578,7 +580,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
         fieldFechaFin.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
 
     }
-
+    
     public void setHintColor() {
         this.fieldCalle.setForeground(Index.color_textHint);
         this.fieldNumero.setForeground(Index.color_textHint);
