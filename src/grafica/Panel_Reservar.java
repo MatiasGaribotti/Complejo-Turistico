@@ -1,6 +1,7 @@
 package grafica;
 
 import java.sql.Date;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logica.Reserva;
@@ -11,9 +12,10 @@ import logica.Turista;
 public class Panel_Reservar extends javax.swing.JPanel {
 
     Reserva reserva;
+    Turista turista;
     String accion;
-    
-        public Panel_Reservar() {
+
+    public Panel_Reservar() {
         initComponents();
         accion = "RESERVAR";
         setHintColor();
@@ -24,9 +26,9 @@ public class Panel_Reservar extends javax.swing.JPanel {
         initComponents();
         this.reserva = reserva;
         this.accion = accion;
-        setHintColor();
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -301,28 +303,28 @@ public class Panel_Reservar extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldCalleActionPerformed
 
     private void fieldNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldNumeroFocusGained
-        if (!accion.equals("MODIFICAR")){
+        if (!accion.equals("MODIFICAR")) {
             Index idx = new Index();
             idx.textHint("Numero", fieldNumero);
         }
     }//GEN-LAST:event_fieldNumeroFocusGained
 
     private void fieldNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldNumeroFocusLost
-        if (!accion.equals("MODIFICAR")){
+        if (!accion.equals("MODIFICAR")) {
             Index idx = new Index();
             idx.textHint("Numero", fieldNumero);
         }
     }//GEN-LAST:event_fieldNumeroFocusLost
 
     private void fieldLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldLocalidadFocusGained
-        if (!accion.equals("MODIFICAR")){
+        if (!accion.equals("MODIFICAR")) {
             Index idx = new Index();
             idx.textHint("Localidad", fieldLocalidad);
         }
     }//GEN-LAST:event_fieldLocalidadFocusGained
 
     private void fieldLocalidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldLocalidadFocusLost
-        if (!accion.equals("MODIFICAR")){
+        if (!accion.equals("MODIFICAR")) {
             Index idx = new Index();
             idx.textHint("Localidad", fieldLocalidad);
         }
@@ -338,9 +340,8 @@ public class Panel_Reservar extends javax.swing.JPanel {
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
 
+        int codigoReserva;
         if (verificarCi()) {
-
-            JOptionPane.showConfirmDialog(null, "Cédula válida");
 
             Turista turista = new Turista(
                     Integer.parseInt(fieldCI.getText()),
@@ -353,35 +354,61 @@ public class Panel_Reservar extends javax.swing.JPanel {
                     fieldLocalidad.getText()
             ); //Se crea el turista
 
-            SQLTurista sTurista = new SQLTurista();
-            boolean consultaTur = sTurista.insertar(turista);
+            SQLTurista sqlTurista = new SQLTurista();
+            SQLReserva sqlReserva = new SQLReserva();
 
-            SQLReserva sReserva = new SQLReserva();
+            if (accion.equals("RESERVAR")) {
+                codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
 
-            int codigoReserva = (int) (Math.random() * 320000); //Genera un numero de reserva (puede estar duplicado)
+                Reserva reserva = new Reserva(
+                        codigoReserva,
+                        toDate(fieldFechaInicio),
+                        toDate(fieldFechaFin),
+                        false,
+                        false,
+                        turista.getCi(),
+                        Short.parseShort(fieldCabanna.getText()));
 
-            Reserva reserva = new Reserva(
-                    codigoReserva,
-                    toDate(fieldFechaInicio),
-                    toDate(fieldFechaFin),
-                    false,
-                    false,
-                    turista.getCi(),
-                    Short.parseShort(fieldCabanna.getText()));
+                boolean insertTurista = sqlTurista.insertar(turista);
+                boolean insertReserva = sqlReserva.insertar(reserva);
 
-            boolean consultaRes = sReserva.insertar(reserva);
+                /*
+                    TESTING
+                 */
+                if (insertTurista && insertReserva) {
+                    JOptionPane.showConfirmDialog(null, "Consulta realizada");
+                } else if (!insertReserva) {
+                    JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para la reserva");
+                } else if (!insertTurista) {
+                    JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para el turista");
+                } else {
+                    JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
+                }
+            } else if (accion.equals("MODIFICAR")) {
+                Reserva modificacion = new Reserva(
+                        reserva.getCodigoReserva(),
+                        toDate(fieldFechaInicio),
+                        toDate(fieldFechaFin),
+                        false,
+                        false,
+                        turista.getCi(),
+                        Short.parseShort(fieldCabanna.getText()));
+                
+                boolean modificarReserva = sqlReserva.modificar(modificacion);
+                boolean modificarTurista = sqlTurista.modificar(turista);
+                
+                if(modificarReserva){
+                    JOptionPane.showMessageDialog(null, "Reserva modificada con éxito.", "Mensaje", JOptionPane.OK_OPTION);
+                }else if(!modificarReserva){
+                    JOptionPane.showMessageDialog(null, "Error al modificar reserva.", "Mensaje", JOptionPane.OK_OPTION);
+                }
+                
+                if(modificarTurista){
+                    JOptionPane.showMessageDialog(null, "Turista modificada con éxito.", "Mensaje", JOptionPane.OK_OPTION);
+                }else if(!modificarTurista){
+                    JOptionPane.showMessageDialog(null, "Error al modificar turista.", "Mensaje", JOptionPane.OK_OPTION);
+                }
 
-            /*
-                TESTING
-             */
-            if (consultaTur && consultaRes) {
-                JOptionPane.showConfirmDialog(null, "Consulta realizada");
-            } else if (!consultaRes) {
-                JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para la reserva");
-            } else if (!consultaTur) {
-                JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para el turista");
-            } else {
-                JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
             }
 
         } else {
@@ -444,6 +471,18 @@ public class Panel_Reservar extends javax.swing.JPanel {
         Date result = new Date(year - 1900, month - 1, day);
         return result;
     }
+    
+    public Date toDate(String sqlDate){
+        int day = Integer.parseInt(this.getDaySQL(sqlDate));
+        int month = Integer.parseInt(this.getMonthSQL(sqlDate));
+        int year = Integer.parseInt(this.getYearSQL(sqlDate));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        
+        Date date = new Date(calendar.getTimeInMillis());
+        
+        return date;
+    }
 
     public int getDay(String date) {
         int day = Integer.parseInt(date.substring(0, 2));
@@ -459,17 +498,17 @@ public class Panel_Reservar extends javax.swing.JPanel {
         int year = (Integer.parseInt(date.substring(6, 10)));
         return year;
     }
-    
+
     public String getDaySQL(String date) {
         String day = date.substring(8, 10);
         return day;
     }
-    
+
     public String getMonthSQL(String date) {
         String month = date.substring(5, 7);
         return month;
     }
-    
+
     public String getYearSQL(String date) {
         String year = date.substring(0, 4);
         return year;
@@ -481,39 +520,60 @@ public class Panel_Reservar extends javax.swing.JPanel {
         String[] datosReserva = sqlReserva.select(Integer.toString(codigo));
         String[] datosTurista = sqlTurista.select(Integer.parseInt(datosReserva[5]));
         
+        reserva = new Reserva(
+                Integer.parseInt(datosReserva[0]),
+                toDate(datosReserva[2]), 
+                toDate(datosReserva[3]), 
+                false,   //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
+                false,   //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
+                Integer.parseInt(datosReserva[5]), 
+                Short.parseShort(datosReserva[1])
+        );
+        
+        turista = new Turista(
+                Integer.parseInt(datosTurista[0]), 
+                datosTurista[1], 
+                datosTurista[2], 
+                toDate(datosTurista[3]), 
+                Integer.parseInt(datosTurista[4]), 
+                datosTurista[5], 
+                Short.parseShort(datosTurista[6]), 
+                datosTurista[7]
+        );
+
         /*Acá tiene que estar la validación de las 48 horas*/
         fieldCI.setText(datosReserva[5]);
         fieldNombre.setText(datosTurista[1]);
         fieldApellido.setText(datosTurista[2]);
-        
-        String[]fecha = new String[3];
+
+        String[] fecha = new String[3];
         fecha[0] = getDaySQL(datosTurista[3]);
         fecha[1] = getMonthSQL(datosTurista[3]);
         fecha[2] = getYearSQL(datosTurista[3]);
-        
+
         fieldFechaNac.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
-        fieldTelefono.setText(datosTurista[4]);
+        fieldTelefono.setText("0" + datosTurista[4]);
         fieldCalle.setText(datosTurista[5]);
         fieldNumero.setText(datosTurista[6]);
         fieldLocalidad.setText(datosTurista[7]);
-        
+
         fieldCabanna.setText(datosReserva[1]);
-        
+
         fecha[0] = getDaySQL(datosReserva[2]);
         fecha[1] = getMonthSQL(datosReserva[2]);
         fecha[2] = getYearSQL(datosReserva[2]);
-        
+
         fieldFechaInicio.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
-        
+
         fecha[0] = getDaySQL(datosReserva[3]);
         fecha[1] = getMonthSQL(datosReserva[3]);
         fecha[2] = getYearSQL(datosReserva[3]);
-        
+
         fieldFechaFin.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
 
     }
-    
-    public void setHintColor(){
+
+    public void setHintColor() {
         this.fieldCalle.setForeground(Index.color_textHint);
         this.fieldNumero.setForeground(Index.color_textHint);
         this.fieldLocalidad.setForeground(Index.color_textHint);
