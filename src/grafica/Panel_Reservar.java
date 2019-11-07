@@ -369,8 +369,8 @@ public class Panel_Reservar extends javax.swing.JPanel {
                         turista.getCi(),
                         Short.parseShort(fieldCabanna.getText()));
 
-                boolean insertReserva = sqlReserva.insertar(reserva);
                 boolean insertTurista = sqlTurista.insertar(turista);
+                boolean insertReserva = sqlReserva.insertar(reserva);
 
                 /*
                     TESTING
