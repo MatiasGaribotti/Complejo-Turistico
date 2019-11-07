@@ -279,7 +279,7 @@ public class SQLReserva extends ConexionDB {
             PreparedStatement pst = con.prepareStatement(sSQL);
             
             pst.setDate(1, res.getFechaInicio());
-            System.out.print("INICIO:" + res.getFechaInicio());
+            System.out.println("INICIO:" + res.getFechaInicio());
             pst.setDate(2, res.getFechaFin());
             System.out.println("FIN: " + res.getFechaFin());
             pst.setShort(3, res.getIdCabanna());

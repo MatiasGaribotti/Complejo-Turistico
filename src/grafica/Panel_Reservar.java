@@ -385,7 +385,8 @@ public class Panel_Reservar extends javax.swing.JPanel {
                     JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
                 }
             } else if (accion.equals("MODIFICAR")) {
-                Reserva reserva = new Reserva(
+                Reserva modificacion = new Reserva(
+                        reserva.getCodigoReserva(),
                         toDate(fieldFechaInicio),
                         toDate(fieldFechaFin),
                         false,
@@ -393,7 +394,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
                         turista.getCi(),
                         Short.parseShort(fieldCabanna.getText()));
                 
-                boolean modificarReserva = sqlReserva.modificar(reserva);
+                boolean modificarReserva = sqlReserva.modificar(modificacion);
                 boolean modificarTurista = sqlTurista.modificar(turista);
                 
                 if(modificarReserva){
