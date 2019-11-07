@@ -138,7 +138,13 @@ public class SQLReserva extends ConexionDB {
     public DefaultTableModel select() {
         String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin","CheckIn", "", ""}; //Dos columnas vacías para botones
         String[] Registro = new String[headers.length];
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
         
         Connection con = conectar("root", "");
         
@@ -196,7 +202,12 @@ public class SQLReserva extends ConexionDB {
         String[] Registro = new String[5];
 
         //Creo el modelo sin datos y le paso las cabeceras.
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
 
         Connection con = conectar("root", "");
 
@@ -298,7 +309,14 @@ public class SQLReserva extends ConexionDB {
     public DefaultTableModel selectVisualizar(String periodo) {
         String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin","CheckIn", "", ""}; //Dos columnas vacías para botones
         String[] Registro = new String[headers.length];
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
+        
         LocalDate maximo;
         switch(periodo){
             case "MES":
