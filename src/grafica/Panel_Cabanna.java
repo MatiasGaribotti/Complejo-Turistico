@@ -1,8 +1,6 @@
 package grafica;
 
-import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import logica.Cabanna;
 import logica.SQL.SQLCabanna;
 
@@ -178,22 +176,22 @@ public class Panel_Cabanna extends javax.swing.JPanel {
             boolean complete = sqlCabanna.modificar(cabanna);
 
             if (complete) {
-                JOptionPane.showConfirmDialog(null, "Cabaña modificada correctamente");
+                JOptionPane.showMessageDialog(null, "Cabaña modificada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 Index.paintTabla("CABANNAS");
                 clearFields();
             } else {
-                JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+                JOptionPane.showMessageDialog(null, "Algo ha salido mal durante la modificación a la cabaña.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
             boolean complete = sqlCabanna.insertar(cabanna);
 
             if (complete) {
-                JOptionPane.showConfirmDialog(null, "Cabaña Ingresada correctamente");
+                JOptionPane.showMessageDialog(null, "Cabaña ingresada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 Index.paintTabla("CABANNAS");
                 clearFields();
             } else {
-                JOptionPane.showConfirmDialog(null, "Falla en la consulta, fue su culpa");
+                JOptionPane.showMessageDialog(null, "Algo ha salido mal durante el ingreso de la cabaña.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 

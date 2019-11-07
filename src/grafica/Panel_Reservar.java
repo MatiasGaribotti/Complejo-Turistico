@@ -376,13 +376,21 @@ public class Panel_Reservar extends javax.swing.JPanel {
                     TESTING
                  */
                 if (insertTurista && insertReserva) {
-                    JOptionPane.showConfirmDialog(null, "Consulta realizada");
+                    JOptionPane.showMessageDialog(null, "Reserva ingresada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+
                 } else if (!insertReserva) {
-                    JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para la reserva");
+                    JOptionPane.showMessageDialog(null, "Error en el ingreso de la reserva.", "Mensaje", JOptionPane.ERROR_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+
                 } else if (!insertTurista) {
-                    JOptionPane.showConfirmDialog(null, "Consulta no mucho muy bien realizada para el turista");
+                    JOptionPane.showMessageDialog(null, "Error en el ingreso del turista.", "Mensaje", JOptionPane.ERROR_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+
                 } else {
-                    JOptionPane.showConfirmDialog(null, "Consulta no realizada directamente, sino indirectamente en su mente.");
+                    JOptionPane.showMessageDialog(null, "No se pudo ingresar la reserva.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+
                 }
             } else if (accion.equals("MODIFICAR")) {
                 Reserva modificacion = new Reserva(
@@ -393,26 +401,23 @@ public class Panel_Reservar extends javax.swing.JPanel {
                         false,
                         turista.getCi(),
                         Short.parseShort(fieldCabanna.getText()));
-                
+
                 boolean modificarReserva = sqlReserva.modificar(modificacion);
                 boolean modificarTurista = sqlTurista.modificar(turista);
-                
-                if(modificarReserva){
-                    JOptionPane.showMessageDialog(null, "Reserva modificada con éxito.", "Mensaje", JOptionPane.OK_OPTION);
-                }else if(!modificarReserva){
-                    JOptionPane.showMessageDialog(null, "Error al modificar reserva.", "Mensaje", JOptionPane.OK_OPTION);
-                }
-                
-                if(modificarTurista){
-                    JOptionPane.showMessageDialog(null, "Turista modificada con éxito.", "Mensaje", JOptionPane.OK_OPTION);
-                }else if(!modificarTurista){
-                    JOptionPane.showMessageDialog(null, "Error al modificar turista.", "Mensaje", JOptionPane.OK_OPTION);
-                }
 
+                if (modificarReserva && modificarTurista) {
+                    JOptionPane.showMessageDialog(null, "Reserva modificada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Algo ha salido mal durante la modificación.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    Index.paintTabla("RESERVAS");
+                }
             }
 
         } else {
-            JOptionPane.showConfirmDialog(null, "Cédula inválida");
+            JOptionPane.showMessageDialog(null, "Cédula inválida.", "Mensaje", JOptionPane.WARNING_MESSAGE);
+            fieldCI.requestFocusInWindow();
+            
         }
 
     }//GEN-LAST:event_btnReservarMouseClicked
@@ -471,16 +476,16 @@ public class Panel_Reservar extends javax.swing.JPanel {
         Date result = new Date(year - 1900, month - 1, day);
         return result;
     }
-    
-    public Date toDate(String sqlDate){
+
+    public Date toDate(String sqlDate) {
         int day = Integer.parseInt(this.getDaySQL(sqlDate));
         int month = Integer.parseInt(this.getMonthSQL(sqlDate));
         int year = Integer.parseInt(this.getYearSQL(sqlDate));
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        
+
         Date date = new Date(calendar.getTimeInMillis());
-        
+
         return date;
     }
 
@@ -519,30 +524,31 @@ public class Panel_Reservar extends javax.swing.JPanel {
         SQLTurista sqlTurista = new SQLTurista();
         String[] datosReserva = sqlReserva.select(Integer.toString(codigo));
         String[] datosTurista = sqlTurista.select(Integer.parseInt(datosReserva[5]));
-        
+
         reserva = new Reserva(
                 Integer.parseInt(datosReserva[0]),
-                toDate(datosReserva[2]), 
-                toDate(datosReserva[3]), 
-                false,   //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
-                false,   //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
-                Integer.parseInt(datosReserva[5]), 
+                toDate(datosReserva[2]),
+                toDate(datosReserva[3]),
+                false, //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
+                false, //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
+                Integer.parseInt(datosReserva[5]),
                 Short.parseShort(datosReserva[1])
         );
-        
+
         turista = new Turista(
-                Integer.parseInt(datosTurista[0]), 
-                datosTurista[1], 
-                datosTurista[2], 
-                toDate(datosTurista[3]), 
-                Integer.parseInt(datosTurista[4]), 
-                datosTurista[5], 
-                Short.parseShort(datosTurista[6]), 
+                Integer.parseInt(datosTurista[0]),
+                datosTurista[1],
+                datosTurista[2],
+                toDate(datosTurista[3]),
+                Integer.parseInt(datosTurista[4]),
+                datosTurista[5],
+                Short.parseShort(datosTurista[6]),
                 datosTurista[7]
         );
 
         /*Acá tiene que estar la validación de las 48 horas*/
         fieldCI.setText(datosReserva[5]);
+        fieldCI.setEnabled(false);
         fieldNombre.setText(datosTurista[1]);
         fieldApellido.setText(datosTurista[2]);
 

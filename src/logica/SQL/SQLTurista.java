@@ -126,7 +126,12 @@ public class SQLTurista extends ConexionDB {
         NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
 
         Connection con = conectar("root", "");
 

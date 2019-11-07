@@ -26,7 +26,14 @@ public class SQLCabanna extends ConexionDB {
         String[] headers = {"ID", "Habitaciones", "Camas", "Baños", "Huespedes", "Aire A.", "Parrillero", "Costo Hora", "Descripción"};
         String[] registro = new String[8];
         NR = 0;
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
+        
         Connection con = conectar("root", "");
         sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,cantHuespedes,aireAcondicionado,parrillero,costHour,descripcion FROM Cabannas ORDER BY id";
 
@@ -78,7 +85,12 @@ public class SQLCabanna extends ConexionDB {
         NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
-        DefaultTableModel modelo = new DefaultTableModel(null, headers);
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
 
         Connection con = conectar("root", "");
 

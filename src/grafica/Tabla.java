@@ -15,7 +15,13 @@ public class Tabla extends javax.swing.JPanel {
 
     //Variable que define qué tipo de tabla va a ser
     private String view;
-    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
+    
 
     public Tabla() {
         this.view = "CABANNAS";
@@ -28,7 +34,9 @@ public class Tabla extends javax.swing.JPanel {
     public void buildTable() {
         initComponents();
         this.setSize(936, 286); //Check if this works
-        table.setModel(buildModel());
+        modelo = buildModel();
+        table.setModel(modelo);
+    
         styleTable();
 
     }
@@ -46,7 +54,7 @@ public class Tabla extends javax.swing.JPanel {
         this.setSize(width, height);
 
     }
-
+    
     public DefaultTableModel buildModel() {
         /*
             En base a el tipo de tabla
@@ -54,9 +62,7 @@ public class Tabla extends javax.swing.JPanel {
             En este caso la consulta es para obtener
             todos los datos de la tabla que corresponda
          */
-
-        DefaultTableModel modelo = new DefaultTableModel();
-
+        
         switch (view) {
             case "CABANNAS":
                 SQLCabanna sqlCabanna = new SQLCabanna();
@@ -171,7 +177,7 @@ public class Tabla extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
-        ) {
+        ){
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
@@ -179,6 +185,8 @@ public class Tabla extends javax.swing.JPanel {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int row, int column){return false;}
         });
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         table.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
@@ -231,7 +239,13 @@ public class Tabla extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Eliminación cancelada");
 
             } else if (view.equals("RESERVAS")) {
-
+                int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar la reserva?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                
+                if(op == 0){ //Yes
+                    
+                }else{
+                    
+                }
             }
         }
     }//GEN-LAST:event_tableMouseClicked
