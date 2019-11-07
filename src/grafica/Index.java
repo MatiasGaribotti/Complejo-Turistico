@@ -65,6 +65,9 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         sideBar = new javax.swing.JPanel();
+        btnCanceladas = new javax.swing.JLabel();
+        iconCanceladas = new javax.swing.JLabel();
+        ui_btnCanceladas = new javax.swing.JLabel();
         iconReserva = new javax.swing.JLabel();
         btnReservas = new javax.swing.JLabel();
         ui_btnReservas = new javax.swing.JLabel();
@@ -95,6 +98,23 @@ public class Index extends javax.swing.JFrame {
         sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
         sideBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCanceladas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnCanceladas.setForeground(new java.awt.Color(255, 255, 255));
+        btnCanceladas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCanceladas.setText("Canceladas");
+        btnCanceladas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCanceladasMousePressed(evt);
+            }
+        });
+        sideBar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, 40));
+
+        iconCanceladas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_canceladas.png"))); // NOI18N
+        sideBar.add(iconCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
+
+        ui_btnCanceladas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, -1));
 
         iconReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_reserva.png"))); // NOI18N
@@ -270,23 +290,28 @@ public class Index extends javax.swing.JFrame {
 
     private void btnCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMousePressed
         this.currentView = "HISTORICO";
-        setupHistorico();
+        setupHistorico("Histórico");
         
     }//GEN-LAST:event_btnCalendarioMousePressed
 
-    public void setupHistorico(){
+    private void btnCanceladasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCanceladasMousePressed
+        this.currentView = "CANCELADAS";
+        setupHistorico("Canceladas");
+    }//GEN-LAST:event_btnCanceladasMousePressed
+
+    public void setupHistorico(String title){
         layerHerramientas.setVisible(false);
         layerIngresos.setVisible(false);
         layerTabla.setVisible(false);
         layerTabla.setEnabled(false);
         
         content.add(contentHistory);
-        
+        contentHistory.removeAll();
         contentHistory.setLayout(null);
         contentHistory.setBounds(0,0,content.getWidth(),content.getHeight());
         contentHistory.setVisible(true);
         contentHistory.setBackground(Color.WHITE);
-        JLabel lblTituloHistory = new JLabel("Histórico");
+        JLabel lblTituloHistory = new JLabel(title);
         contentHistory.add(lblTituloHistory);
         lblTituloHistory.setSize(300,30);
         lblTituloHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -378,10 +403,12 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel UI_sideBar;
     private javax.swing.JLabel btnCabannas;
     private javax.swing.JLabel btnCalendario;
+    private javax.swing.JLabel btnCanceladas;
     private javax.swing.JLabel btnReservas;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
     private javax.swing.JLabel iconCalendario;
+    private javax.swing.JLabel iconCanceladas;
     private javax.swing.JLabel iconReserva;
     private javax.swing.JLayeredPane layerHerramientas;
     private static javax.swing.JLayeredPane layerIngresos;
@@ -393,6 +420,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_Exit;
     private javax.swing.JLabel ui_btnCabannas;
     private javax.swing.JLabel ui_btnCalendario;
+    private javax.swing.JLabel ui_btnCanceladas;
     private javax.swing.JLabel ui_btnReservas;
     private javax.swing.JLabel ui_topBar;
     // End of variables declaration//GEN-END:variables
