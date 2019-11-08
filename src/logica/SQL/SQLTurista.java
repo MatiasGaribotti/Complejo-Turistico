@@ -1,5 +1,6 @@
 package logica.SQL;
 
+import grafica.Index;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class SQLTurista extends ConexionDB {
      * @return Retorna si se ejecutó con éxito la consulta o no.
      */
     public boolean insertar(Turista tur) {
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         sSQL = "INSERT INTO Turistas (ci, nombre, apellido, fechaNacimiento, telefonoMovil, calle, numero, localidad)"
                 + "VALUES (?,?,?,?,?,?,?,?)";
@@ -71,7 +72,7 @@ public class SQLTurista extends ConexionDB {
     public  String[] select(int ci) {
         String[] Registro = new String[8];
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
@@ -133,7 +134,7 @@ public class SQLTurista extends ConexionDB {
         
         }};
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT T.ci,R.codigoReserva,R.idCabanna,R.fechaInicio,R.fechaFin "
                 + "FROM Turistas AS T,Reservas AS R WHERE T.ci=R.ci AND R.cancelada=0 AND R.confirmada=1 ORDER BY fechaInicio";
@@ -179,7 +180,7 @@ public class SQLTurista extends ConexionDB {
     
     public boolean modificar(Turista tur) {
         //Nueva conexión
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ?  

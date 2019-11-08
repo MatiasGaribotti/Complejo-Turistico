@@ -1,5 +1,6 @@
 package logica.SQL;
 
+import grafica.Index;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class SQLCabanna extends ConexionDB {
         
         }};
         
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,cantHuespedes,aireAcondicionado,parrillero,costHour,descripcion FROM Cabannas ORDER BY id";
 
         try {
@@ -92,7 +93,7 @@ public class SQLCabanna extends ConexionDB {
         
         }};
 
-        Connection con = conectar("root", "");
+        Connection con = conectar("root");
 
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
@@ -157,7 +158,7 @@ public class SQLCabanna extends ConexionDB {
         String[] Registro = new String[8];
         NR = 0;
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
@@ -221,7 +222,7 @@ public class SQLCabanna extends ConexionDB {
      * @return Retorna si se ejecutó con exito o no.
      */
     public boolean insertar(Cabanna cab) {
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         sSQL = "INSERT INTO Cabannas (cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour)"
                 + "VALUES (?,?,?,?,?,?,?)";
         try {
@@ -254,7 +255,7 @@ public class SQLCabanna extends ConexionDB {
      */
     public boolean modificar(Cabanna cab) {
         //Nueva conexión
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ?  
@@ -297,7 +298,7 @@ public class SQLCabanna extends ConexionDB {
      */
     
     public boolean eliminar(short id) {
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         sSQL = "DELETE FROM Cabannas WHERE id=?";
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);

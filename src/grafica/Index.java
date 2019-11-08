@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import logica.Usuario;
 
 /**
  * Ventana principal del software.
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class Index extends javax.swing.JFrame {
- 
+    public static Usuario user;
     //Almacenará la vista actual
     String currentView;
     Herramientas Herramienta;
@@ -401,6 +402,7 @@ public class Index extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        Index.user=new Usuario();
         Index main = new Index();
         main.buildIndex();
         main.setVisible(true);

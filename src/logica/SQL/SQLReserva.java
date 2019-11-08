@@ -1,5 +1,6 @@
 package logica.SQL;
 
+import grafica.Index;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
@@ -80,7 +81,7 @@ public class SQLReserva extends ConexionDB {
         }
         
         if (!noDisponible) {
-            Connection con = conectar("root", "");
+            Connection con = conectar(Index.user.getNombre());
             sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, confirmada, cancelada, ci, idCabanna)"
                     + "VALUES (?,?,?,?,?,?,?)";
             try {
@@ -120,7 +121,7 @@ public class SQLReserva extends ConexionDB {
 
     public boolean cancelar(Reserva res) {
         //Nueva conexión
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
@@ -150,7 +151,7 @@ public class SQLReserva extends ConexionDB {
 
     public boolean confirmar(Reserva res) {
         //Nueva conexión
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
@@ -190,7 +191,7 @@ public class SQLReserva extends ConexionDB {
             }
         };
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
                 + "FROM reservas WHERE cancelada=0 ORDER BY fechaInicio";
@@ -242,7 +243,7 @@ public class SQLReserva extends ConexionDB {
         int cont = 0;
         ArrayList<LocalDate> Fechas = new ArrayList<>();
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT fechaInicio,fechaFin "
                 + "FROM reservas WHERE cancelada=0 AND fechaInicio>" + LocalDate.now().toString() + " AND idCabanna='" + id + "' ORDER BY fechaInicio";
@@ -290,7 +291,7 @@ public class SQLReserva extends ConexionDB {
             }
         };
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin "
                 + "FROM `reservas` WHERE `cancelada`=1 ORDER BY fechaInicio";
@@ -337,7 +338,7 @@ public class SQLReserva extends ConexionDB {
     public String[] select(String codigo) {
         String[] Registro = new String[6];
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
@@ -410,7 +411,7 @@ public class SQLReserva extends ConexionDB {
                 maximo = LocalDate.now().plusWeeks(1);
         }
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
         System.out.println(maximo.toString());
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
                 + "FROM reservas WHERE cancelada=0 AND `fechaInicio`>'" + maximo.toString() + "' ORDER BY fechaInicio";
@@ -458,7 +459,7 @@ public class SQLReserva extends ConexionDB {
 
     public boolean modificar(Reserva res) {
         //Nueva conexión
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ?  

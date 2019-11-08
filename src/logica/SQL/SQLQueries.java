@@ -1,5 +1,6 @@
 package logica.SQL;
 
+import grafica.Index;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public class SQLQueries extends ConexionDB {
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
         
 
-        Connection con = conectar("root", "");
+        Connection con = conectar(Index.user.getNombre());
 
         for (int i = 0; i < atributos.length; i++) {
             sSQL = sSQL.concat(atributos[i]);
