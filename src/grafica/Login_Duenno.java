@@ -54,8 +54,6 @@ public class Login_Duenno extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Dueño de cabaña");
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
-        pswContraseña.setText("jPasswordField1");
         getContentPane().add(pswContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
 
         lblContrasenna.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

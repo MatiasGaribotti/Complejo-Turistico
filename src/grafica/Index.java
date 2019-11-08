@@ -22,7 +22,8 @@ public class Index extends javax.swing.JFrame {
     public static Usuario user;
     //Almacenará la vista actual
     String currentView;
-    Herramientas Herramienta;
+    Tools_Buscar searchPanel;
+    Tools_visualizar viewPanel;
     DefaultComboBoxModel modeloDef;
     DefaultComboBoxModel modeloDefSort;
     private JLayeredPane layerHerramientasHistory = new JLayeredPane();
@@ -35,7 +36,7 @@ public class Index extends javax.swing.JFrame {
         user = new Usuario();
     }
     
-    public void buildIndex(){       
+    public void build(){       
         initComponents();
         
         this.setSize(1200, 768);
@@ -43,12 +44,13 @@ public class Index extends javax.swing.JFrame {
         
         paintPanel(new Panel_Cabanna(), layerIngresos);
         
-        Herramienta = new Herramientas(currentView);
-        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
-        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
-        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        searchPanel = new Tools_Buscar(currentView);
+        modeloDef = searchPanel.camposComboB(currentView, modeloDef);
+        searchPanel.build(modeloDef);
         
-        paintPanel(Herramienta, layerHerramientas);   
+        
+        paintPanel(searchPanel, layerBuscar);   
+        
         Index.paintTabla(currentView);
     }
 
@@ -67,6 +69,9 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         sideBar = new javax.swing.JPanel();
+        btnDisponibilidad = new javax.swing.JLabel();
+        iconDisponibilidad = new javax.swing.JLabel();
+        ui_btnDisponibilidad = new javax.swing.JLabel();
         btnUser = new javax.swing.JLabel();
         iconUser = new javax.swing.JLabel();
         ui_btnUser = new javax.swing.JLabel();
@@ -90,8 +95,9 @@ public class Index extends javax.swing.JFrame {
         ui_topBar = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         layerIngresos = new javax.swing.JLayeredPane();
-        layerHerramientas = new javax.swing.JLayeredPane();
+        layerBuscar = new javax.swing.JLayeredPane();
         layerTabla = new javax.swing.JLayeredPane();
+        layerVisualizar = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("3 Weeks");
@@ -103,6 +109,26 @@ public class Index extends javax.swing.JFrame {
         sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
         sideBar.setLayout(null);
+
+        btnDisponibilidad.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnDisponibilidad.setForeground(new java.awt.Color(255, 255, 255));
+        btnDisponibilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDisponibilidad.setText("Disponibilidad");
+        btnDisponibilidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnDisponibilidadMousePressed(evt);
+            }
+        });
+        sideBar.add(btnDisponibilidad);
+        btnDisponibilidad.setBounds(30, 280, 210, 40);
+
+        iconDisponibilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_calendario.png"))); // NOI18N
+        sideBar.add(iconDisponibilidad);
+        iconDisponibilidad.setBounds(10, 290, 21, 22);
+
+        ui_btnDisponibilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnDisponibilidad);
+        ui_btnDisponibilidad.setBounds(0, 280, 240, 40);
 
         btnUser.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
         btnUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -262,10 +288,10 @@ public class Index extends javax.swing.JFrame {
         content.add(layerIngresos);
         layerIngresos.setBounds(10, 0, 483, 402);
 
-        layerHerramientas.setPreferredSize(new java.awt.Dimension(454, 145));
-        layerHerramientas.setLayout(new java.awt.CardLayout());
-        content.add(layerHerramientas);
-        layerHerramientas.setBounds(500, 250, 454, 145);
+        layerBuscar.setPreferredSize(new java.awt.Dimension(454, 145));
+        layerBuscar.setLayout(new java.awt.CardLayout());
+        content.add(layerBuscar);
+        layerBuscar.setBounds(500, 315, 450, 90);
 
         layerTabla.setPreferredSize(new java.awt.Dimension(936, 286));
 
@@ -283,6 +309,11 @@ public class Index extends javax.swing.JFrame {
         content.add(layerTabla);
         layerTabla.setBounds(6, 410, 950, 320);
 
+        layerVisualizar.setPreferredSize(new java.awt.Dimension(464, 89));
+        layerVisualizar.setLayout(new java.awt.CardLayout());
+        content.add(layerVisualizar);
+        layerVisualizar.setBounds(500, 250, 450, 60);
+
         getContentPane().add(content);
         content.setBounds(240, 30, 960, 740);
 
@@ -299,28 +330,31 @@ public class Index extends javax.swing.JFrame {
         
         paintPanel(new Panel_Reservar(), layerIngresos);
                
-        Herramienta = new Herramientas(this.getCurrentView());
-        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
-        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
-        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        searchPanel = new Tools_Buscar(this.getCurrentView());
+        modeloDef = searchPanel.camposComboB(currentView, modeloDef);
+        searchPanel.build(modeloDef);
+        viewPanel = new Tools_visualizar();
+        viewPanel.build();
         
-        paintPanel(Herramienta, layerHerramientas);
+        paintPanel(searchPanel, layerBuscar);
+        paintPanel(viewPanel, layerVisualizar);
         paintTabla("RESERVAS");
     }//GEN-LAST:event_btnReservasMousePressed
 
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         setCurrentView("CABANNAS");
         resetView();
+        layerVisualizar.removeAll();
+        layerVisualizar.repaint();
         
         paintPanel(new Panel_Cabanna(), layerIngresos);
         Index.paintTabla(getCurrentView());
                 
-        Herramienta = new Herramientas(this.getCurrentView());
-        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
-        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
-        Herramienta.buildHerramientas(modeloDef, modeloDefSort);
+        searchPanel = new Tools_Buscar(this.getCurrentView());
+        modeloDef = searchPanel.camposComboB(currentView, modeloDef);
+        searchPanel.build(modeloDef);
         
-        paintPanel(Herramienta, layerHerramientas);
+        paintPanel(searchPanel, layerBuscar);
     }//GEN-LAST:event_btnCabannasMousePressed
 
     private void ui_DisposeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_DisposeMousePressed
@@ -331,6 +365,8 @@ public class Index extends javax.swing.JFrame {
         layerTablaHistory.removeAll();
         this.currentView = "HISTORICO";
         setupHistorico("Histórico");
+        layerVisualizar.removeAll();
+        layerVisualizar.repaint();
         
     }//GEN-LAST:event_btnHistoricoMousePressed
 
@@ -338,6 +374,8 @@ public class Index extends javax.swing.JFrame {
         layerTablaHistory.removeAll();
         this.currentView = "CANCELADAS";
         setupHistorico("Canceladas");
+        layerVisualizar.removeAll();
+        layerVisualizar.repaint();
     }//GEN-LAST:event_btnCanceladasMousePressed
 
     private void btnUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMousePressed
@@ -347,8 +385,12 @@ public class Index extends javax.swing.JFrame {
         login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnUserMousePressed
 
+    private void btnDisponibilidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadMousePressed
+        
+    }//GEN-LAST:event_btnDisponibilidadMousePressed
+
     public void setupHistorico(String title){
-        layerHerramientas.setVisible(false);
+        layerBuscar.setVisible(false);
         layerIngresos.setVisible(false);
         layerTabla.setVisible(false);
         layerTabla.setEnabled(false);
@@ -370,10 +412,9 @@ public class Index extends javax.swing.JFrame {
         lblTituloHistory.setVisible(true);
         
         layerHerramientasHistory.setBounds(10, 50, 940, 85);
-        Herramientas panel = new Herramientas();
-        modeloDef = Herramienta.camposComboB(currentView, modeloDef);
-        modeloDefSort = Herramienta.camposSort(currentView, modeloDefSort);
-        panel.buildHerramientas(modeloDef, modeloDefSort);
+        Tools_Buscar panel = new Tools_Buscar();
+        modeloDef = searchPanel.camposComboB(currentView, modeloDef);
+        panel.build(modeloDef);
         
         layerHerramientasHistory.add(panel);
         contentHistory.add(layerHerramientasHistory);
@@ -397,7 +438,7 @@ public class Index extends javax.swing.JFrame {
         contentHistory.removeAll();
         layerTablaHistory.removeAll();
         layerIngresos.setVisible(true);
-        layerHerramientas.setVisible(true);
+        layerBuscar.setVisible(true);
         layerTabla.setVisible(true);
     }
     public static Color color_textHint = new Color(212, 212, 212);
@@ -449,7 +490,7 @@ public class Index extends javax.swing.JFrame {
     public static void main(String args[]) {
         Index.user=new Usuario();
         Index main = new Index();
-        main.buildIndex();
+        main.build();
         main.setVisible(true);
     }
 
@@ -457,18 +498,21 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel UI_sideBar;
     private javax.swing.JLabel btnCabannas;
     private javax.swing.JLabel btnCanceladas;
+    private javax.swing.JLabel btnDisponibilidad;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnReservas;
     private javax.swing.JLabel btnUser;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
     private javax.swing.JLabel iconCanceladas;
+    private javax.swing.JLabel iconDisponibilidad;
     private javax.swing.JLabel iconHistorico;
     private javax.swing.JLabel iconReserva;
     private javax.swing.JLabel iconUser;
-    private javax.swing.JLayeredPane layerHerramientas;
+    private javax.swing.JLayeredPane layerBuscar;
     private static javax.swing.JLayeredPane layerIngresos;
     private static javax.swing.JLayeredPane layerTabla;
+    private static javax.swing.JLayeredPane layerVisualizar;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel sideBar;
     private javax.swing.JPanel topBar;
@@ -477,6 +521,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_btnCabannas;
     private javax.swing.JLabel ui_btnCalendario;
     private javax.swing.JLabel ui_btnCanceladas;
+    private javax.swing.JLabel ui_btnDisponibilidad;
     private javax.swing.JLabel ui_btnReservas;
     private javax.swing.JLabel ui_btnUser;
     private javax.swing.JLabel ui_topBar;
