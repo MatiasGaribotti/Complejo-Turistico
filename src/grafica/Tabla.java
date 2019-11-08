@@ -258,7 +258,14 @@ public class Tabla extends javax.swing.JPanel {
                 int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar la reserva?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 
                 if(op == 0){ //Yes
+                    SQLReserva sqlReserva = new SQLReserva();
+                    int codigoReserva = Integer.parseInt(table.getModel().getValueAt(fila, 0).toString());
+                    if (sqlReserva.cancelar(codigoReserva))                    
+                        JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Algo ha salido mal.", "Mensaje", JOptionPane.ERROR_MESSAGE);
                     
+                    Index.paintTabla(view); //Update de la tabla
                 }else{
                     
                 }

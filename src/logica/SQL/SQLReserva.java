@@ -56,8 +56,6 @@ public class SQLReserva extends ConexionDB {
                     && (LocalDate.parse(res.getFechaInicio().toString()).isBefore(proximos[i + 1]) || LocalDate.parse(res.getFechaInicio().toString()).isEqual(proximos[i + 1]))
                     ){
                 noDisponible = true;
-//                System.out.println("Caso 1");
-//                System.out.println("Inicio: " + proximos[i] + "\nFin: " + proximos[i+1]);
             }
             //Fecha de finalización dentro del período de una reserva
             else if (
@@ -65,8 +63,6 @@ public class SQLReserva extends ConexionDB {
                     && (LocalDate.parse(res.getFechaFin().toString()).isBefore(proximos[i + 1]) || LocalDate.parse(res.getFechaFin().toString()).isEqual(proximos[i + 1]))
                     ){
                 noDisponible = true;
-//                System.out.println("Caso 2");
-//                System.out.println("Inicio: " + proximos[i] + "\nFin: " + proximos[i+1]);
             }
             //La nueva reserva abarca un período reservado
             else if (
@@ -74,8 +70,6 @@ public class SQLReserva extends ConexionDB {
                     && (LocalDate.parse(res.getFechaFin().toString()).isAfter(proximos[i + 1]) || LocalDate.parse(res.getFechaFin().toString()).isEqual(proximos[i + 1]))
                     ){
                 noDisponible = true;
-//                System.out.println("Caso 3");
-//                System.out.println("Inicio: " + proximos[i] + "\nFin: " + proximos[i+1]);
             }
         
         }
@@ -100,7 +94,7 @@ public class SQLReserva extends ConexionDB {
                 return true;
 
             } catch (SQLException e) {
-                JOptionPane.showConfirmDialog(null, e);
+                JOptionPane.showMessageDialog(null, e, "Mensaje", JOptionPane.ERROR_MESSAGE);
                 return false;
 
             } finally {
@@ -119,25 +113,25 @@ public class SQLReserva extends ConexionDB {
         }
     }
 
-    public boolean cancelar(Reserva res) {
+    public boolean cancelar(int codigoReserva) {
         //Nueva conexión
         Connection con = conectar(Index.user.getNombre());
 
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
          */
-        sSQL = "UPDATE Reservas SET cancelada=? WHERE id=?";
+        sSQL = "UPDATE Reservas SET cancelada=? WHERE codigoReserva=?";
 
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
 
             pst.setBoolean(1, true);
-            pst.setInt(2, res.getCodigoReserva());
+            pst.setInt(2, codigoReserva);
             pst.execute();
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e, "Mensaje", JOptionPane.ERROR_MESSAGE);
             return false;
 
         } finally {
