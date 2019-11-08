@@ -35,6 +35,14 @@ public class Index extends javax.swing.JFrame {
         setCurrentView("CABANNAS");
         user = new Usuario();
     }
+
+    public static Usuario getUser() {
+        return user;
+    }
+
+    public static void setUser(Usuario user) {
+        Index.user = user;
+    }
     
     public void build(){       
         initComponents();
@@ -379,10 +387,10 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCanceladasMousePressed
 
     private void btnUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMousePressed
-        Login_Duenno login = new Login_Duenno();
-        login.setLocationRelativeTo(null);
-        login.setVisible(true);
-        login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//        Login_Duenno login = new Login_Duenno();
+//        login.setLocationRelativeTo(null);
+//        login.setVisible(true);
+//        login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnUserMousePressed
 
     private void btnDisponibilidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadMousePressed

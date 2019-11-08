@@ -369,7 +369,9 @@ public class Panel_Reservar extends javax.swing.JPanel {
                         false,
                         false,
                         turista.getCi(),
-                        Short.parseShort(fieldCabanna.getText()));
+                        Short.parseShort(fieldCabanna.getText()),
+                        false
+                );
 
                 boolean insertTurista = sqlTurista.insertar(turista);
                 boolean insertReserva = sqlReserva.insertar(reserva);
@@ -402,7 +404,9 @@ public class Panel_Reservar extends javax.swing.JPanel {
                         false,
                         false,
                         turista.getCi(),
-                        Short.parseShort(fieldCabanna.getText()));
+                        Short.parseShort(fieldCabanna.getText()),
+                        false
+                );
 
                 boolean modificarReserva = sqlReserva.modificar(modificacion);
                 boolean modificarTurista = sqlTurista.modificar(turista);
@@ -534,8 +538,9 @@ public class Panel_Reservar extends javax.swing.JPanel {
                 false, //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
                 false, //Si se modifica la reserva quiere decir que ni empezó ni se canceló.
                 Integer.parseInt(datosReserva[5]),
-                Short.parseShort(datosReserva[1])
-        );
+                Short.parseShort(datosReserva[1]),
+                false
+                );
 
         turista = new Turista(
                 Integer.parseInt(datosTurista[0]),

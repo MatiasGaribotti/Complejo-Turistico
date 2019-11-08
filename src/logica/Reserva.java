@@ -11,6 +11,15 @@ public class Reserva {
     boolean cancelada;
     int ci; //FK
     short idCabanna; //FK
+    boolean checkOut;
+
+    public boolean isCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(boolean checkOut) {
+        this.checkOut = checkOut;
+    }
 
     public Reserva() {
     }
@@ -19,18 +28,19 @@ public class Reserva {
         this.codigoReserva = codigoReserva;
     }
 
-    public Reserva(Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
+    public Reserva(Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna, boolean checkOut) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.checkIn = confirmada;
         this.cancelada = cancelada;
         this.ci = ci;
         this.idCabanna = idCabanna;
+        this.checkOut=checkOut;
     }
 
     
     
-    public Reserva(int codigoReserva, Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
+    public Reserva(int codigoReserva, Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna, boolean checkOut) {
         this.codigoReserva = codigoReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -38,6 +48,7 @@ public class Reserva {
         this.cancelada = cancelada;
         this.ci = ci;
         this.idCabanna = idCabanna;
+        this.checkOut=checkOut;
     }
 
     public int getCodigoReserva() {
