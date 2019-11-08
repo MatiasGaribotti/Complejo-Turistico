@@ -289,12 +289,14 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_ui_DisposeMousePressed
 
     private void btnCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMousePressed
+        layerTablaHistory.removeAll();
         this.currentView = "HISTORICO";
         setupHistorico("Histórico");
         
     }//GEN-LAST:event_btnCalendarioMousePressed
 
     private void btnCanceladasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCanceladasMousePressed
+        layerTablaHistory.removeAll();
         this.currentView = "CANCELADAS";
         setupHistorico("Canceladas");
     }//GEN-LAST:event_btnCanceladasMousePressed
@@ -307,6 +309,8 @@ public class Index extends javax.swing.JFrame {
         
         content.add(contentHistory);
         contentHistory.removeAll();
+        
+        
         contentHistory.setLayout(null);
         contentHistory.setBounds(0,0,content.getWidth(),content.getHeight());
         contentHistory.setVisible(true);
@@ -330,19 +334,22 @@ public class Index extends javax.swing.JFrame {
         panel.horizontalView();
         
         layerTablaHistory.setBounds(10, layerHerramientasHistory.getLocation().y + layerHerramientasHistory.getHeight() + 10, 940, contentHistory.getHeight() - layerHerramientasHistory.getHeight() - 50 -10);
-        Tabla tabla = new Tabla("HISTORICO");
+        Tabla tabla = new Tabla(this.getCurrentView());
+        
         tabla.setVisible(true);
         tabla.buildTable();
         
         tabla.changeSize(layerTablaHistory.getWidth(), layerTablaHistory.getHeight()-20);
         layerTablaHistory.add(tabla);
         contentHistory.add(layerTablaHistory);
+        layerTablaHistory.repaint();
         contentHistory.repaint();
     }
     
     public void resetView(){
         contentHistory.setVisible(false);
         contentHistory.removeAll();
+        layerTablaHistory.removeAll();
         layerIngresos.setVisible(true);
         layerHerramientas.setVisible(true);
         layerTabla.setVisible(true);

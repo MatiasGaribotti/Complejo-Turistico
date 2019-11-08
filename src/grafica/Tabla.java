@@ -62,25 +62,28 @@ public class Tabla extends javax.swing.JPanel {
             En este caso la consulta es para obtener
             todos los datos de la tabla que corresponda
          */
+        SQLCabanna sqlCabanna = new SQLCabanna();
+        SQLReserva sqlReserva = new SQLReserva();
+        SQLTurista sqlTurista = new SQLTurista();
         
         switch (view) {
             case "CABANNAS":
-                SQLCabanna sqlCabanna = new SQLCabanna();
                 modelo = sqlCabanna.select("", "id");
                 break;
 
             case "RESERVAS":
-                SQLReserva sqlReserva = new SQLReserva();
                 modelo = sqlReserva.select();
                 break;
 
             case "TURISTAS":
-
                 break;
 
             case "HISTORICO":
-                SQLTurista sqlTurista = new SQLTurista();
                 modelo = sqlTurista.selectHistory();
+                break;
+                
+            case "CANCELADAS":
+                modelo = sqlReserva.selectCanceladas();
                 break;
 
             default:
@@ -154,6 +157,12 @@ public class Tabla extends javax.swing.JPanel {
                     table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
 
+                break;
+                
+            case "CANCELADAS":
+                for (int i = 0; i < size; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
+                }
                 break;
 
             default:
