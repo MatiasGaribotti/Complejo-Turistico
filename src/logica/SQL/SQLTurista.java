@@ -137,7 +137,7 @@ public class SQLTurista extends ConexionDB {
         Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT T.ci,R.codigoReserva,R.idCabanna,R.fechaInicio,R.fechaFin "
-                + "FROM Turistas AS T,Reservas AS R WHERE T.ci=R.ci AND R.cancelada=0 AND R.confirmada=1 ORDER BY fechaInicio";
+                + "FROM Turistas AS T,Reservas AS R WHERE T.ci=R.ci AND R.cancelada=0 AND R.checkIn=1 ORDER BY fechaInicio";
 
         try {
 

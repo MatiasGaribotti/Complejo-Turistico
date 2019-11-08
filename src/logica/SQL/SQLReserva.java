@@ -76,7 +76,7 @@ public class SQLReserva extends ConexionDB {
         
         if (!noDisponible) {
             Connection con = conectar(Index.user.getNombre());
-            sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, confirmada, cancelada, ci, idCabanna)"
+            sSQL = "INSERT INTO Reservas (codigoReserva, fechaInicio, fechaFin, checkIn, cancelada, ci, idCabanna)"
                     + "VALUES (?,?,?,?,?,?,?)";
             try {
                 PreparedStatement pst = con.prepareStatement(sSQL);
@@ -84,7 +84,7 @@ public class SQLReserva extends ConexionDB {
                 pst.setInt(1, res.getCodigoReserva());
                 pst.setDate(2, res.getFechaInicio());
                 pst.setDate(3, res.getFechaFin());
-                pst.setBoolean(4, res.getConfirmada());
+                pst.setBoolean(4, res.getCheckIn());
                 pst.setBoolean(5, res.getCancelada());
                 pst.setInt(6, res.getCi());
                 pst.setShort(7, res.getIdCabanna());
@@ -150,7 +150,7 @@ public class SQLReserva extends ConexionDB {
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
          */
-        sSQL = "UPDATE Reservas SET confirmada=? WHERE id=?";
+        sSQL = "UPDATE Reservas SET checkIn=? WHERE id=?";
 
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
@@ -187,7 +187,7 @@ public class SQLReserva extends ConexionDB {
 
         Connection con = conectar(Index.user.getNombre());
 
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
+        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
                 + "FROM reservas WHERE cancelada=0 ORDER BY fechaInicio";
 
         try {
@@ -207,7 +207,7 @@ public class SQLReserva extends ConexionDB {
                 Registro[2] = rs.getString("idCabanna");
                 Registro[3] = rs.getString("fechaInicio");
                 Registro[4] = rs.getString("fechaFin");
-                Registro[5] = rs.getString("confirmada");
+                Registro[5] = rs.getString("checkIn");
 
                 Registro[Registro.length - 2] = "MODIFICAR";
                 Registro[Registro.length - 1] = "ELIMINAR";
@@ -337,7 +337,7 @@ public class SQLReserva extends ConexionDB {
         /*
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
          */
-        sSQL = "SELECT codigoReserva,idCabanna,fechaInicio,fechaFin,confirmada,ci "
+        sSQL = "SELECT codigoReserva,idCabanna,fechaInicio,fechaFin,checkIn,ci "
                 + "FROM reservas WHERE codigoReserva=" + codigo + "";
 
         try {
@@ -356,7 +356,7 @@ public class SQLReserva extends ConexionDB {
                 Registro[1] = rs.getString("idCabanna");
                 Registro[2] = rs.getString("fechaInicio");
                 Registro[3] = rs.getString("fechaFin");
-                Registro[4] = rs.getString("confirmada");
+                Registro[4] = rs.getString("checkIn");
                 Registro[5] = rs.getString("ci");
 
                 if (Registro[4].equals("1")) {
@@ -407,7 +407,7 @@ public class SQLReserva extends ConexionDB {
 
         Connection con = conectar(Index.user.getNombre());
         System.out.println(maximo.toString());
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,confirmada "
+        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
                 + "FROM reservas WHERE cancelada=0 AND `fechaInicio`>'" + maximo.toString() + "' ORDER BY fechaInicio";
 
         try {
@@ -427,7 +427,7 @@ public class SQLReserva extends ConexionDB {
                 Registro[2] = rs.getString("idCabanna");
                 Registro[3] = rs.getString("fechaInicio");
                 Registro[4] = rs.getString("fechaFin");
-                Registro[5] = rs.getString("confirmada");
+                Registro[5] = rs.getString("checkIn");
 
                 Registro[Registro.length - 2] = "MODIFICAR";
                 Registro[Registro.length - 1] = "ELIMINAR";

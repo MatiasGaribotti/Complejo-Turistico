@@ -7,7 +7,7 @@ public class Reserva {
     int codigoReserva; //PK
     Date fechaInicio;
     Date fechaFin;
-    boolean confirmada;
+    boolean checkIn;
     boolean cancelada;
     int ci; //FK
     short idCabanna; //FK
@@ -22,7 +22,7 @@ public class Reserva {
     public Reserva(Date fechaInicio, Date fechaFin, boolean confirmada, boolean cancelada, int ci, short idCabanna) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.confirmada = confirmada;
+        this.checkIn = confirmada;
         this.cancelada = cancelada;
         this.ci = ci;
         this.idCabanna = idCabanna;
@@ -34,7 +34,7 @@ public class Reserva {
         this.codigoReserva = codigoReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.confirmada = confirmada;
+        this.checkIn = confirmada;
         this.cancelada = cancelada;
         this.ci = ci;
         this.idCabanna = idCabanna;
@@ -52,8 +52,8 @@ public class Reserva {
         return fechaFin;
     }
 
-    public boolean getConfirmada() {
-        return confirmada;
+    public boolean getCheckIn() {
+        return checkIn;
     }
 
     public boolean getCancelada() {
@@ -80,8 +80,8 @@ public class Reserva {
         this.fechaFin = fechaFin;
     }
 
-    public void setConfirmada(boolean confirmada) {
-        this.confirmada = confirmada;
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
     }
 
     public void setCancelada(boolean cancelada) {
