@@ -5,6 +5,9 @@
  */
 package grafica;
 
+import javax.swing.table.DefaultTableModel;
+import logica.SQL.SQLReserva;
+
 /**
  *
  * @author Matías Garibotti
@@ -60,7 +63,7 @@ public class Tools_visualizar extends javax.swing.JPanel {
         setLayout(null);
 
         cmbVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        cmbVisualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "Semana", "Mes" }));
+        cmbVisualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "Semana", "Mes" }));
         add(cmbVisualizar);
         cmbVisualizar.setBounds(140, 20, 120, 22);
 
@@ -81,7 +84,10 @@ public class Tools_visualizar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVisualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseClicked
-        String itemSelected = cmbVisualizar.getSelectedItem().toString().toUpperCase();
+        this.view="RESERVAS_VISTA";
+        SQLReserva sqlReserva = new SQLReserva();
+        DefaultTableModel visual = sqlReserva.selectVisualizar(cmbVisualizar.getSelectedItem().toString().toUpperCase(), true);
+        Index.paintTabla(visual, view);
     }//GEN-LAST:event_btnVisualizarMouseClicked
 
 

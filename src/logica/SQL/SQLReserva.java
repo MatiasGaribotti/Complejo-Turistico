@@ -108,7 +108,6 @@ public class SQLReserva extends ConexionDB {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Cabaña reservada para el período seleccionado");
-
             return false;
         }
     }
@@ -384,10 +383,32 @@ public class SQLReserva extends ConexionDB {
 
     }
 
-    public DefaultTableModel selectVisualizar(String periodo) {
-        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "CheckIn", "", ""}; //Dos columnas vacías para botones
+    @SuppressWarnings("empty-statement")
+    public DefaultTableModel selectVisualizar(String periodo, boolean disp) {
+        String[] headers;
+        if(disp){
+            headers=new String[8];
+            headers[0]="ID";
+            headers[1]="Habitaciones";
+            headers[2]="Camas";
+            headers[3]="Baños";
+            headers[4]="Descripción";
+            headers[5]="Aire Acondicionado";
+            headers[6]="Parrillero";
+            headers[7]="Costo hora";
+        }else{
+            headers=new String[9];
+            headers[0]="Código";
+            headers[1]="C.I";
+            headers[2]="Cabaña";
+            headers[3]="Fecha Inicio";
+            headers[4]="Fecha Fin";
+            headers[5]="CheckIn";
+            headers[6]="Check Out";
+            headers[7]="";
+            headers[8]="";
+        }
         String[] Registro = new String[headers.length];
-
         DefaultTableModel modelo = new DefaultTableModel(null, headers) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -401,14 +422,25 @@ public class SQLReserva extends ConexionDB {
             case "MES":
                 maximo = LocalDate.now().plusMonths(1);
                 break;
+            case "DÍA":    
+                maximo = LocalDate.now().plusDays(1);
+                break;
             default:
                 maximo = LocalDate.now().plusWeeks(1);
         }
 
         Connection con = conectar(Index.user.getNombre());
         System.out.println(maximo.toString());
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
-                + "FROM reservas WHERE cancelada=0 AND `fechaInicio`>'" + maximo.toString() + "' ORDER BY fechaInicio";
+        if(disp){
+            sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (R.`fechaInicio`>'" + maximo.toString() + "' "
+                    + "OR R.fechaFin<"+LocalDate.now().toString()+") ORDER BY fechaInicio";
+        }
+        else{
+            sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn,checkOut "
+                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(R.`fechaInicio`>'" + maximo.toString() + "' "
+                    + "OR R.fechaFin<"+LocalDate.now().toString()+")) ORDER BY fechaInicio";
+        }
 
         try {
 
@@ -421,17 +453,26 @@ public class SQLReserva extends ConexionDB {
             * a partir de la consulta a la base de datos.
              */
             while (rs.next()) {
-
-                Registro[0] = rs.getString("codigoReserva");
-                Registro[1] = rs.getString("ci");
-                Registro[2] = rs.getString("idCabanna");
-                Registro[3] = rs.getString("fechaInicio");
-                Registro[4] = rs.getString("fechaFin");
-                Registro[5] = rs.getString("checkIn");
-
-                Registro[Registro.length - 2] = "MODIFICAR";
-                Registro[Registro.length - 1] = "ELIMINAR";
-
+                if(disp){
+                    Registro[0] = rs.getString("idCabanna");
+                    Registro[1] = rs.getString("cantHabitaciones");
+                    Registro[2] = rs.getString("cantCamas");
+                    Registro[3] = rs.getString("cantBannos");
+                    Registro[4] = rs.getString("descripcion");
+                    Registro[5] = rs.getString("aireAcondicionado");
+                    Registro[6] = rs.getString("parrillero");
+                    Registro[7] = rs.getString("costHour");
+                }else{
+                    Registro[0] = rs.getString("codigoReserva");
+                    Registro[1] = rs.getString("ci");
+                    Registro[2] = rs.getString("idCabanna");
+                    Registro[3] = rs.getString("fechaInicio");
+                    Registro[4] = rs.getString("fechaFin");
+                    Registro[5] = rs.getString("checkIn");
+                    Registro[6] = rs.getString("checkOut");
+                    Registro[Registro.length - 2] = "MODIFICAR";
+                    Registro[Registro.length - 1] = "ELIMINAR";
+                }
                 //Agrego los datos obtenidos al modelo
                 modelo.addRow(Registro);
 
