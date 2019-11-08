@@ -56,8 +56,6 @@ public class Login_Duenno extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Dueño de cabaña");
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
-        pswContrasenna.setText("jPasswordField1");
         getContentPane().add(pswContrasenna, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
 
         lblContrasenna.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -84,12 +82,18 @@ public class Login_Duenno extends javax.swing.JFrame {
     }//GEN-LAST:event_ui_ExitMousePressed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        if(pswContrasenna.getText().equals("12345678")){
+        String password = "";
+        char[] p = pswContrasenna.getPassword();
+        for(int i=0; i < p.length; i++){
+            password+=p[i];
+        }
+        
+        if(password.equals("12345678")){
             Index.user.setNombre("Duenno");
             JOptionPane.showMessageDialog(null, "Usted se ha logueado como dueño");
         }else{
             Index.user.setNombre("root");
-            JOptionPane.showMessageDialog(null, "Usted se ha logueado como encargado");
+            JOptionPane.showMessageDialog(null, "Usted se ha logueado como encargado");     
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 

@@ -440,7 +440,7 @@ public class Index extends javax.swing.JFrame {
         layerTablaHistory.repaint();
         contentHistory.repaint();
     }
-    
+      
     public void resetView(){
         contentHistory.setVisible(false);
         contentHistory.removeAll();
@@ -484,8 +484,7 @@ public class Index extends javax.swing.JFrame {
         
     }
     
-
-    public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
+  public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
         lyrPane.removeAll();
         lyrPane.add(panel);
         lyrPane.repaint();
