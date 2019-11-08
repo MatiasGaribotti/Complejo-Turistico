@@ -5,6 +5,8 @@
  */
 package grafica;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Matías Garibotti
@@ -30,7 +32,7 @@ public class Login_Duenno extends javax.swing.JFrame {
         ui_Exit = new javax.swing.JLabel();
         ui_topBar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
-        pswContraseña = new javax.swing.JPasswordField();
+        pswContrasenna = new javax.swing.JPasswordField();
         lblContrasenna = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
         ui_loginBackground = new javax.swing.JLabel();
@@ -55,8 +57,8 @@ public class Login_Duenno extends javax.swing.JFrame {
         lblTitulo.setText("Dueño de cabaña");
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
-        pswContraseña.setText("jPasswordField1");
-        getContentPane().add(pswContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
+        pswContrasenna.setText("jPasswordField1");
+        getContentPane().add(pswContrasenna, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
 
         lblContrasenna.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblContrasenna.setForeground(new java.awt.Color(255, 255, 255));
@@ -64,6 +66,11 @@ public class Login_Duenno extends javax.swing.JFrame {
         getContentPane().add(lblContrasenna, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnLogin.png"))); // NOI18N
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 70, 25));
 
         ui_loginBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_loginBackground.png"))); // NOI18N
@@ -75,6 +82,16 @@ public class Login_Duenno extends javax.swing.JFrame {
     private void ui_ExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_ExitMousePressed
         this.dispose();
     }//GEN-LAST:event_ui_ExitMousePressed
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        if(pswContrasenna.getText().equals("12345678")){
+            Index.user.setNombre("Duenno");
+            JOptionPane.showMessageDialog(null, "Usted se ha logueado como dueño");
+        }else{
+            Index.user.setNombre("root");
+            JOptionPane.showMessageDialog(null, "Usted se ha logueado como encargado");
+        }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -115,7 +132,7 @@ public class Login_Duenno extends javax.swing.JFrame {
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel lblContrasenna;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JPasswordField pswContraseña;
+    private javax.swing.JPasswordField pswContrasenna;
     private javax.swing.JLabel ui_Exit;
     private javax.swing.JLabel ui_loginBackground;
     private javax.swing.JLabel ui_topBar;

@@ -34,6 +34,14 @@ public class Index extends javax.swing.JFrame {
         setCurrentView("CABANNAS");
         user = new Usuario();
     }
+
+    public static Usuario getUser() {
+        return user;
+    }
+
+    public static void setUser(Usuario user) {
+        Index.user = user;
+    }
     
     public void buildIndex(){       
         initComponents();
