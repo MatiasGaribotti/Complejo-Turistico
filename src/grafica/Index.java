@@ -67,6 +67,9 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         sideBar = new javax.swing.JPanel();
+        btnUser = new javax.swing.JLabel();
+        iconUser = new javax.swing.JLabel();
+        ui_btnUser = new javax.swing.JLabel();
         btnCanceladas = new javax.swing.JLabel();
         iconCanceladas = new javax.swing.JLabel();
         ui_btnCanceladas = new javax.swing.JLabel();
@@ -76,8 +79,8 @@ public class Index extends javax.swing.JFrame {
         iconCabanna = new javax.swing.JLabel();
         btnCabannas = new javax.swing.JLabel();
         ui_btnCabannas = new javax.swing.JLabel();
-        btnCalendario = new javax.swing.JLabel();
-        iconCalendario = new javax.swing.JLabel();
+        btnHistorico = new javax.swing.JLabel();
+        iconHistorico = new javax.swing.JLabel();
         ui_btnCalendario = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         UI_sideBar = new javax.swing.JLabel();
@@ -99,7 +102,27 @@ public class Index extends javax.swing.JFrame {
 
         sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
-        sideBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sideBar.setLayout(null);
+
+        btnUser.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnUser.setText("Usuario");
+        btnUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnUserMousePressed(evt);
+            }
+        });
+        sideBar.add(btnUser);
+        btnUser.setBounds(0, 730, 240, 40);
+
+        iconUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/iconUser.png"))); // NOI18N
+        sideBar.add(iconUser);
+        iconUser.setBounds(10, 730, 30, 40);
+
+        ui_btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnUser);
+        ui_btnUser.setBounds(0, 730, 240, 40);
 
         btnCanceladas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCanceladas.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,17 +133,21 @@ public class Index extends javax.swing.JFrame {
                 btnCanceladasMousePressed(evt);
             }
         });
-        sideBar.add(btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, 40));
+        sideBar.add(btnCanceladas);
+        btnCanceladas.setBounds(0, 230, 240, 40);
 
         iconCanceladas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_canceladas.png"))); // NOI18N
-        sideBar.add(iconCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
+        sideBar.add(iconCanceladas);
+        iconCanceladas.setBounds(10, 240, 26, 26);
 
         ui_btnCanceladas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnCanceladas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, -1));
+        sideBar.add(ui_btnCanceladas);
+        ui_btnCanceladas.setBounds(0, 230, 240, 40);
 
         iconReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_reserva.png"))); // NOI18N
-        sideBar.add(iconReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 40, 40));
+        sideBar.add(iconReserva);
+        iconReserva.setBounds(0, 80, 40, 40);
 
         btnReservas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnReservas.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,14 +158,17 @@ public class Index extends javax.swing.JFrame {
                 btnReservasMousePressed(evt);
             }
         });
-        sideBar.add(btnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 40));
+        sideBar.add(btnReservas);
+        btnReservas.setBounds(0, 80, 240, 40);
 
         ui_btnReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, -1));
+        sideBar.add(ui_btnReservas);
+        ui_btnReservas.setBounds(0, 80, 240, 40);
 
         iconCabanna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconCabanna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_cabanna.png"))); // NOI18N
-        sideBar.add(iconCabanna, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 40, 40));
+        sideBar.add(iconCabanna);
+        iconCabanna.setBounds(0, 130, 40, 40);
 
         btnCabannas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCabannas.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,39 +179,46 @@ public class Index extends javax.swing.JFrame {
                 btnCabannasMousePressed(evt);
             }
         });
-        sideBar.add(btnCabannas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 240, 40));
+        sideBar.add(btnCabannas);
+        btnCabannas.setBounds(0, 130, 240, 40);
 
         ui_btnCabannas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnCabannas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 240, -1));
+        sideBar.add(ui_btnCabannas);
+        ui_btnCabannas.setBounds(0, 130, 240, 40);
 
-        btnCalendario.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
-        btnCalendario.setForeground(new java.awt.Color(255, 255, 255));
-        btnCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCalendario.setText("Histórico");
-        btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHistorico.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistorico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnHistorico.setText("Histórico");
+        btnHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnCalendarioMousePressed(evt);
+                btnHistoricoMousePressed(evt);
             }
         });
-        sideBar.add(btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 40));
+        sideBar.add(btnHistorico);
+        btnHistorico.setBounds(0, 180, 240, 40);
 
-        iconCalendario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_calendario.png"))); // NOI18N
-        sideBar.add(iconCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 40, 40));
+        iconHistorico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/iconHistorico.png"))); // NOI18N
+        sideBar.add(iconHistorico);
+        iconHistorico.setBounds(0, 180, 40, 40);
 
         ui_btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, -1));
+        sideBar.add(ui_btnCalendario);
+        ui_btnCalendario.setBounds(0, 180, 240, 40);
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("3 Weeks");
-        sideBar.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 150, 40));
+        sideBar.add(lblTitle);
+        lblTitle.setBounds(40, 20, 150, 40);
 
         UI_sideBar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UI_sideBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_sideBar.png"))); // NOI18N
         UI_sideBar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        sideBar.add(UI_sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 770));
+        sideBar.add(UI_sideBar);
+        UI_sideBar.setBounds(0, 0, 250, 770);
 
         getContentPane().add(sideBar);
         sideBar.setBounds(0, 0, 240, 770);
@@ -290,18 +327,25 @@ public class Index extends javax.swing.JFrame {
         this.setState(Frame.ICONIFIED);
     }//GEN-LAST:event_ui_DisposeMousePressed
 
-    private void btnCalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMousePressed
+    private void btnHistoricoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMousePressed
         layerTablaHistory.removeAll();
         this.currentView = "HISTORICO";
         setupHistorico("Histórico");
         
-    }//GEN-LAST:event_btnCalendarioMousePressed
+    }//GEN-LAST:event_btnHistoricoMousePressed
 
     private void btnCanceladasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCanceladasMousePressed
         layerTablaHistory.removeAll();
         this.currentView = "CANCELADAS";
         setupHistorico("Canceladas");
     }//GEN-LAST:event_btnCanceladasMousePressed
+
+    private void btnUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMousePressed
+        Login_Duenno login = new Login_Duenno();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+        login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnUserMousePressed
 
     public void setupHistorico(String title){
         layerHerramientas.setVisible(false);
@@ -412,14 +456,16 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel UI_sideBar;
     private javax.swing.JLabel btnCabannas;
-    private javax.swing.JLabel btnCalendario;
     private javax.swing.JLabel btnCanceladas;
+    private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnReservas;
+    private javax.swing.JLabel btnUser;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
-    private javax.swing.JLabel iconCalendario;
     private javax.swing.JLabel iconCanceladas;
+    private javax.swing.JLabel iconHistorico;
     private javax.swing.JLabel iconReserva;
+    private javax.swing.JLabel iconUser;
     private javax.swing.JLayeredPane layerHerramientas;
     private static javax.swing.JLayeredPane layerIngresos;
     private static javax.swing.JLayeredPane layerTabla;
@@ -432,6 +478,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_btnCalendario;
     private javax.swing.JLabel ui_btnCanceladas;
     private javax.swing.JLabel ui_btnReservas;
+    private javax.swing.JLabel ui_btnUser;
     private javax.swing.JLabel ui_topBar;
     // End of variables declaration//GEN-END:variables
 }

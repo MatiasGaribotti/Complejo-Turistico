@@ -27,6 +27,8 @@ public class Login_Duenno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ui_Exit = new javax.swing.JLabel();
+        ui_topBar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         pswContraseña = new javax.swing.JPasswordField();
         lblContrasenna = new javax.swing.JLabel();
@@ -34,7 +36,19 @@ public class Login_Duenno extends javax.swing.JFrame {
         ui_loginBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ui_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonEXIT.png"))); // NOI18N
+        ui_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ui_ExitMousePressed(evt);
+            }
+        });
+        getContentPane().add(ui_Exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 20, 20));
+
+        ui_topBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_loginTopbar.png"))); // NOI18N
+        getContentPane().add(ui_topBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, -1));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -57,6 +71,10 @@ public class Login_Duenno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ui_ExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ui_ExitMousePressed
+        this.dispose();
+    }//GEN-LAST:event_ui_ExitMousePressed
 
     /**
      * @param args the command line arguments
@@ -98,6 +116,8 @@ public class Login_Duenno extends javax.swing.JFrame {
     private javax.swing.JLabel lblContrasenna;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField pswContraseña;
+    private javax.swing.JLabel ui_Exit;
     private javax.swing.JLabel ui_loginBackground;
+    private javax.swing.JLabel ui_topBar;
     // End of variables declaration//GEN-END:variables
 }

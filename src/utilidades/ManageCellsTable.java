@@ -31,8 +31,8 @@ public class ManageCellsTable extends DefaultTableCellRenderer {
     * una fila (cabaña, reserva, turista;
      */
     private final ImageIcon iconoInfo = new ImageIcon(getClass().getResource("/assets/ui/"));
-    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit.png"));
-    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete.png"));
+    private final ImageIcon iconoModificar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnEdit2.png"));
+    private final ImageIcon iconoEliminar = new ImageIcon(getClass().getResource("/assets/ui/ui_btnDelete2.png"));
 
     public ManageCellsTable() {
         this.tipo = "normal";
