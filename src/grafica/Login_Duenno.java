@@ -5,6 +5,7 @@
  */
 package grafica;
 
+import java.beans.PropertyChangeSupport;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,8 @@ public class Login_Duenno extends javax.swing.JFrame {
     /**
      * Creates new form Login_Duenno
      */
+    protected PropertyChangeSupport propertyChangeSupport;
+    
     public Login_Duenno() {
         initComponents();
     }

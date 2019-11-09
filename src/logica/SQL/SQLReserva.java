@@ -143,20 +143,22 @@ public class SQLReserva extends ConexionDB {
         }
     }
 
-    public boolean confirmar(Reserva res) {
+    public boolean confirmar(int codigo, int ci) {
         //Nueva conexión
+        System.out.println(Index.user.getNombre());
         Connection con = conectar(Index.user.getNombre());
-
+        
         /*
           Sentencia SQL. Por temas de seguridad se utilizan los ? 
          */
-        sSQL = "UPDATE Reservas SET checkIn=? WHERE id=?";
+        sSQL = "UPDATE Reservas SET checkIn=? WHERE codigoReserva=? AND ci=?";
 
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
 
             pst.setBoolean(1, true);
-            pst.setInt(2, res.getCodigoReserva());
+            pst.setInt(2, codigo);
+            pst.setInt(3, ci);
             pst.execute();
             return true;
 

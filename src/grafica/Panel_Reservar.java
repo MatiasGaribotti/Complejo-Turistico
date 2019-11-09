@@ -1,8 +1,6 @@
 package grafica;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -20,7 +18,6 @@ public class Panel_Reservar extends javax.swing.JPanel {
     public Panel_Reservar() {
         initComponents();
         accion = "RESERVAR";
-        setHintColor();
 
     }
 
@@ -29,6 +26,11 @@ public class Panel_Reservar extends javax.swing.JPanel {
         this.reserva = reserva;
         this.accion = accion;
 
+    }
+    
+    public void build(){
+        initComponents();
+        setHintColor();
     }
 
     @SuppressWarnings("unchecked")
@@ -343,7 +345,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
 
         int codigoReserva;
-        if (verificarCi()) {
+        if (verificarCi(Integer.parseInt(fieldCI.getText()))) {
 
             Turista turista = new Turista(
                     Integer.parseInt(fieldCI.getText()),
@@ -423,7 +425,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Cédula inválida.", "Mensaje", JOptionPane.WARNING_MESSAGE);
             fieldCI.requestFocusInWindow();
-            
+
         }
 
     }//GEN-LAST:event_btnReservarMouseClicked
@@ -448,11 +450,11 @@ public class Panel_Reservar extends javax.swing.JPanel {
         fieldCabanna.transferFocus();
     }//GEN-LAST:event_fieldCabannaActionPerformed
 
-    public boolean verificarCi() {
+    public static boolean verificarCi(int ci) {
 
         byte[] Ced = new byte[8];//Almaceno la cédula en un array de BYTE. Adivine usted quién lo hizo así. Garibotti, no lo cambies que funciona, pls
 
-        String aux = fieldCI.getText(); //Variable auxiliar que contiene la cédula en String para luego dividirla
+        String aux = Integer.toString(ci); //Variable auxiliar que contiene la cédula en String para luego dividirla
 
         for (byte i = 0; i < Ced.length; i++) {
             Ced[i] = Byte.parseByte(aux.substring(i, i + 1)); //Relleno el array con cada uno de los dígitos de la cédula
@@ -540,7 +542,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
                 Integer.parseInt(datosReserva[5]),
                 Short.parseShort(datosReserva[1]),
                 false
-                );
+        );
 
         turista = new Turista(
                 Integer.parseInt(datosTurista[0]),
@@ -585,7 +587,7 @@ public class Panel_Reservar extends javax.swing.JPanel {
         fieldFechaFin.setText(fecha[0].concat(fecha[1].concat(fecha[2])));
 
     }
-    
+
     public void setHintColor() {
         this.fieldCalle.setForeground(Index.color_textHint);
         this.fieldNumero.setForeground(Index.color_textHint);

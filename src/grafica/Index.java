@@ -77,6 +77,10 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         sideBar = new javax.swing.JPanel();
+        btnCheckOutWindow = new javax.swing.JLabel();
+        ui_btnCheckOutWindow = new javax.swing.JLabel();
+        btnCheckInWindow = new javax.swing.JLabel();
+        ui_btnCheckInWindow = new javax.swing.JLabel();
         btnDisponibilidad = new javax.swing.JLabel();
         iconDisponibilidad = new javax.swing.JLabel();
         ui_btnDisponibilidad = new javax.swing.JLabel();
@@ -117,6 +121,38 @@ public class Index extends javax.swing.JFrame {
         sideBar.setBackground(new java.awt.Color(204, 204, 204));
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
         sideBar.setLayout(null);
+
+        btnCheckOutWindow.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
+        btnCheckOutWindow.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckOutWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCheckOutWindow.setText("Check Out");
+        btnCheckOutWindow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckOutWindowMousePressed(evt);
+            }
+        });
+        sideBar.add(btnCheckOutWindow);
+        btnCheckOutWindow.setBounds(0, 380, 240, 40);
+
+        ui_btnCheckOutWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnCheckOutWindow);
+        ui_btnCheckOutWindow.setBounds(0, 380, 240, 40);
+
+        btnCheckInWindow.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
+        btnCheckInWindow.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckInWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCheckInWindow.setText("Check In");
+        btnCheckInWindow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCheckInWindowMousePressed(evt);
+            }
+        });
+        sideBar.add(btnCheckInWindow);
+        btnCheckInWindow.setBounds(0, 330, 240, 40);
+
+        ui_btnCheckInWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
+        sideBar.add(ui_btnCheckInWindow);
+        ui_btnCheckInWindow.setBounds(0, 330, 240, 40);
 
         btnDisponibilidad.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnDisponibilidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -335,8 +371,9 @@ public class Index extends javax.swing.JFrame {
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         setCurrentView("RESERVAS");
         resetView();
-        
-        paintPanel(new Panel_Reservar(), layerIngresos);
+        Panel_Reservar p = new Panel_Reservar();
+        p.build();
+        paintPanel(p, layerIngresos);
                
         searchPanel = new Tools_Buscar(this.getCurrentView());
         modeloDef = searchPanel.camposComboB(currentView, modeloDef);
@@ -394,8 +431,22 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUserMousePressed
 
     private void btnDisponibilidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadMousePressed
-        
+        System.out.println(this.user.getNombre());
     }//GEN-LAST:event_btnDisponibilidadMousePressed
+
+    private void btnCheckInWindowMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckInWindowMousePressed
+        Window_Checkin checkin = new Window_Checkin();
+        user.setNombre("Turista");
+        checkin.build();
+        checkin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckInWindowMousePressed
+
+    private void btnCheckOutWindowMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutWindowMousePressed
+        Window_Checkin checkin = new Window_Checkin();
+        checkin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckOutWindowMousePressed
 
     public void setupHistorico(String title){
         layerBuscar.setVisible(false);
@@ -505,6 +556,8 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel UI_sideBar;
     private javax.swing.JLabel btnCabannas;
     private javax.swing.JLabel btnCanceladas;
+    private javax.swing.JLabel btnCheckInWindow;
+    private javax.swing.JLabel btnCheckOutWindow;
     private javax.swing.JLabel btnDisponibilidad;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnReservas;
@@ -528,6 +581,8 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_btnCabannas;
     private javax.swing.JLabel ui_btnCalendario;
     private javax.swing.JLabel ui_btnCanceladas;
+    private javax.swing.JLabel ui_btnCheckInWindow;
+    private javax.swing.JLabel ui_btnCheckOutWindow;
     private javax.swing.JLabel ui_btnDisponibilidad;
     private javax.swing.JLabel ui_btnReservas;
     private javax.swing.JLabel ui_btnUser;
