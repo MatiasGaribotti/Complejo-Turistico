@@ -2,6 +2,7 @@ package grafica;
 
 import java.sql.Date;
 import java.util.Calendar;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logica.Reserva;
@@ -31,6 +32,13 @@ public class Panel_Reservar extends javax.swing.JPanel {
     public void build(){
         initComponents();
         setHintColor();
+    }
+    
+    public void changeIcon(){
+        if(this.accion.equals("MODIFICAR"))
+            btnReservar.setIcon(new ImageIcon(getClass().getResource("/assets/ui/ui_btnModificar.png")));
+        else
+            btnReservar.setIcon(new ImageIcon(getClass().getResource("/assets/ui/ui_btnIngresar.png")));
     }
 
     @SuppressWarnings("unchecked")
@@ -416,6 +424,8 @@ public class Panel_Reservar extends javax.swing.JPanel {
                 if (modificarReserva && modificarTurista) {
                     JOptionPane.showMessageDialog(null, "Reserva modificada con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     Index.paintTabla("RESERVAS");
+                    this.accion = "RESERVAR";
+                    this.changeIcon();
                 } else {
                     JOptionPane.showMessageDialog(null, "Algo ha salido mal durante la modificación.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     Index.paintTabla("RESERVAS");

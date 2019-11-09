@@ -242,8 +242,9 @@ public class Tabla extends javax.swing.JPanel {
 
             } else if (view.equals("RESERVAS")) {
                 int codigo = Integer.parseInt(table.getModel().getValueAt(fila, 0).toString());
-                
-                Index.paintIngreso(new Panel_Reservar(new Reserva(codigo), "MODIFICAR"));
+                Panel_Reservar p = new Panel_Reservar(new Reserva(codigo),"MODIFICAR");
+                p.changeIcon();
+                Index.paintIngreso(p);
             }
 
         } else if (columna == table.getColumnModel().getColumnCount() - 1) {//se valida que sea la columna del otro evento
@@ -276,7 +277,6 @@ public class Tabla extends javax.swing.JPanel {
     public void eliminarRegistro(int fila) {
         Short id = Short.parseShort(table.getModel().getValueAt(fila, 0).toString());
 
-        System.out.println(id);
         SQLCabanna sqlCabannas = new SQLCabanna();
         boolean eliminar = sqlCabannas.eliminar(id);
         DefaultTableModel modelo = sqlCabannas.select("", "id");

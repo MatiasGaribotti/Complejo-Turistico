@@ -28,14 +28,6 @@ public class SQLReserva extends ConexionDB {
     Date sysDate = calendar.getTime();
     String sSQL;
 
-    //Función a la que llamaremos cuando se intente modificar o cancelar alguna reserva
-    public boolean aviseConTiempo(Date fechaAModificar) {
-
-        long days = (sysDate.getTime() - fechaAModificar.getTime()) / 86400000;
-
-        return days >= 2; //Si faltan 2 o más días retorna true;
-    }
-
     /**
      * Este método ingresa una nueva reserva a la base de datos.
      *
@@ -137,7 +129,7 @@ public class SQLReserva extends ConexionDB {
 
     public boolean confirmar(int codigo, int ci) {
         //Nueva conexión
-        System.out.println(Index.user.getNombre());
+//        System.out.println(Index.user.getNombre());
         Connection con = conectar(Index.user.getNombre());
 
         /*
@@ -169,7 +161,7 @@ public class SQLReserva extends ConexionDB {
     
     public boolean checkout(int codigo, int ci) {
         //Nueva conexión
-        System.out.println(Index.user.getNombre());
+//        System.out.println(Index.user.getNombre());
         Connection con = conectar(Index.user.getNombre());
 
         /*
@@ -200,7 +192,7 @@ public class SQLReserva extends ConexionDB {
     }
 
     public DefaultTableModel select() {
-        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "CheckIn", "", ""}; //Dos columnas vacías para botones
+        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "Confirmada", "", ""}; //Dos columnas vacías para botones
         String[] Registro = new String[headers.length];
 
         DefaultTableModel modelo = new DefaultTableModel(null, headers) {
@@ -698,9 +690,7 @@ public class SQLReserva extends ConexionDB {
             PreparedStatement pst = con.prepareStatement(sSQL);
 
             pst.setDate(1, res.getFechaInicio());
-            System.out.println("INICIO:" + res.getFechaInicio());
             pst.setDate(2, res.getFechaFin());
-            System.out.println("FIN: " + res.getFechaFin());
             pst.setShort(3, res.getIdCabanna());
             pst.setInt(4, res.getCodigoReserva());
 
