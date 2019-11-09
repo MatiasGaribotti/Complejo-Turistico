@@ -51,11 +51,16 @@ public class SQLTurista extends ConexionDB {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Nombre de excepción:"+e.toString()+"\n"
-                    + "Mensaje:"+e.getMessage()+"\n"
-                            + "Código de error:"+e.getErrorCode()+"\n"
-                                    + "Estado de la BD:"+e.getSQLState());
-            return false;
+            if(e.getErrorCode()==1062){
+                JOptionPane.showMessageDialog(null, "El turista ya está en la base de datos");
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Nombre de excepción:"+e.toString()+"\n"
+                        + "Mensaje:"+e.getMessage()+"\n"
+                                + "Código de error:"+e.getErrorCode()+"\n"
+                                        + "Estado de la BD:"+e.getSQLState());
+                return false;
+            }
 
         } finally {
             try {
