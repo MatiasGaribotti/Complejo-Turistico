@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 public class SQLQueries extends ConexionDB {
 
     String sSQL;
-    public short NR; //Number of Records
 
     /**
      * Esta función ejecutará una consulta de selección personalizada a la base
@@ -34,7 +33,6 @@ public class SQLQueries extends ConexionDB {
 
         sSQL = "SELECT ";
         String[] Registro = new String[atributos.length+2];
-        NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers);
@@ -82,7 +80,6 @@ public class SQLQueries extends ConexionDB {
                             Registro[i]="No";
                     }else
                         Registro[i] = rs.getString(atributos[i]);
-                    NR++;
                 }
                 Registro[Registro.length-2]="MODIFICAR";
                 Registro[Registro.length-1]="ELIMINAR";

@@ -8,8 +8,11 @@ package grafica;
 import static grafica.Index.color_textHint;
 import java.awt.Color;
 import java.sql.Date;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLReserva;
 import logica.SQL.SQLTurista;
 import logica.Turista;
@@ -28,18 +31,28 @@ public class Window_addHost extends javax.swing.JFrame {
         this.view = "ADDHOST";
         codigo=-1;
     }
-    
+
     public Window_addHost(int codigo) {
         this.view ="ADDHOST";
         this.codigo = codigo;
-        
     }
 
     public void build() {
         initComponents();
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
-
+        paintTabla(new SQLTurista().selectCheckIn(codigo),this.view);
+    }
+    public static void paintPanel(JPanel panel, JLayeredPane lyrPane) { //Coloca un el panel deseado en el JLayeredPane
+        lyrPane.removeAll();
+        lyrPane.add(panel);
+        lyrPane.repaint();
+        lyrPane.revalidate();
+    }
+        public static void paintTabla(DefaultTableModel modelo, String view) {
+        Tabla tabla = new Tabla(view);
+        tabla.buildTable(modelo);
+        paintPanel(tabla, layerTabla);
     }
 
     public void textHint(String txt, JTextField obj) { //Procedimiento para textHints
@@ -79,9 +92,8 @@ public class Window_addHost extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         lblCI1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
-        scroll = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
         btnVolver = new javax.swing.JLabel();
+        layerTabla = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -237,21 +249,21 @@ public class Window_addHost extends javax.swing.JFrame {
         panel.add(lblTitle);
         lblTitle.setBounds(360, 0, 180, 40);
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        scroll.setViewportView(tabla);
+        layerTabla.setPreferredSize(new java.awt.Dimension(936, 286));
 
-        panel.add(scroll);
-        scroll.setBounds(430, 70, 440, 340);
+        javax.swing.GroupLayout layerTablaLayout = new javax.swing.GroupLayout(layerTabla);
+        layerTabla.setLayout(layerTablaLayout);
+        layerTablaLayout.setHorizontalGroup(
+            layerTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+        layerTablaLayout.setVerticalGroup(
+            layerTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+
+        panel.add(layerTabla);
+        layerTabla.setBounds(440, 60, 450, 420);
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnVolver.png"))); // NOI18N
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -365,12 +377,12 @@ public class Window_addHost extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -390,13 +402,13 @@ public class Window_addHost extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Window_addHost().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
@@ -409,6 +421,7 @@ public class Window_addHost extends javax.swing.JFrame {
     public javax.swing.JTextField fieldNombre;
     public javax.swing.JTextField fieldNumero;
     public javax.swing.JFormattedTextField fieldTelefono;
+    private static javax.swing.JLayeredPane layerTabla;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCI1;
     private javax.swing.JLabel lblDireccion;
@@ -418,7 +431,5 @@ public class Window_addHost extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panelAdd;
-    private javax.swing.JScrollPane scroll;
-    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

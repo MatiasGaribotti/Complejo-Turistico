@@ -164,6 +164,11 @@ public class Tabla extends javax.swing.JPanel {
                     table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
                 }
                 break;
+            case "ADDHOST":
+                for (int i = 0; i < size; i++) {
+                    table.getColumnModel().getColumn(i).setCellRenderer(new ManageCellsTable("normal"));
+                }
+                break;    
 
             default:
                 JOptionPane.showMessageDialog(null, "Tipo de tabla no encontrado - Estilos no aplicados");

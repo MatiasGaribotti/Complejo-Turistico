@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Reserva;
@@ -409,7 +408,7 @@ public class SQLReserva extends ConexionDB {
         boolean reservaValida = true;
         byte cantHosts = 0;
 
-        sSQL = "SELECT R.checkIn,R.cancelada,R.cantHuespedes FROM Reservas AS R WHERE R.codigoReserva='" + codigo + "';";
+        sSQL = "SELECT R.checkIn,R.cancelada FROM Reservas AS R WHERE R.codigoReserva='" + codigo + "';";
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery(sSQL);
@@ -420,27 +419,12 @@ public class SQLReserva extends ConexionDB {
             }
             if (check == false || cancel == true) {
                 reservaValida = false;
-            } else if (rs.first()) {
-                cantHosts = (byte) (rs.getByte("cantHuespedes") + 1);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
         if (reservaValida) {
-            sSQL = "UPDATE Reservas AS R SET R.cantHuespedes=? WHERE R.codigoReserva=?";
-
-            try {
-                PreparedStatement pst = con.prepareStatement(sSQL);
-
-                pst.setByte(1, cantHosts);
-                pst.setInt(2, codigo);
-                pst.execute();
-
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
-
-            }
             con = conectar("Duenno");
             sSQL = "INSERT INTO Reservas_Acompannantes(codigoReserva,ci) VALUES(?,?)";
             try {
