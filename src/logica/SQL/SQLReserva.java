@@ -377,6 +377,62 @@ public class SQLReserva extends ConexionDB {
         return Registro;
 
     }
+    public boolean addHost(int codigo, int ci) {
+        //Nueva conexión
+        System.out.println(Index.user.getNombre());
+        Connection con = conectar(Index.user.getNombre());
+        boolean reservaValida=true;
+        byte cantHosts=0;
+
+        sSQL = "SELECT R.checkIn,R.cancelada,C.cantHuespedes FROM Reservas AS R, Cabannas C WHERE R.codigoReserva='"+codigo+"';";
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery(sSQL);
+            if(rs.getBoolean("checkIn")==false||rs.getBoolean("cancelada")==true)
+                reservaValida=false;
+            else
+                cantHosts=(byte)(rs.getByte("cantHuespedes")+1);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        if(reservaValida){
+            sSQL = "UPDATE Reservas AS R,Cabannas AS C,Reservas_Acompannates AS RA SET C.cantHuespedes=? WHERE R.codigoReserva=? AND R.ci=?";
+
+            try {
+                PreparedStatement pst = con.prepareStatement(sSQL);
+
+                pst.setByte(1, cantHosts);
+                pst.setInt(2, codigo);
+                pst.setInt(3, ci);
+                pst.execute();
+ 
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+
+            } 
+            sSQL = "INSERT codigoReserva,ci INTO Reservas_Acompannates VALUES(?,?)";
+            try {
+                PreparedStatement pst1 = con.prepareStatement(sSQL);
+                pst1.setInt(1, codigo);
+                pst1.setInt(2, ci);
+                pst1.execute();
+                return true;
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                return false;
+
+            }finally{
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+        }else
+            return false;
+    }
 
     @SuppressWarnings("empty-statement")
     public DefaultTableModel selectVisualizarDisponibilidad(String periodo) {
@@ -474,7 +530,7 @@ public class SQLReserva extends ConexionDB {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e + "\n ACAAA");
+            JOptionPane.showMessageDialog(null, e + "Error en la consulta");
 
         } finally {
             try {
