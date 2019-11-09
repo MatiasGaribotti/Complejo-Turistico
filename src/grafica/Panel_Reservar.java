@@ -84,6 +84,11 @@ public class Panel_Reservar extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         fieldCI.setCaretColor(new java.awt.Color(43, 41, 41));
+        fieldCI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldCIFocusLost(evt);
+            }
+        });
         fieldCI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldCIActionPerformed(evt);
@@ -459,6 +464,17 @@ public class Panel_Reservar extends javax.swing.JPanel {
     private void fieldCabannaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCabannaActionPerformed
         fieldCabanna.transferFocus();
     }//GEN-LAST:event_fieldCabannaActionPerformed
+
+    private void fieldCIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldCIFocusLost
+        String[] dataFDB=new SQLTurista().select(Integer.parseInt(fieldCI.getText()));
+        fieldNombre.setText(dataFDB[1]);
+        fieldApellido.setText(dataFDB[2]);
+        fieldFechaNac.setText(dataFDB[3].substring(8,10).concat(dataFDB[3].substring(5, 7)).concat(dataFDB[3].substring(0, 4)));
+        fieldTelefono.setText(dataFDB[4]);
+        fieldCalle.setText(dataFDB[5]);
+        fieldNumero.setText(dataFDB[6]);
+        fieldLocalidad.setText(dataFDB[7]);
+    }//GEN-LAST:event_fieldCIFocusLost
 
     public static boolean verificarCi(int ci) {
 
