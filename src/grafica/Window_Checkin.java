@@ -48,6 +48,7 @@ public class Window_Checkin extends javax.swing.JFrame {
         ui_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -111,6 +112,9 @@ public class Window_Checkin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
+        Index main = new Index();
+        main.build();
+        main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverMouseClicked
 
