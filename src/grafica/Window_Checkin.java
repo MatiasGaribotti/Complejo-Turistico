@@ -130,6 +130,7 @@ public class Window_Checkin extends javax.swing.JFrame {
                 Window_addHost wAddHost = new Window_addHost();
                 wAddHost.build();
                 wAddHost.setVisible(true);
+                Index.user.setNombre("Turista");
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo realizar el checkin", "Mensaje", JOptionPane.ERROR_MESSAGE);

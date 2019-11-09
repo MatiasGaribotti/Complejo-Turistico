@@ -377,46 +377,47 @@ public class SQLReserva extends ConexionDB {
         return Registro;
 
     }
+
     public boolean addHost(int codigo, int ci) {
         //Nueva conexión
         System.out.println(Index.user.getNombre());
-        Connection con = conectar(Index.user.getNombre());
-        boolean reservaValida=true;
-        byte cantHosts=0;
+        Connection con = conectar("Turista");
+        boolean reservaValida = true;
+        byte cantHosts = 0;
 
-        sSQL = "SELECT R.checkIn,R.cancelada,C.cantHuespedes FROM Reservas AS R, Cabannas C WHERE R.codigoReserva='"+codigo+"';";
+        sSQL = "SELECT R.checkIn,R.cancelada,R.cantHuespedes FROM Reservas AS R WHERE R.codigoReserva='" + codigo + "';";
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery(sSQL);
-            boolean cancel=true,check=false;
-            while(rs.next()){
-                check=rs.getBoolean("checkIn");
-                cancel=rs.getBoolean("cancelada");
+            boolean cancel = true, check = false;
+            while (rs.next()) {
+                check = rs.getBoolean("checkIn");
+                cancel = rs.getBoolean("cancelada");
             }
-            if(check==false||cancel==true)
-                reservaValida=false;
-            else if(rs.first()){
-                cantHosts=(byte)(rs.getByte("cantHuespedes")+1);
+            if (check == false || cancel == true) {
+                reservaValida = false;
+            } else if (rs.first()) {
+                cantHosts = (byte) (rs.getByte("cantHuespedes") + 1);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        if(reservaValida){
-            sSQL = "UPDATE Reservas AS R,Cabannas AS C,Reservas_Acompannantes AS RA SET C.cantHuespedes=? WHERE R.codigoReserva=? AND R.idCabanna=C.id AND R.ci=?";
+
+        if (reservaValida) {
+            sSQL = "UPDATE Reservas AS R SET R.cantHuespedes=? WHERE R.codigoReserva=?";
 
             try {
                 PreparedStatement pst = con.prepareStatement(sSQL);
 
                 pst.setByte(1, cantHosts);
                 pst.setInt(2, codigo);
-                pst.setInt(3, ci);
                 pst.execute();
- 
+
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
 
-            } 
+            }
+            con = conectar("Duenno");
             sSQL = "INSERT INTO Reservas_Acompannantes(codigoReserva,ci) VALUES(?,?)";
             try {
                 PreparedStatement pst1 = con.prepareStatement(sSQL);
@@ -429,22 +430,23 @@ public class SQLReserva extends ConexionDB {
                 JOptionPane.showMessageDialog(null, e);
                 return false;
 
-            }finally{
+            } finally {
                 try {
                     con.close();
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
             }
-        }else
+        } else {
             return false;
+        }
     }
 
     @SuppressWarnings("empty-statement")
     public DefaultTableModel selectVisualizarDisponibilidad(String periodo) {
-        boolean continuar=true;
-        ArrayList<String> Result=new ArrayList<>();
-        String[] headers=new String[8];
+        boolean continuar = true;
+        ArrayList<String> Result = new ArrayList<>();
+        String[] headers = new String[8];
         headers[0] = "ID";
         headers[1] = "Habitaciones";
         headers[2] = "Camas";
@@ -484,32 +486,34 @@ public class SQLReserva extends ConexionDB {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-    
-            while(rs.next()){
-                   Result.add(rs.getString("idCabanna"));  
+
+            while (rs.next()) {
+                Result.add(rs.getString("idCabanna"));
             }
-            if(Result.isEmpty())
-                continuar=false;
-            
+            if (Result.isEmpty()) {
+                continuar = false;
+            }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Pasó algo, en algún lugar y fue por algo."); //Código de errores requeterrecontra intelegible
         }
         Object[] cabannas = Result.toArray();
-        
-        if(continuar){
+
+        if (continuar) {
             sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
                     + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
             for (int i = 0; i < cabannas.length; i++) {
-                if(i==cabannas.length-1 )
-                    sSQL += "C.id='"+cabannas[i].toString()+"')) GROUP BY id";
-                else
-                    sSQL += "C.id='"+cabannas[i].toString()+"' OR ";
+                if (i == cabannas.length - 1) {
+                    sSQL += "C.id='" + cabannas[i].toString() + "')) GROUP BY id";
+                } else {
+                    sSQL += "C.id='" + cabannas[i].toString() + "' OR ";
+                }
             }
-        }else{
+        } else {
             sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
                     + "FROM cabannas";
         }
-        
+
         try {
 
             //Se crea el statement a partir de el objeto de la conexión.
@@ -550,8 +554,8 @@ public class SQLReserva extends ConexionDB {
     }
 
     public DefaultTableModel selectVisualizarOcupacion(String periodo) {
-        ArrayList<String> Result=new ArrayList<>();
-        String[] headers=new String[8];
+        ArrayList<String> Result = new ArrayList<>();
+        String[] headers = new String[8];
         headers[0] = "ID";
         headers[1] = "Habitaciones";
         headers[2] = "Camas";
@@ -593,8 +597,8 @@ public class SQLReserva extends ConexionDB {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Result.add(rs.getString("idCabanna"));
             }
         } catch (SQLException e) {
@@ -604,10 +608,11 @@ public class SQLReserva extends ConexionDB {
         sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
                 + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
         for (int i = 0; i < cabannas.length; i++) {
-            if(i==cabannas.length-1)
-                sSQL += "C.id="+"'"+cabannas[i].toString()+"'));";
-            else
-                sSQL += "C.id="+"'"+cabannas[i].toString()+"' OR ";
+            if (i == cabannas.length - 1) {
+                sSQL += "C.id=" + "'" + cabannas[i].toString() + "'));";
+            } else {
+                sSQL += "C.id=" + "'" + cabannas[i].toString() + "' OR ";
+            }
         }
         try {
 
