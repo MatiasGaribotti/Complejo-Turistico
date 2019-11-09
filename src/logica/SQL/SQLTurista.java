@@ -21,7 +21,6 @@ import logica.Turista;
 public class SQLTurista extends ConexionDB {
 
     String sSQL;
-    public short NR; //Number of Records
 
     /**
      * Este método ingresa un nuevo turísta a la base de datos.
@@ -124,7 +123,6 @@ public class SQLTurista extends ConexionDB {
 
         String[] headers = {"CI", "Código","ID", "Fecha Inicio", "Fecha Fin"};
         String[] Registro = new String[5];
-        NR = 0;
 
         //Creo el modelo sin datos y le paso las cabeceras.
         DefaultTableModel modelo = new DefaultTableModel(null, headers){

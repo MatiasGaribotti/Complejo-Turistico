@@ -86,7 +86,7 @@ public class Tools_visualizar extends javax.swing.JPanel {
     private void btnVisualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseClicked
         this.view="RESERVAS_VISTA";
         SQLReserva sqlReserva = new SQLReserva();
-        DefaultTableModel visual = sqlReserva.selectVisualizar(cmbVisualizar.getSelectedItem().toString().toUpperCase(), true);
+        DefaultTableModel visual = sqlReserva.selectVisualizarDisponibilidad(cmbVisualizar.getSelectedItem().toString().toUpperCase());
         Index.paintTabla(visual, view);
     }//GEN-LAST:event_btnVisualizarMouseClicked
 

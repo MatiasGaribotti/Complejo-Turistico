@@ -13,6 +13,8 @@ public class ConexionDB {
         Connection enlace=null; 
         if(usuario.equals("Duenno"))
             this.pass="12345678";
+        else if(usuario.equals("Turista"))
+            this.pass="87654321";
         try {
             Class.forName("org.gjt.mm.mysql.Driver"); //Se selecciona el Driver de la DB
             enlace=DriverManager.getConnection(this.url,usuario,this.pass); //Se conecta con la DB
