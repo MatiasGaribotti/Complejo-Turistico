@@ -388,16 +388,22 @@ public class SQLReserva extends ConexionDB {
         try {
             PreparedStatement pst = con.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery(sSQL);
-            if(rs.getBoolean("checkIn")==false||rs.getBoolean("cancelada")==true)
+            boolean cancel=true,check=false;
+            while(rs.next()){
+                check=rs.getBoolean("checkIn");
+                cancel=rs.getBoolean("cancelada");
+            }
+            if(check==false||cancel==true)
                 reservaValida=false;
-            else
+            else if(rs.first()){
                 cantHosts=(byte)(rs.getByte("cantHuespedes")+1);
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         
         if(reservaValida){
-            sSQL = "UPDATE Reservas AS R,Cabannas AS C,Reservas_Acompannates AS RA SET C.cantHuespedes=? WHERE R.codigoReserva=? AND R.ci=?";
+            sSQL = "UPDATE Reservas AS R,Cabannas AS C,Reservas_Acompannantes AS RA SET C.cantHuespedes=? WHERE R.codigoReserva=? AND R.idCabanna=C.id AND R.ci=?";
 
             try {
                 PreparedStatement pst = con.prepareStatement(sSQL);
@@ -411,7 +417,7 @@ public class SQLReserva extends ConexionDB {
                 JOptionPane.showMessageDialog(null, e);
 
             } 
-            sSQL = "INSERT codigoReserva,ci INTO Reservas_Acompannates VALUES(?,?)";
+            sSQL = "INSERT INTO Reservas_Acompannantes(codigoReserva,ci) VALUES(?,?)";
             try {
                 PreparedStatement pst1 = con.prepareStatement(sSQL);
                 pst1.setInt(1, codigo);

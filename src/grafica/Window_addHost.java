@@ -73,6 +73,8 @@ public class Window_addHost extends javax.swing.JFrame {
         fieldLocalidad = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         btnVolver = new javax.swing.JLabel();
+        fieldCodigo = new javax.swing.JFormattedTextField();
+        lblCI1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -90,9 +92,9 @@ public class Window_addHost extends javax.swing.JFrame {
         lblCI.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCI.setForeground(new java.awt.Color(43, 41, 41));
         lblCI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCI.setText("CI*");
+        lblCI.setText("Código*");
         panelAdd.add(lblCI);
-        lblCI.setBounds(20, 30, 21, 22);
+        lblCI.setBounds(200, 30, 70, 22);
 
         try {
             fieldCI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
@@ -228,6 +230,15 @@ public class Window_addHost extends javax.swing.JFrame {
         });
         panelAdd.add(btnVolver);
         btnVolver.setBounds(110, 290, 70, 30);
+        panelAdd.add(fieldCodigo);
+        fieldCodigo.setBounds(280, 30, 80, 20);
+
+        lblCI1.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
+        lblCI1.setForeground(new java.awt.Color(43, 41, 41));
+        lblCI1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCI1.setText("CI*");
+        panelAdd.add(lblCI1);
+        lblCI1.setBounds(20, 30, 21, 22);
 
         panel.add(panelAdd);
         panelAdd.setBounds(20, 70, 360, 340);
@@ -313,12 +324,16 @@ public class Window_addHost extends javax.swing.JFrame {
             );
             
             if (sql.insertar(turista)){
-                JOptionPane.showMessageDialog(null, "Turista ingresado con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Turista ingresado con éxito a la permanencia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }else
                 JOptionPane.showMessageDialog(null, "Error en el ingreso del turista.", "Mensaje", JOptionPane.ERROR_MESSAGE);
             
             //Realizar SQL para poder agregar a la tabla los turístas
-            
+            SQLReserva sqlReserva=new SQLReserva();
+            if (sqlReserva.addHost(Integer.parseInt(fieldCodigo.getText()),turista.getCi())){
+                JOptionPane.showMessageDialog(null, "Turista ingresado con éxito al la reserva.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }else
+                JOptionPane.showMessageDialog(null, "Error en el ingreso del turista-reserva.", "Mensaje", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnIngresarMouseClicked
@@ -390,6 +405,7 @@ public class Window_addHost extends javax.swing.JFrame {
     public javax.swing.JTextField fieldApellido;
     public javax.swing.JFormattedTextField fieldCI;
     public javax.swing.JTextField fieldCalle;
+    public javax.swing.JFormattedTextField fieldCodigo;
     public javax.swing.JFormattedTextField fieldFechaNac;
     public javax.swing.JTextField fieldLocalidad;
     public javax.swing.JTextField fieldNombre;
@@ -397,6 +413,7 @@ public class Window_addHost extends javax.swing.JFrame {
     public javax.swing.JFormattedTextField fieldTelefono;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCI;
+    private javax.swing.JLabel lblCI1;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblFechaNac;
     private javax.swing.JLabel lblNombre;
