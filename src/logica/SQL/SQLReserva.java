@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Reserva;
@@ -379,6 +380,7 @@ public class SQLReserva extends ConexionDB {
 
     @SuppressWarnings("empty-statement")
     public DefaultTableModel selectVisualizarDisponibilidad(String periodo) {
+        boolean continuar=true;
         ArrayList<String> Result=new ArrayList<>();
         String[] headers=new String[8];
         headers[0] = "ID";
@@ -412,32 +414,40 @@ public class SQLReserva extends ConexionDB {
         }
 
         Connection con = conectar(Index.user.getNombre());
-        System.out.println(maximo.toString());
-        /*sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
-                + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (R.`fechaInicio`>'" + maximo.toString() + "' "
-                + "OR R.fechaFin<" + LocalDate.now().toString() + ") ORDER BY fechaInicio";*/
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn,checkOut "
+//        System.out.println(maximo.toString());
+
+        sSQL = "SELECT R.codigoReserva,R.ci,R.idCabanna,R.fechaInicio,R.fechaFin,R.checkIn,R.checkOut "
                 + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(R.`fechaInicio`>'" + maximo.toString() + "' "
-                + "OR R.fechaFin<" + LocalDate.now().toString() + ")) ORDER BY fechaInicio";
+                + "OR R.fechaFin<" + LocalDate.now().toString() + ")) GROUP BY idCabanna ORDER BY fechaInicio";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-            
+    
             while(rs.next()){
-                Result.add(rs.getString("idCabanna"));
+                   Result.add(rs.getString("idCabanna"));  
             }
+            if(Result.isEmpty())
+                continuar=false;
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Pasó algo, en algún lugar y fue por algo."); //Código de errores requeterrecontra intelegible
         }
         Object[] cabannas = Result.toArray();
-        sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
-                + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
-        for (int i = 0; i < cabannas.length; i++) {
-            if(i==cabannas.length-1)
-                sSQL += "C.id="+"'"+cabannas[i].toString()+"'));";
-            else
-                sSQL += "C.id="+"'"+cabannas[i].toString()+"' OR ";
+        
+        if(continuar){
+            sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
+            for (int i = 0; i < cabannas.length; i++) {
+                if(i==cabannas.length-1 )
+                    sSQL += "C.id='"+cabannas[i].toString()+"')) GROUP BY id";
+                else
+                    sSQL += "C.id='"+cabannas[i].toString()+"' OR ";
+            }
+        }else{
+            sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM cabannas";
         }
+        
         try {
 
             //Se crea el statement a partir de el objeto de la conexión.
@@ -464,7 +474,7 @@ public class SQLReserva extends ConexionDB {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e + "\n ACAAA");
 
         } finally {
             try {
