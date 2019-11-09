@@ -370,7 +370,8 @@ public class Index extends javax.swing.JFrame {
 
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         setCurrentView("RESERVAS");
-        resetView();
+        resetView();  
+        layerVisualizar.removeAll();
         Panel_Reservar p = new Panel_Reservar();
         p.build();
         paintPanel(p, layerIngresos);
@@ -378,11 +379,13 @@ public class Index extends javax.swing.JFrame {
         searchPanel = new Tools_Buscar(this.getCurrentView());
         modeloDef = searchPanel.camposComboB(currentView, modeloDef);
         searchPanel.build(modeloDef);
-        viewPanel = new Tools_visualizar();
-        viewPanel.build();
+        if(user.getNombre().equals("Duenno")){
+            viewPanel = new Tools_visualizar();
+            viewPanel.build();
+            paintPanel(viewPanel, layerVisualizar);
+        }
         
         paintPanel(searchPanel, layerBuscar);
-        paintPanel(viewPanel, layerVisualizar);
         paintTabla("RESERVAS");
     }//GEN-LAST:event_btnReservasMousePressed
 

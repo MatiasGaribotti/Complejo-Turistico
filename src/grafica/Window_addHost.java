@@ -26,12 +26,11 @@ public class Window_addHost extends javax.swing.JFrame {
     public Window_addHost() {
         initComponents();
         this.view = "ADDHOST";
-        build();
     }
 
     public void build() {
 
-        this.setSize(600, 300);
+        this.setSize(900, 500);
         this.setLocationRelativeTo(null);
 
     }
@@ -80,6 +79,7 @@ public class Window_addHost extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         panel.setBackground(new java.awt.Color(54, 46, 155));
@@ -229,7 +229,7 @@ public class Window_addHost extends javax.swing.JFrame {
             }
         });
         panelAdd.add(btnVolver);
-        btnVolver.setBounds(110, 290, 70, 30);
+        btnVolver.setBounds(100, 290, 70, 30);
         panelAdd.add(fieldCodigo);
         fieldCodigo.setBounds(280, 30, 80, 20);
 
@@ -273,6 +273,9 @@ public class Window_addHost extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
+        Window_Checkin wCheckIn = new Window_Checkin();
+        wCheckIn.build();
+        wCheckIn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverMouseClicked
 

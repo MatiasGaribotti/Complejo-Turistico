@@ -14,25 +14,18 @@ import logica.SQL.SQLReserva;
  */
 public class Tools_visualizar extends javax.swing.JPanel {
 
-    String view;
-
     public Tools_visualizar() {
-        this.view = "CABANNAS";
-
-    }
-
-    public Tools_visualizar(String view) {
-        this.view = view;
+        
     }
 
     public void build() {
-        initComponents();
-        this.setSize(450, 80);
-        centerElements();
+            initComponents();
+            this.setSize(450, 80);
+            centerElements();
     }
 
     public void centerElements() {
-        int startingWidth = this.getWidth() - btnVisualizar.getWidth() - cmbVisualizar.getWidth() - lblVisualizar.getWidth() * 2 - 10;
+        int startingWidth = this.getWidth() - btnVisualizar.getWidth() - cmbVisualizar.getWidth() - lblVisualizar.getWidth()*2 + 20;
         int wHeigh = this.getHeight();
         int height = lblVisualizar.getHeight();
         
@@ -65,12 +58,12 @@ public class Tools_visualizar extends javax.swing.JPanel {
         cmbVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cmbVisualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "Semana", "Mes" }));
         add(cmbVisualizar);
-        cmbVisualizar.setBounds(140, 20, 120, 22);
+        cmbVisualizar.setBounds(170, 20, 120, 22);
 
         lblVisualizar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblVisualizar.setText("Visualizar");
+        lblVisualizar.setText("Disponibilidad");
         add(lblVisualizar);
-        lblVisualizar.setBounds(50, 20, 80, 22);
+        lblVisualizar.setBounds(50, 20, 110, 22);
 
         btnVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnVisualizar.png"))); // NOI18N
         btnVisualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -80,14 +73,13 @@ public class Tools_visualizar extends javax.swing.JPanel {
             }
         });
         add(btnVisualizar);
-        btnVisualizar.setBounds(270, 10, 110, 40);
+        btnVisualizar.setBounds(300, 10, 110, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVisualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseClicked
-        this.view="RESERVAS_VISTA";
         SQLReserva sqlReserva = new SQLReserva();
         DefaultTableModel visual = sqlReserva.selectVisualizarDisponibilidad(cmbVisualizar.getSelectedItem().toString().toUpperCase());
-        Index.paintTabla(visual, view);
+        Index.paintTabla(visual, "RESERVAS");
     }//GEN-LAST:event_btnVisualizarMouseClicked
 
 

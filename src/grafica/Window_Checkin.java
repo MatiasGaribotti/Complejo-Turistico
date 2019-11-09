@@ -127,7 +127,10 @@ public class Window_Checkin extends javax.swing.JFrame {
             ci = Integer.parseInt(fieldCiTitular.getText());
             if (sql.confirmar(codigo, ci)) {
                 JOptionPane.showMessageDialog(null, "Bienvenido al complejo.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                
+                Window_addHost wAddHost = new Window_addHost();
+                wAddHost.build();
+                wAddHost.setVisible(true);
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo realizar el checkin", "Mensaje", JOptionPane.ERROR_MESSAGE);
             }
