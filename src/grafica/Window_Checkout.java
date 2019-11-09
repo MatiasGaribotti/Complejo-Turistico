@@ -19,6 +19,7 @@ public class Window_Checkout extends javax.swing.JFrame {
     public Window_Checkout() {
         initComponents();
         this.view = "CHECKOUT";
+        Index.user.setNombre("Turista");
     }
     
     public void build(){
@@ -39,7 +40,7 @@ public class Window_Checkout extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnVolver = new javax.swing.JLabel();
-        btnCheckIn = new javax.swing.JLabel();
+        btnCheckOut = new javax.swing.JLabel();
         lblCi = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblCodigoReserva = new javax.swing.JLabel();
@@ -48,6 +49,7 @@ public class Window_Checkout extends javax.swing.JFrame {
         ui_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -61,14 +63,14 @@ public class Window_Checkout extends javax.swing.JFrame {
         jPanel1.add(btnVolver);
         btnVolver.setBounds(520, 260, 70, 30);
 
-        btnCheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnCheckOut.png"))); // NOI18N
-        btnCheckIn.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnCheckOut.png"))); // NOI18N
+        btnCheckOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCheckInMouseClicked(evt);
+                btnCheckOutMouseClicked(evt);
             }
         });
-        jPanel1.add(btnCheckIn);
-        btnCheckIn.setBounds(260, 190, 160, 38);
+        jPanel1.add(btnCheckOut);
+        btnCheckOut.setBounds(260, 190, 160, 38);
 
         lblCi.setBackground(new java.awt.Color(255, 255, 255));
         lblCi.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -111,17 +113,21 @@ public class Window_Checkout extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
+        Index index = new Index();
+        index.build();
+        index.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverMouseClicked
 
-    private void btnCheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckInMouseClicked
+    private void btnCheckOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutMouseClicked
         int codigo, ci;
         SQLReserva sql = new SQLReserva();
-
+        
         try {
             codigo = Integer.parseInt(fieldCodigoReserva.getText());
             ci = Integer.parseInt(fieldCiTitular.getText());
-            if (sql.confirmar(codigo, ci)) {
+            
+            if (sql.checkout(codigo, ci)) {
                 JOptionPane.showMessageDialog(null, "Adiós, esperamos verte pronto.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 
             }else{
@@ -133,7 +139,7 @@ public class Window_Checkout extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_btnCheckInMouseClicked
+    }//GEN-LAST:event_btnCheckOutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -172,7 +178,7 @@ public class Window_Checkout extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnCheckIn;
+    private javax.swing.JLabel btnCheckOut;
     private javax.swing.JLabel btnVolver;
     private javax.swing.JTextField fieldCiTitular;
     private javax.swing.JTextField fieldCodigoReserva;

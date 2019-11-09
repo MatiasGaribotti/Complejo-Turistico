@@ -22,14 +22,21 @@ public class Window_addHost extends javax.swing.JFrame {
 
     String view;
     Turista turista;
+    int codigo;
 
     public Window_addHost() {
-        initComponents();
         this.view = "ADDHOST";
+        codigo=-1;
+    }
+    
+    public Window_addHost(int codigo) {
+        this.view ="ADDHOST";
+        this.codigo = codigo;
+        
     }
 
     public void build() {
-
+        initComponents();
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
 
@@ -56,7 +63,6 @@ public class Window_addHost extends javax.swing.JFrame {
 
         panel = new javax.swing.JPanel();
         panelAdd = new javax.swing.JPanel();
-        lblCI = new javax.swing.JLabel();
         fieldCI = new javax.swing.JFormattedTextField();
         lblNombre = new javax.swing.JLabel();
         fieldNombre = new javax.swing.JTextField();
@@ -71,12 +77,11 @@ public class Window_addHost extends javax.swing.JFrame {
         fieldNumero = new javax.swing.JTextField();
         fieldLocalidad = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JLabel();
-        fieldCodigo = new javax.swing.JFormattedTextField();
         lblCI1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        btnVolver = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -88,13 +93,6 @@ public class Window_addHost extends javax.swing.JFrame {
         panelAdd.setBackground(new java.awt.Color(236, 235, 255));
         panelAdd.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Turista", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
         panelAdd.setLayout(null);
-
-        lblCI.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
-        lblCI.setForeground(new java.awt.Color(43, 41, 41));
-        lblCI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCI.setText("Código*");
-        panelAdd.add(lblCI);
-        lblCI.setBounds(200, 30, 70, 22);
 
         try {
             fieldCI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
@@ -220,18 +218,7 @@ public class Window_addHost extends javax.swing.JFrame {
             }
         });
         panelAdd.add(btnIngresar);
-        btnIngresar.setBounds(200, 290, 110, 23);
-
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnVolver.png"))); // NOI18N
-        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnVolverMouseClicked(evt);
-            }
-        });
-        panelAdd.add(btnVolver);
-        btnVolver.setBounds(100, 290, 70, 30);
-        panelAdd.add(fieldCodigo);
-        fieldCodigo.setBounds(280, 30, 80, 20);
+        btnIngresar.setBounds(230, 300, 110, 23);
 
         lblCI1.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCI1.setForeground(new java.awt.Color(43, 41, 41));
@@ -265,6 +252,15 @@ public class Window_addHost extends javax.swing.JFrame {
 
         panel.add(scroll);
         scroll.setBounds(430, 70, 440, 340);
+
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_btnVolver.png"))); // NOI18N
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVolverMouseClicked(evt);
+            }
+        });
+        panel.add(btnVolver);
+        btnVolver.setBounds(800, 460, 70, 30);
 
         getContentPane().add(panel);
         panel.setBounds(0, 0, 900, 500);
@@ -333,7 +329,7 @@ public class Window_addHost extends javax.swing.JFrame {
             
             //Realizar SQL para poder agregar a la tabla los turístas
             SQLReserva sqlReserva=new SQLReserva();
-            if (sqlReserva.addHost(Integer.parseInt(fieldCodigo.getText()),turista.getCi())){
+            if (sqlReserva.addHost(Integer.parseInt(Integer.toString(codigo)),turista.getCi())){
                 JOptionPane.showMessageDialog(null, "Turista ingresado con éxito al la reserva.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }else
                 JOptionPane.showMessageDialog(null, "Error en el ingreso del turista-reserva.", "Mensaje", JOptionPane.ERROR_MESSAGE);
@@ -408,14 +404,12 @@ public class Window_addHost extends javax.swing.JFrame {
     public javax.swing.JTextField fieldApellido;
     public javax.swing.JFormattedTextField fieldCI;
     public javax.swing.JTextField fieldCalle;
-    public javax.swing.JFormattedTextField fieldCodigo;
     public javax.swing.JFormattedTextField fieldFechaNac;
     public javax.swing.JTextField fieldLocalidad;
     public javax.swing.JTextField fieldNombre;
     public javax.swing.JTextField fieldNumero;
     public javax.swing.JFormattedTextField fieldTelefono;
     private javax.swing.JLabel lblApellido;
-    private javax.swing.JLabel lblCI;
     private javax.swing.JLabel lblCI1;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblFechaNac;

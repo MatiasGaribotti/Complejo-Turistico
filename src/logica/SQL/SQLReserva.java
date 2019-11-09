@@ -166,6 +166,38 @@ public class SQLReserva extends ConexionDB {
             }
         }
     }
+    
+    public boolean checkout(int codigo, int ci) {
+        //Nueva conexión
+        System.out.println(Index.user.getNombre());
+        Connection con = conectar(Index.user.getNombre());
+
+        /*
+          Sentencia SQL. Por temas de seguridad se utilizan los ? 
+         */
+        sSQL = "UPDATE Reservas SET checkOut=? WHERE codigoReserva=? AND ci=?";
+
+        try {
+            PreparedStatement pst = con.prepareStatement(sSQL);
+
+            pst.setBoolean(1, true);
+            pst.setInt(2, codigo);
+            pst.setInt(3, ci);
+            pst.execute();
+            return true;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
 
     public DefaultTableModel select() {
         String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "CheckIn", "", ""}; //Dos columnas vacías para botones
@@ -182,7 +214,7 @@ public class SQLReserva extends ConexionDB {
         Connection con = conectar(Index.user.getNombre());
 
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
-                + "FROM reservas WHERE cancelada=0 ORDER BY fechaInicio";
+                + "FROM reservas WHERE cancelada=0 AND checkOut=0 ORDER BY fechaInicio";
 
         try {
 

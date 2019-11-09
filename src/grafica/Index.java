@@ -446,8 +446,9 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCheckInWindowMousePressed
 
     private void btnCheckOutWindowMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckOutWindowMousePressed
-        Window_Checkin checkin = new Window_Checkin();
-        checkin.setVisible(true);
+        Window_Checkout checkout = new Window_Checkout();
+        checkout.build();
+        checkout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckOutWindowMousePressed
 
