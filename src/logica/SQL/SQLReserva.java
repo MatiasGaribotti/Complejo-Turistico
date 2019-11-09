@@ -157,7 +157,7 @@ public class SQLReserva extends ConexionDB {
             }
         }
     }
-    
+
     public boolean checkout(int codigo, int ci) {
         //Nueva conexión
 //        System.out.println(Index.user.getNombre());
@@ -249,6 +249,77 @@ public class SQLReserva extends ConexionDB {
 
         return modelo;
     }
+    
+    public  DefaultTableModel select(String patron, String campo) {
+
+        String[] headers = {"Código", "C.I", "Cabaña", "Fecha Inicio", "Fecha Fin", "Confirmada", "", ""}; //Dos columnas vacías para botones
+        String[] Registro = new String[headers.length+2];
+
+        //Creo el modelo sin datos y le paso las cabeceras.
+        DefaultTableModel modelo = new DefaultTableModel(null, headers){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        
+        }};
+
+        Connection con = conectar("root");
+
+        /*
+            Establezco la sentencia SQL a ejecutar ya aplicando el filtro
+        */
+        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
+                + "FROM cabannas WHERE " + campo + " LIKE '%" + patron + "%' ORDER BY id";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("codigoReserva");
+                Registro[1] = rs.getString("ci");
+                Registro[2] = rs.getString("idCabanna");
+                Registro[3] = rs.getString("cantBannos");
+                Registro[4] = rs.getString("fechaInicio");
+                Registro[5] = rs.getString("fechaFin");
+                Registro[6] = rs.getString("checkIn");
+                Registro[7] = "MODIFICAR";
+                Registro[8] = "ELIMINAR";
+                //Agrego los datos obtenidos al modelo
+                
+                
+                if(Registro[6].equals("1"))
+                    Registro[6] = "Sí";
+                else
+                    Registro[6] = "No";
+                
+                modelo.addRow(Registro);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+            
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+                
+            }
+        }
+
+        return modelo;
+
+    }
+    
 
     public ArrayList<LocalDate> selectCuenta(short id) {
         int cont = 0;
@@ -562,6 +633,7 @@ public class SQLReserva extends ConexionDB {
     }
 
     public DefaultTableModel selectVisualizarOcupacion(String periodo) {
+        boolean continuar = true;
         ArrayList<String> Result = new ArrayList<>();
         String[] headers = new String[8];
         headers[0] = "ID";
@@ -609,19 +681,28 @@ public class SQLReserva extends ConexionDB {
             while (rs.next()) {
                 Result.add(rs.getString("idCabanna"));
             }
+
+            if (Result.isEmpty()) {
+                continuar = false;
+            }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Pasó algo, en algún lugar y fue por algo."); //Código de errores requeterrecontra intelegible
         }
         Object[] cabannas = Result.toArray();
-        sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
-                + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
-        for (int i = 0; i < cabannas.length; i++) {
-            if (i == cabannas.length - 1) {
-                sSQL += "C.id=" + "'" + cabannas[i].toString() + "'));";
-            } else {
-                sSQL += "C.id=" + "'" + cabannas[i].toString() + "' OR ";
+        
+//        if(continuar){
+            sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
+            for (int i = 0; i < cabannas.length; i++) {
+                if (i == cabannas.length - 1) {
+                    sSQL += "C.id=" + "'" + cabannas[i].toString() + "'));";
+                } else {
+                    sSQL += "C.id=" + "'" + cabannas[i].toString() + "' OR ";
+                }
             }
-        }
+//        }
+        
         try {
 
             //Se crea el statement a partir de el objeto de la conexión.

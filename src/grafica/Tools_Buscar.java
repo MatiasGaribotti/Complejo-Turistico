@@ -3,6 +3,7 @@ package grafica;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import logica.SQL.SQLCabanna;
+import logica.SQL.SQLReserva;
 
 public class Tools_Buscar extends javax.swing.JPanel {
 
@@ -48,7 +49,6 @@ public class Tools_Buscar extends javax.swing.JPanel {
                 Def.addElement("Nº Habitaciones");
                 Def.addElement("Nº Camas");
                 Def.addElement("Nº Baños");
-                Def.addElement("Nº Huéspedes");
                 Def.addElement("Descripción");
                 Def.addElement("Aire Acon.");
                 Def.addElement("Parrillero");
@@ -59,7 +59,6 @@ public class Tools_Buscar extends javax.swing.JPanel {
                 Def.addElement("Fecha Inicio");
                 Def.addElement("Fecha Fin");
                 Def.addElement("Confirmada");
-                Def.addElement("Cancelada");
                 Def.addElement("CI");
                 Def.addElement("ID");
         }
@@ -151,44 +150,74 @@ public class Tools_Buscar extends javax.swing.JPanel {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
+        DefaultTableModel busqueda = new DefaultTableModel();
         String patron = fieldPattern.getText();
         String atributo;
+        if (this.view.equals("CABANNAS")){
+            switch (cmbFilter.getSelectedItem().toString()) {
+                case "ID":
+                    atributo = "id";
+                    break;
+                case "Nº Habitaciones":
+                    atributo = "cantHabitaciones";
+                    break;
+                case "Nº Camas":
+                    atributo = "cantCamas";
+                    break;
+                case "Nº Baños":
+                    atributo = "cantBannos";
+                    break;
+                case "Nº Huéspedes":
+                    atributo = "cantHuespedes";
+                    break;
+                case "Descripción":
+                    atributo = "descripcion";
+                    break;
+                case "Aire Acon.":
+                    atributo = "aireAcondicionado";
+                    break;
+                case "Parrillero":
+                    atributo = "parrillero";
+                    break;
+                case "Costo Hr.":
+                    atributo = "costHour";
+                    break;
+                default:
+                    atributo = "";
+                    break;
+            }
 
-        switch (cmbFilter.getSelectedItem().toString()) {
-            case "ID":
-                atributo = "id";
-                break;
-            case "Nº Habitaciones":
-                atributo = "cantHabitaciones";
-                break;
-            case "Nº Camas":
-                atributo = "cantCamas";
-                break;
-            case "Nº Baños":
-                atributo = "cantBannos";
-                break;
-            case "Nº Huéspedes":
-                atributo = "cantHuespedes";
-                break;
-            case "Descripción":
-                atributo = "descripcion";
-                break;
-            case "Aire Acon.":
-                atributo = "aireAcondicionado";
-                break;
-            case "Parrillero":
-                atributo = "parrillero";
-                break;
-            case "Costo Hr.":
-                atributo = "costHour";
-                break;
-            default:
-                atributo = "";
-                break;
+            SQLCabanna sqlCabanna = new SQLCabanna();
+            busqueda = sqlCabanna.select(patron, atributo);
+            Index.paintTabla(busqueda, view);
+            
+        }else{
+            switch (cmbFilter.getSelectedItem().toString()) {
+                case "Código":
+                    atributo = "codigoReserva";
+                    break;
+                case "Fecha Inicio":
+                    atributo = "fechaInicio";
+                    break;
+                case "Fecha Fin":
+                    atributo = "fechaFin";
+                    break;
+                case "Confirmada":
+                    atributo = "confirmada";
+                    break;
+                case "CI":
+                    atributo = "ci";
+                    break;
+                case "ID":
+                    atributo = "idCabanna";
+                    break;
+                default:
+                    atributo = "";
+                    break;
+            }
         }
-
-        SQLCabanna sqlCabanna = new SQLCabanna();
-        DefaultTableModel busqueda = sqlCabanna.select(patron, atributo);
+        SQLReserva sqlReserva = new SQLReserva();
+        busqueda = sqlReserva.select(patron, atributo);
         Index.paintTabla(busqueda, view);
     }//GEN-LAST:event_btnBuscarMouseClicked
 

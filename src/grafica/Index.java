@@ -24,6 +24,7 @@ public class Index extends javax.swing.JFrame {
     String currentView;
     Tools_Buscar searchPanel;
     Tools_visualizar viewPanel;
+    Tools_Ocupacion viewOcupacion;
     DefaultComboBoxModel modeloDef;
     DefaultComboBoxModel modeloDefSort;
     private JLayeredPane layerHerramientasHistory = new JLayeredPane();
@@ -81,9 +82,6 @@ public class Index extends javax.swing.JFrame {
         ui_btnCheckOutWindow = new javax.swing.JLabel();
         btnCheckInWindow = new javax.swing.JLabel();
         ui_btnCheckInWindow = new javax.swing.JLabel();
-        btnDisponibilidad = new javax.swing.JLabel();
-        iconDisponibilidad = new javax.swing.JLabel();
-        ui_btnDisponibilidad = new javax.swing.JLabel();
         btnUser = new javax.swing.JLabel();
         iconUser = new javax.swing.JLabel();
         ui_btnUser = new javax.swing.JLabel();
@@ -106,6 +104,7 @@ public class Index extends javax.swing.JFrame {
         ui_Exit = new javax.swing.JLabel();
         ui_topBar = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
+        layerOcupación = new javax.swing.JLayeredPane();
         layerIngresos = new javax.swing.JLayeredPane();
         layerBuscar = new javax.swing.JLayeredPane();
         layerTabla = new javax.swing.JLayeredPane();
@@ -122,7 +121,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
         sideBar.setLayout(null);
 
-        btnCheckOutWindow.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
+        btnCheckOutWindow.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnCheckOutWindow.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOutWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCheckOutWindow.setText("Check Out");
@@ -132,13 +131,13 @@ public class Index extends javax.swing.JFrame {
             }
         });
         sideBar.add(btnCheckOutWindow);
-        btnCheckOutWindow.setBounds(0, 380, 240, 40);
+        btnCheckOutWindow.setBounds(0, 330, 240, 40);
 
         ui_btnCheckOutWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
         sideBar.add(ui_btnCheckOutWindow);
-        ui_btnCheckOutWindow.setBounds(0, 380, 240, 40);
+        ui_btnCheckOutWindow.setBounds(0, 330, 240, 40);
 
-        btnCheckInWindow.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
+        btnCheckInWindow.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnCheckInWindow.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckInWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCheckInWindow.setText("Check In");
@@ -148,31 +147,11 @@ public class Index extends javax.swing.JFrame {
             }
         });
         sideBar.add(btnCheckInWindow);
-        btnCheckInWindow.setBounds(0, 330, 240, 40);
+        btnCheckInWindow.setBounds(0, 280, 240, 40);
 
         ui_btnCheckInWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
         sideBar.add(ui_btnCheckInWindow);
-        ui_btnCheckInWindow.setBounds(0, 330, 240, 40);
-
-        btnDisponibilidad.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
-        btnDisponibilidad.setForeground(new java.awt.Color(255, 255, 255));
-        btnDisponibilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDisponibilidad.setText("Disponibilidad");
-        btnDisponibilidad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnDisponibilidadMousePressed(evt);
-            }
-        });
-        sideBar.add(btnDisponibilidad);
-        btnDisponibilidad.setBounds(30, 280, 210, 40);
-
-        iconDisponibilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_calendario.png"))); // NOI18N
-        sideBar.add(iconDisponibilidad);
-        iconDisponibilidad.setBounds(10, 290, 21, 22);
-
-        ui_btnDisponibilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ui_buttonSideBar.png"))); // NOI18N
-        sideBar.add(ui_btnDisponibilidad);
-        ui_btnDisponibilidad.setBounds(0, 280, 240, 40);
+        ui_btnCheckInWindow.setBounds(0, 280, 240, 40);
 
         btnUser.setFont(new java.awt.Font("Segoe UI Light", 1, 30)); // NOI18N
         btnUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,7 +173,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnUser);
         ui_btnUser.setBounds(0, 730, 240, 40);
 
-        btnCanceladas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnCanceladas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnCanceladas.setForeground(new java.awt.Color(255, 255, 255));
         btnCanceladas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCanceladas.setText("Canceladas");
@@ -204,7 +183,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
         sideBar.add(btnCanceladas);
-        btnCanceladas.setBounds(0, 230, 240, 40);
+        btnCanceladas.setBounds(20, 230, 220, 40);
 
         iconCanceladas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ui/ico_canceladas.png"))); // NOI18N
         sideBar.add(iconCanceladas);
@@ -219,7 +198,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(iconReserva);
         iconReserva.setBounds(0, 80, 40, 40);
 
-        btnReservas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnReservas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnReservas.setForeground(new java.awt.Color(255, 255, 255));
         btnReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnReservas.setText("Reservas");
@@ -240,7 +219,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(iconCabanna);
         iconCabanna.setBounds(0, 130, 40, 40);
 
-        btnCabannas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnCabannas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnCabannas.setForeground(new java.awt.Color(255, 255, 255));
         btnCabannas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCabannas.setText("Cabañas");
@@ -256,7 +235,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnCabannas);
         ui_btnCabannas.setBounds(0, 130, 240, 40);
 
-        btnHistorico.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
+        btnHistorico.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnHistorico.setText("Histórico");
@@ -277,10 +256,10 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnCalendario);
         ui_btnCalendario.setBounds(0, 180, 240, 40);
 
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Segoe Script", 1, 48)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("3 Weeks");
+        lblTitle.setText("T3W");
         sideBar.add(lblTitle);
         lblTitle.setBounds(40, 20, 150, 40);
 
@@ -327,6 +306,11 @@ public class Index extends javax.swing.JFrame {
         content.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, null, java.awt.Color.lightGray));
         content.setLayout(null);
 
+        layerOcupación.setPreferredSize(new java.awt.Dimension(464, 89));
+        layerOcupación.setLayout(new java.awt.CardLayout());
+        content.add(layerOcupación);
+        layerOcupación.setBounds(500, 180, 450, 60);
+
         layerIngresos.setPreferredSize(new java.awt.Dimension(483, 402));
         layerIngresos.setLayout(new java.awt.CardLayout());
         content.add(layerIngresos);
@@ -371,6 +355,7 @@ public class Index extends javax.swing.JFrame {
     private void btnReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservasMousePressed
         setCurrentView("RESERVAS");
         resetView();  
+        layerOcupación.removeAll();
         layerVisualizar.removeAll();
         Panel_Reservar p = new Panel_Reservar();
         p.build();
@@ -379,11 +364,12 @@ public class Index extends javax.swing.JFrame {
         searchPanel = new Tools_Buscar(this.getCurrentView());
         modeloDef = searchPanel.camposComboB(currentView, modeloDef);
         searchPanel.build(modeloDef);
-        if(user.getNombre().equals("Duenno")){
-            viewPanel = new Tools_visualizar();
-            viewPanel.build();
-            paintPanel(viewPanel, layerVisualizar);
-        }
+        viewOcupacion = new Tools_Ocupacion();
+        viewOcupacion.build();
+        viewPanel = new Tools_visualizar();
+        viewPanel.build();
+        paintPanel(viewPanel, layerVisualizar);
+        paintPanel(viewOcupacion, layerOcupación);
         
         paintPanel(searchPanel, layerBuscar);
         paintTabla("RESERVAS");
@@ -392,8 +378,10 @@ public class Index extends javax.swing.JFrame {
     private void btnCabannasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCabannasMousePressed
         setCurrentView("CABANNAS");
         resetView();
+        layerOcupación.removeAll();
         layerVisualizar.removeAll();
         layerVisualizar.repaint();
+        layerOcupación.repaint();
         
         paintPanel(new Panel_Cabanna(), layerIngresos);
         Index.paintTabla(getCurrentView());
@@ -415,6 +403,8 @@ public class Index extends javax.swing.JFrame {
         setupHistorico("Histórico");
         layerVisualizar.removeAll();
         layerVisualizar.repaint();
+        layerOcupación.removeAll();
+        layerOcupación.repaint();
         
     }//GEN-LAST:event_btnHistoricoMousePressed
 
@@ -424,6 +414,8 @@ public class Index extends javax.swing.JFrame {
         setupHistorico("Canceladas");
         layerVisualizar.removeAll();
         layerVisualizar.repaint();
+        layerOcupación.removeAll();
+        layerOcupación.repaint();
     }//GEN-LAST:event_btnCanceladasMousePressed
 
     private void btnUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMousePressed
@@ -432,10 +424,6 @@ public class Index extends javax.swing.JFrame {
         login.setVisible(true);
         login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnUserMousePressed
-
-    private void btnDisponibilidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadMousePressed
-        System.out.println(this.user.getNombre());
-    }//GEN-LAST:event_btnDisponibilidadMousePressed
 
     private void btnCheckInWindowMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckInWindowMousePressed
         Window_Checkin checkin = new Window_Checkin();
@@ -562,19 +550,18 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel btnCanceladas;
     private javax.swing.JLabel btnCheckInWindow;
     private javax.swing.JLabel btnCheckOutWindow;
-    private javax.swing.JLabel btnDisponibilidad;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnReservas;
     private javax.swing.JLabel btnUser;
     private javax.swing.JPanel content;
     private javax.swing.JLabel iconCabanna;
     private javax.swing.JLabel iconCanceladas;
-    private javax.swing.JLabel iconDisponibilidad;
     private javax.swing.JLabel iconHistorico;
     private javax.swing.JLabel iconReserva;
     private javax.swing.JLabel iconUser;
     private javax.swing.JLayeredPane layerBuscar;
     private static javax.swing.JLayeredPane layerIngresos;
+    private static javax.swing.JLayeredPane layerOcupación;
     private static javax.swing.JLayeredPane layerTabla;
     private static javax.swing.JLayeredPane layerVisualizar;
     private javax.swing.JLabel lblTitle;
@@ -587,7 +574,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel ui_btnCanceladas;
     private javax.swing.JLabel ui_btnCheckInWindow;
     private javax.swing.JLabel ui_btnCheckOutWindow;
-    private javax.swing.JLabel ui_btnDisponibilidad;
     private javax.swing.JLabel ui_btnReservas;
     private javax.swing.JLabel ui_btnUser;
     private javax.swing.JLabel ui_topBar;
