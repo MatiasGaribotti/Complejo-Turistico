@@ -34,16 +34,6 @@ public class Tools_Buscar extends javax.swing.JPanel {
         //Va a setear el modelo por defecto de los combo boxes
         Def = new DefaultComboBoxModel();
         switch (view) {
-            case "TURISTAS":
-                Def.addElement("CI");
-                Def.addElement("Nombre");
-                Def.addElement("Apellido");
-                Def.addElement("Fecha Nacimiento");
-                Def.addElement("Teléfono");
-                Def.addElement("Calle");
-                Def.addElement("Número");
-                Def.addElement("Localidad");
-                break;
             case "CABANNAS":
                 Def.addElement("ID");
                 Def.addElement("Nº Habitaciones");
@@ -203,7 +193,7 @@ public class Tools_Buscar extends javax.swing.JPanel {
                     atributo = "fechaFin";
                     break;
                 case "Confirmada":
-                    atributo = "confirmada";
+                    atributo = "checkIn";
                     break;
                 case "CI":
                     atributo = "ci";
@@ -216,9 +206,15 @@ public class Tools_Buscar extends javax.swing.JPanel {
                     break;
             }
         }
-        SQLReserva sqlReserva = new SQLReserva();
-        busqueda = sqlReserva.select(patron, atributo);
-        Index.paintTabla(busqueda, view);
+        if(this.view.equals("CABANNAS")){
+            SQLCabanna sqlCabanna = new SQLCabanna();
+            busqueda = sqlCabanna.select(patron, atributo);
+            Index.paintTabla(busqueda, view);
+        }else{
+            SQLReserva sqlReserva = new SQLReserva();
+            busqueda = sqlReserva.select(patron, atributo);
+            Index.paintTabla(busqueda, view);
+        }
     }//GEN-LAST:event_btnBuscarMouseClicked
 
 

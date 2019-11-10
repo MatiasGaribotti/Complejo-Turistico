@@ -269,7 +269,7 @@ public class SQLReserva extends ConexionDB {
             Establezco la sentencia SQL a ejecutar ya aplicando el filtro
         */
         sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn "
-                + "FROM cabannas WHERE " + campo + " LIKE '%" + patron + "%' ORDER BY id";
+                + "FROM reservas WHERE " + campo + " LIKE '%" + patron + "%'";
 
         try {
 
@@ -286,19 +286,18 @@ public class SQLReserva extends ConexionDB {
                 Registro[0] = rs.getString("codigoReserva");
                 Registro[1] = rs.getString("ci");
                 Registro[2] = rs.getString("idCabanna");
-                Registro[3] = rs.getString("cantBannos");
-                Registro[4] = rs.getString("fechaInicio");
-                Registro[5] = rs.getString("fechaFin");
-                Registro[6] = rs.getString("checkIn");
-                Registro[7] = "MODIFICAR";
-                Registro[8] = "ELIMINAR";
+                Registro[3] = rs.getString("fechaInicio");
+                Registro[4] = rs.getString("fechaFin");
+                Registro[5] = rs.getString("checkIn");
+                Registro[6] = "MODIFICAR";
+                Registro[7] = "ELIMINAR";
                 //Agrego los datos obtenidos al modelo
                 
                 
-                if(Registro[6].equals("1"))
-                    Registro[6] = "Sí";
+                if(Registro[5].equals("1"))
+                    Registro[5] = "Sí";
                 else
-                    Registro[6] = "No";
+                    Registro[5] = "No";
                 
                 modelo.addRow(Registro);
             }
@@ -667,13 +666,11 @@ public class SQLReserva extends ConexionDB {
         }
 
         Connection con = conectar(Index.user.getNombre());
-        System.out.println(maximo.toString());
-        /*sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
-                + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (R.`fechaInicio`>'" + maximo.toString() + "' "
-                + "OR R.fechaFin<" + LocalDate.now().toString() + ") ORDER BY fechaInicio";*/
-        sSQL = "SELECT codigoReserva,ci,idCabanna,fechaInicio,fechaFin,checkIn,checkOut "
+//        System.out.println(maximo.toString());
+
+        sSQL = "SELECT R.codigoReserva,R.ci,R.idCabanna,R.fechaInicio,R.fechaFin,R.checkIn,R.checkOut "
                 + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(R.`fechaInicio`>'" + maximo.toString() + "' "
-                + "OR R.fechaFin<" + LocalDate.now().toString() + ")) ORDER BY fechaInicio";
+                + "OR R.fechaFin<" + LocalDate.now().toString() + ")) GROUP BY idCabanna ORDER BY fechaInicio";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -681,7 +678,6 @@ public class SQLReserva extends ConexionDB {
             while (rs.next()) {
                 Result.add(rs.getString("idCabanna"));
             }
-
             if (Result.isEmpty()) {
                 continuar = false;
             }
@@ -690,38 +686,41 @@ public class SQLReserva extends ConexionDB {
             JOptionPane.showMessageDialog(null, "Pasó algo, en algún lugar y fue por algo."); //Código de errores requeterrecontra intelegible
         }
         Object[] cabannas = Result.toArray();
-        
-//        if(continuar){
-            sSQL = "SELECT idCabanna,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
-                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (NOT(";
+
+        if (continuar) {
+            sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM reservas AS R, cabannas AS C WHERE R.cancelada=0 AND (";
             for (int i = 0; i < cabannas.length; i++) {
                 if (i == cabannas.length - 1) {
-                    sSQL += "C.id=" + "'" + cabannas[i].toString() + "'));";
+                    sSQL += "C.id='" + cabannas[i].toString() + "') GROUP BY C.id";
                 } else {
-                    sSQL += "C.id=" + "'" + cabannas[i].toString() + "' OR ";
+                    sSQL += "C.id='" + cabannas[i].toString() + "' OR ";
                 }
             }
-//        }
-        
+        } else {
+            sSQL = "SELECT id,cantHabitaciones,cantCamas,cantBannos,descripcion,aireAcondicionado,parrillero,costHour "
+                    + "FROM cabannas WHERE id=0";
+        }
+
         try {
 
             //Se crea el statement a partir de el objeto de la conexión.
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
+            Statement st1 = con.createStatement();
+            ResultSet rs1 = st1.executeQuery(sSQL);
 
             /*
             * Agrego al modelo los datos obtenidos
             * a partir de la consulta a la base de datos.
              */
-            while (rs.next()) {
-                Registro[0] = rs.getString("idCabanna");
-                Registro[1] = rs.getString("cantHabitaciones");
-                Registro[2] = rs.getString("cantCamas");
-                Registro[3] = rs.getString("cantBannos");
-                Registro[4] = rs.getString("descripcion");
-                Registro[5] = rs.getString("aireAcondicionado");
-                Registro[6] = rs.getString("parrillero");
-                Registro[7] = rs.getString("costHour");
+            while (rs1.next()) {
+                Registro[0] = rs1.getString("id");
+                Registro[1] = rs1.getString("cantHabitaciones");
+                Registro[2] = rs1.getString("cantCamas");
+                Registro[3] = rs1.getString("cantBannos");
+                Registro[4] = rs1.getString("descripcion");
+                Registro[5] = rs1.getString("aireAcondicionado");
+                Registro[6] = rs1.getString("parrillero");
+                Registro[7] = rs1.getString("costHour");
 
                 //Agrego los datos obtenidos al modelo
                 modelo.addRow(Registro);
@@ -729,7 +728,7 @@ public class SQLReserva extends ConexionDB {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e + "Error en la consulta");
 
         } finally {
             try {

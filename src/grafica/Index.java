@@ -121,7 +121,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.setPreferredSize(new java.awt.Dimension(300, 600));
         sideBar.setLayout(null);
 
-        btnCheckOutWindow.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnCheckOutWindow.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCheckOutWindow.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOutWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCheckOutWindow.setText("Check Out");
@@ -137,7 +137,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnCheckOutWindow);
         ui_btnCheckOutWindow.setBounds(0, 330, 240, 40);
 
-        btnCheckInWindow.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnCheckInWindow.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCheckInWindow.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckInWindow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCheckInWindow.setText("Check In");
@@ -173,7 +173,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnUser);
         ui_btnUser.setBounds(0, 730, 240, 40);
 
-        btnCanceladas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnCanceladas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCanceladas.setForeground(new java.awt.Color(255, 255, 255));
         btnCanceladas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCanceladas.setText("Canceladas");
@@ -198,7 +198,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(iconReserva);
         iconReserva.setBounds(0, 80, 40, 40);
 
-        btnReservas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnReservas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnReservas.setForeground(new java.awt.Color(255, 255, 255));
         btnReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnReservas.setText("Reservas");
@@ -219,7 +219,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(iconCabanna);
         iconCabanna.setBounds(0, 130, 40, 40);
 
-        btnCabannas.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnCabannas.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnCabannas.setForeground(new java.awt.Color(255, 255, 255));
         btnCabannas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCabannas.setText("Cabañas");
@@ -235,7 +235,7 @@ public class Index extends javax.swing.JFrame {
         sideBar.add(ui_btnCabannas);
         ui_btnCabannas.setBounds(0, 130, 240, 40);
 
-        btnHistorico.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        btnHistorico.setFont(new java.awt.Font("Segoe UI Light", 0, 30)); // NOI18N
         btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnHistorico.setText("Histórico");
@@ -457,19 +457,7 @@ public class Index extends javax.swing.JFrame {
         JLabel lblTituloHistory = new JLabel(title);
         contentHistory.add(lblTituloHistory);
         lblTituloHistory.setSize(300,30);
-        lblTituloHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloHistory.setLocation((contentHistory.getWidth()/2) - lblTituloHistory.getWidth(), 10);
-        lblTituloHistory.setFont(new java.awt.Font("Segoe UI Bold", 0, 30));
-        lblTituloHistory.setVisible(true);
-        
-        layerHerramientasHistory.setBounds(10, 50, 940, 85);
-        Tools_Buscar panel = new Tools_Buscar();
-        modeloDef = searchPanel.camposComboB(currentView, modeloDef);
-        panel.build(modeloDef);
-        
-        layerHerramientasHistory.add(panel);
-        contentHistory.add(layerHerramientasHistory);
-        panel.horizontalView();
+        lblTituloHistory.setVisible(false);
         
         layerTablaHistory.setBounds(10, layerHerramientasHistory.getLocation().y + layerHerramientasHistory.getHeight() + 10, 940, contentHistory.getHeight() - layerHerramientasHistory.getHeight() - 50 -10);
         Tabla tabla = new Tabla(this.getCurrentView());
