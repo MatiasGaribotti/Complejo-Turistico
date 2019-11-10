@@ -471,6 +471,60 @@ public class SQLReserva extends ConexionDB {
 
     }
 
+    public boolean checkTuristaTitular(String ci, String codigo) {
+        String[] Registro = new String[6];
+
+        Connection con = conectar(Index.user.getNombre());
+
+        /*
+            Establezco la sentencia SQL a ejecutar ya aplicando el filtro
+         */
+        sSQL = "SELECT codigoReserva,idCabanna,fechaInicio,fechaFin,checkIn,ci "
+                + "FROM reservas WHERE ci=" + ci + " AND codigoReserva=" + codigo + "";
+
+        try {
+
+            //Se crea el statement a partir de el objeto de la conexión.
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            /*
+            * Agrego al modelo los datos obtenidos
+            * a partir de la consulta a la base de datos.
+             */
+            while (rs.next()) {
+
+                Registro[0] = rs.getString("codigoReserva");
+                Registro[1] = rs.getString("idCabanna");
+                Registro[2] = rs.getString("fechaInicio");
+                Registro[3] = rs.getString("fechaFin");
+                Registro[4] = rs.getString("checkIn");
+                Registro[5] = rs.getString("ci");
+
+            }
+            
+            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        } finally {
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+
+            }
+        }
+        if (Registro[5] == null){
+            return false;
+        }else
+            return true;
+
+        
+    }
+    
     public boolean addHost(int codigo, int ci) {
         //Nueva conexión
         System.out.println(Index.user.getNombre());

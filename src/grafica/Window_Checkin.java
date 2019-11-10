@@ -125,21 +125,27 @@ public class Window_Checkin extends javax.swing.JFrame {
         try {
             codigo = Integer.parseInt(fieldCodigoReserva.getText());
             ci = Integer.parseInt(fieldCiTitular.getText());
-            if (sql.confirmar(codigo, ci)) {
-                JOptionPane.showMessageDialog(null, "Bienvenido al complejo.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                Window_addHost wAddHost = new Window_addHost(codigo);
-                wAddHost.build();
-                wAddHost.setVisible(true);
-                Index.user.setNombre("Turista");
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "No se pudo realizar el checkin", "Mensaje", JOptionPane.ERROR_MESSAGE);
-            }
+            
+            if (sql.checkTuristaTitular(Integer.toString(ci),Integer.toString(codigo))){
+                
+                if (sql.confirmar(codigo, ci)) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido al complejo.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    Window_addHost wAddHost = new Window_addHost(codigo);
+                    wAddHost.build();
+                    wAddHost.setVisible(true);
+                    Index.user.setNombre("Turista");
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se pudo realizar el checkin", "Mensaje", JOptionPane.ERROR_MESSAGE);
+                }
+            }else
+                JOptionPane.showMessageDialog(null, "No se encontró la reserva");
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Algo ha salido mal", "Mensaje", JOptionPane.ERROR_MESSAGE);
 
         }
+        
 
     }//GEN-LAST:event_btnCheckInMouseClicked
 
