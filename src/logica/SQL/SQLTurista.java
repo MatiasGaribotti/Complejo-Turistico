@@ -212,7 +212,7 @@ public class SQLTurista extends ConexionDB {
 
                 Registro[0] = rs.getString("ci");
                 Registro[1] = rs.getString("codigoReserva");
-                Registro[2] = rs.getString("nombre")+rs.getString("apellido");
+                Registro[2] = rs.getString("nombre")+" "+rs.getString("apellido");
                 Registro[3] = rs.getString("idCabanna");
                 Registro[4] = rs.getString("fechaInicio");
                 Registro[5] = rs.getString("fechaFin");

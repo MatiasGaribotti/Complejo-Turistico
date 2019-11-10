@@ -92,8 +92,8 @@ public class Window_addHost extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         lblCI1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
-        btnVolver = new javax.swing.JLabel();
         layerTabla = new javax.swing.JLayeredPane();
+        btnVolver = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -223,14 +223,14 @@ public class Window_addHost extends javax.swing.JFrame {
         panelAdd.add(fieldLocalidad);
         fieldLocalidad.setBounds(230, 230, 70, 22);
 
-        btnIngresar.setText("Añadir Huésped");
+        btnIngresar.setText("Añadir");
         btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnIngresarMouseClicked(evt);
             }
         });
         panelAdd.add(btnIngresar);
-        btnIngresar.setBounds(230, 300, 110, 23);
+        btnIngresar.setBounds(240, 300, 100, 23);
 
         lblCI1.setFont(new java.awt.Font("Segoe UI Light", 0, 16)); // NOI18N
         lblCI1.setForeground(new java.awt.Color(43, 41, 41));
